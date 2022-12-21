@@ -1,5 +1,5 @@
 +++
-title = "PHOTO DIARY"
+title = "DIARY"
 +++
 
 
