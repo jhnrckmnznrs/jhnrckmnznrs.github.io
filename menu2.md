@@ -9,7 +9,7 @@ tags = ["syntax", "code", "image"]
 
 ~~~
 <div align="justify">
-<ol> <li> Prison Mathematics Project Volunteer </li> <ul> <li> Improving the mailing system for mentors and participants</li> <li> Creating a module on group or ring theory </li> </ul> <li> MATH 53 (Elementary Analysis I) Module Writer </li> <ul> <li> LaTeX typesetting of figures </li> <li> Revising and proofreading of module </li> </ul> 
-<li> Bridging Program Lecturer </li> <ul> <li> Intended for Basic Concepts in Mathematics (MATH 29) students </li> <li> Preparation for Algebraic Structures I (MATH 120) </li> </ul> <li> Teaching Associate </li> <ul> <li> Elementary Analysis II (MATH 54) </li> <li> Introduction to Calculus (MATH 100) </li> </ul> </ol>
+<ol> <li> Prison Mathematics Project Volunteer [December 2022 -- Present] </li> <ul> <li> Improving the mailing system for mentors and participants</li> <li> Creating a module on group or ring theory </li> </ul> <li> MATH 53 (Elementary Analysis I) Module Writer [June 2022 -- October 2022] </li> <ul> <li> LaTeX typesetting of figures </li> <li> Revising and proofreading of module </li> </ul> 
+<li> Bridging Program Lecturer [August 2022] </li> <ul> <li> Intended for Basic Concepts in Mathematics (MATH 29) students </li> <li> Preparation for Algebraic Structures I (MATH 120) </li> </ul> <li> Teaching Associate [February -- June 2021] </li> <ul> <li> Elementary Analysis II (MATH 54) </li> <li> Introduction to Calculus (MATH 100) </li> </ul> </ol>
 </div>
 ~~~
