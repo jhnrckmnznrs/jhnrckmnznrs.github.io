@@ -28,6 +28,6 @@ tags = ["syntax", "code"]
 
 ~~~
 <div align="justify">
-<ol> <li> <a href="https://gtdaml.wixsite.com/2021">Second Graduate Student Conference: Geometry and Topology meet Data Analysis and Machine Learning (GTDAML2021)</a> </li> <li> <a href="https://www.mathsociety.ph/index.php?option=com_content&view=article&id=43&Itemid=163"> Mathematical Society of the Philippines Annual Convention (2021)</a> </li> <li> <a href="https://cinc.org"> Computing in Cardiology</a> 2021 </li></ol>
+<ol> <li> <a href="https://gtdaml.wixsite.com/2021">Second Graduate Student Conference: Geometry and Topology meet Data Analysis and Machine Learning (GTDAML2021)</a> </li> <ul> <li> <a href="/assets/GTDAML-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://www.mathsociety.ph/index.php?option=com_content&view=article&id=43&Itemid=163"> Mathematical Society of the Philippines Annual Convention (2021)</a> </li> <ul> <li> <a href="/assets/MSP-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://cinc.org"> Computing in Cardiology</a> 2021 </li></ol>
 </div>
 ~~~
