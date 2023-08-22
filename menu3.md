@@ -19,7 +19,7 @@ A screenshot of the first page in the beer section of the website is shown below
 
 <div align="center">
 <br>
-<img src="/assets/BeerRow.png" align="top">
+<img src="/assets/BeerRow.png" align="top" width="90%">
 <br>
 </div>
 
