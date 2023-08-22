@@ -8,7 +8,6 @@ title = "Data Science Portfolio"
 
 ~~~
 
-~~~
 <div align="justify">
 In this project, we scrape data from the beer section of the <a href = "https://www.boozy.ph">Boozy</a> website using the Beautiful Soup library in Python. Specifically, for each product in the said section, we extract the following:
 <ul> <li> Name </li> <li> Price </li> <li> Star Rating </li> <li> Number of Reviews </li> </ul> 
