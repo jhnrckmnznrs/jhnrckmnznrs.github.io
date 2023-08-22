@@ -17,6 +17,9 @@ In this project, we scrape data from the beer section of the [Boozy](https://www
 
 A screenshot of the first page in the beer section of the website is shown below.
 
+![Beer Section in Boozy](/assets/BeerRow.png "Screenshot taken from https://www.boozy.ph/collections/beer")
+
+
 The program for data scraping is shown in the Python file named 'scraper'. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
 
 | Name | Price | Rating | No. of Reviews |
