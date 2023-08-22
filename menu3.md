@@ -27,6 +27,8 @@ A screenshot of the first page in the beer section of the website is shown below
 The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
 </div>
 
+<br>
+
 <table>
   <tr>
     <th>Name</th>
