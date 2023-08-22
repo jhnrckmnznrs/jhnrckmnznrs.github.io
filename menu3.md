@@ -1,5 +1,5 @@
 +++
-title = "PORTFOLIO"
+title = "Data Science Portfolio"
 +++
 
 
@@ -19,7 +19,7 @@ A screenshot of the first page in the beer section of the website is shown below
 
 <p><img src="/assets/BeerRow.jpg" style="width: 100%">https://boozy.ph/collections/beer</p>
 
-The program for data scraping is shown in the Python file named ['scraper'](). In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
+The program for data scraping is shown in the Python file named 'scraper'. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
 
 | Name | Price | Rating | No. of Reviews |
 | ---- | ----- | ------ | -------------- |
