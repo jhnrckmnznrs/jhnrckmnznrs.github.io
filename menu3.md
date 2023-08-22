@@ -1,43 +1,32 @@
 +++
-title = "DIARY"
+title = "PORTFOLIO"
 +++
 
 
-## BAGUIO CRAFT BREWERY
-#### DECEMBER 14, 2022
+## WEB SCRAPING
+#### AUGUST 22, 2023
 
 ~~~
+
+In this project, we scrape data from the beer section of the [Boozy](https://www.boozy.ph) website using the Beautiful Soup library in Python. Specifically, for each product in the said section, we extract the following:
+
+1. Name
+2. Price
+3. Star Rating
+4. Number of Reviews
+
+A screenshot of the first page in the beer section of the website is shown below.
+
 <p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/logo.jpg" style="width: 100%">Baguio Craft Brewery</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/dua.jpg" style="width: 100%">Dua</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/trio.jpg" style="width: 100%">Drink with Friends</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/chicken.jpg" style="width: 100%">Beer Chicken and Ribs Platter</p>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-~~~
 
-## UNIVERSITY OF THE PHILIPPINES SYMPHONY ORCHESTRA (UPSO) IN BAGUIO
-#### DECEMBER 2, 2022
+The program for data scraping is shown in the Python file named ['scraper'](). In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
 
-~~~
-<p style="float: left; font-size: 9pt; text-align: center; width: 99%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/upso.jpg" style="width: 100%">Pre-Performance of UPSO</p>
-<br><br><br><br>
-~~~
+| Name | Price | Rating | No. of Reviews |
+| ---- | ----- | ------ | -------------- |
+| Engkanto Mango Nation - Hazy IPA 330mL Bottle ... | 543.0 | 5.0 | 2 |
+| Engkanto High Hive - Honey Ale 330mL Bottle 4-... | 407.0 | 4.0 | 5 |
+| Engkanto Green Lava - Double IPA 330mL Bottle ... | 594.0 | 5.0 | 1 |
+| Engkanto Live It Up! Lager 330mL Bottle 4-Pack | 407.0 | 5.0 | 1 |
+| Engkanto Paint Me Purple - Ube Lager 330mL Bot... | 543.0 | 5.0 | 1 |
 
-## MOUNT YANGBEW
-##### NOVEMBER 30, 2022
-
-~~~
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/joy1.jpg" style="width: 100%">Joy Asca<span>&#241;</span>o with Pine Tree</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/joy2.jpg" style="width: 100%">Joy Asca<span>&#241;</span>o on the Rocks</p>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-~~~
-
-## MOUNT KALUGONG
-##### NOVEMBER 14, 2021
-
-~~~
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/rocks.jpg" style="width: 100%">Rock Formations in Mount Kalugong</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/top.jpg" style="width: 100%">View from the Rock Formations</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/trisha.jpg" style="width: 100%">Trisha Mae Marpuri</p>
-<p style="float: left; font-size: 9pt; text-align: center; width: 49%; margin-right: 1%; margin-bottom: 0.5em;"><img src="/assets/pizza.jpg" style="width: 100%">Blueberry Pizza</p>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 ~~~
