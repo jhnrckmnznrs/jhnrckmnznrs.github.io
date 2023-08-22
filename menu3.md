@@ -12,13 +12,19 @@ title = "Data Science Portfolio"
 <div align="justify">
 In this project, we scrape data from the beer section of the <a href = "https://www.boozy.ph">Boozy</a> website using the Beautiful Soup library in Python. Specifically, for each product in the said section, we extract the following:
 <ul> <li> Name </li> <li> Price </li> <li> Star Rating </li> <li> Number of Reviews </li> </ul> 
+</div>
 
+<div align="justify">
 A screenshot of the first page in the beer section of the website is shown below.
+</div>
 
+<div align="center">
+<img src="/assets/BeerRow.png" align="top">
+</div>
 
-
-
+<div align="justify">
 The program for data scraping is shown in the Python file named 'scraper'. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
+</div>
 
 <table>
   <tr>
@@ -55,5 +61,4 @@ The program for data scraping is shown in the Python file named 'scraper'. In th
   </tr>
 </table>
 
-</div>
 ~~~
