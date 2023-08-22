@@ -18,11 +18,13 @@ A screenshot of the first page in the beer section of the website is shown below
 </div>
 
 <div align="center">
+<br>
 <img src="/assets/BeerRow.png" align="top">
+<br>
 </div>
 
 <div align="justify">
-The program for data scraping is shown in the Python file named 'scraper'. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
+The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
 </div>
 
 <table>
@@ -38,21 +40,25 @@ The program for data scraping is shown in the Python file named 'scraper'. In th
     <td>5.0</td>
     <td>2</td>
   </tr>
+  <tr>
     <td>Engkanto High Hive - Honey Ale 330mL Bottle 4-...</td>
     <td>407.0</td>
     <td>4.0</td>
     <td>5.0</td>
   </tr>
+  <tr>
     <td>Engkanto Green Lava - Double IPA 330mL Bottle ...</td>
     <td>594.0</td>
     <td>5.0</td>
     <td>1</td>
   </tr>
+  <tr>
     <td>Engkanto Live It Up! Lager 330mL Bottle 4-Pack</td>
     <td>407.0</td>
     <td>5.0</td>
     <td>1</td>
   </tr>
+  <tr>
     <td>Engkanto Paint Me Purple - Ube Lager 330mL Bot...</td>
     <td>543.0</td>
     <td>5.0</td>
