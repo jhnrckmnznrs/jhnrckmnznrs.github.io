@@ -24,7 +24,7 @@ A screenshot of the first page in the beer section of the website is shown below
 </div>
 
 <div align="justify">
-The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations.
+The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations. Prices are in Philippines pesos while ratings are on an integer scale of 1 to 5 where 1 is the lowest and 5 is the highest.  
 </div>
 
 <br>
@@ -63,9 +63,40 @@ The program for data scraping is shown in the Python file named <a href = "/asse
   <tr>
     <td>Engkanto Paint Me Purple - Ube Lager 330mL Bot...</td>
     <td>543.0</td>
-    <td>5.0</td>
+    <td>5</td>
     <td>1</td>
   </tr>
 </table>
+
+As a web scraping project, we focused less on producing data mainly used for data analysis. However, we can provide some information about the products.
+
+We start by considering the prices. The cheapest beer products priced at 60 pesos are the 330 mL bottled and the 330mL canned versions of Tiger Crystal. On the other hand, the most expensive beer product is the Stella Artois 330mL Bottle Bundle of 24 priced at 3576 pesos. Next, we consider the ratings. The five beer products with the highest number of reviews are shown in the following table. The number of reviews is also indicated in the table.
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Reviews</th>
+  </tr>
+  <tr>
+    <td>Heineken 330mL 6-Pack</td>
+    <td>99</td>
+  </tr>
+  <tr>
+    <td>Crazy Carabao Variety Pack #1</td>
+    <td>42</td>
+  </tr>
+  <tr>
+    <td>Hoegaarden Rosee 750mL</td>
+    <td>41</td>
+  </tr>
+  <tr>
+    <td>San Miguel Pale Pilsen 330mL Can 6-Pack</td>
+    <td>33</td>
+  </tr>
+  <tr>
+    <td>Crazy Carabao IPA 330mL Bottle 6-Pack</td>
+    <td>31</td>
+  </tr>
+</table>  
 
 ~~~
