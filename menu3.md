@@ -68,8 +68,6 @@ The program for data scraping is shown in the Python file named <a href = "/asse
   </tr>
 </table>
 
-<br>
-
 <div align="justify">
 As a web scraping project, we focused less on producing data mainly used for data analysis. However, we can provide some information about the products.
 
@@ -105,8 +103,6 @@ We start by considering the prices. The cheapest beer products priced at 60 peso
   </tr>
 </table>
 
-<br>
-
 <div align="justify">
 Now, we consider the star ratings. There are 77 products with a star rating of 5. We can filter this data further by including the number of reviews. The four highest-rated beer products with at least 5 reviews are presented in the following table, including their rating and number of reviews.
 </div>
@@ -140,8 +136,6 @@ Now, we consider the star ratings. There are 77 products with a star rating of 5
     <td>11</td>
   </tr>
 </table>
-
-<br>
 
 <div align="justify">
 Moreover, the four lowest-rated beer products are shown in the following table.
