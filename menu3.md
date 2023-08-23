@@ -143,7 +143,9 @@ Now, we consider the star ratings. There are 77 products with a star rating of 5
 
 <br>
 
-Moreover, the four lower-rated beer products are shown in the following table.
+<div align="justify">
+Moreover, the four lowest-rated beer products are shown in the following table.
+</div>
 
 <br>
 
