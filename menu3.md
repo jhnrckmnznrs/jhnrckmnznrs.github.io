@@ -24,7 +24,7 @@ A screenshot of the first page in the beer section of the website is shown below
 </div>
 
 <div align="justify">
-The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations. Prices are in Philippines pesos while ratings are on an integer scale of 1 to 5 where 1 is the lowest and 5 is the highest.  
+The program for data scraping is shown in the Python file named <a href = "/assets/scraper.py">scraper</a>. In this implementation, we construct a Pandas dataframe where names are stored as string, prices and ratings as floating point numbers, and number of reviews as integers. In the following figure, we see the first five observations. Prices are in Philippines pesos while ratings are on an integer scale of 1 to 5 where 1 is the lowest and 5 is the highest. 
 </div>
 
 <br>
@@ -97,6 +97,37 @@ We start by considering the prices. The cheapest beer products priced at 60 peso
     <td>Crazy Carabao IPA 330mL Bottle 6-Pack</td>
     <td>31</td>
   </tr>
-</table>  
+</table>
+
+Now, we consider the star ratings. There are 77 products with a star rating of 5. We can filter this data further by including the number of reviews. The four highest-rated beer products with at least 5 reviews are presented in the following table, including their rating and number of reviews.
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Rating</th>
+    <th>Reviews</th>
+  </tr>
+  <tr>
+    <td>Pilsner Urquell 330mL Bottle Pack of 6</td>
+    <td>5.0</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td>Sapporo 330mL Bundle of 6</td>
+    <td>5.0</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td>Stella Artois 330mL Bottle Bundle of 6</td>
+    <td>5.0</td>
+    <td>11</td>
+  </tr>
+  <tr>
+    <td>Paulaner Weissbier Dunkel 500mL Bottle</td>
+    <td>5.0</td>
+    <td>11</td>
+  </tr>
+</table>
+
 
 ~~~
