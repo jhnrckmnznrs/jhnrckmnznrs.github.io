@@ -68,9 +68,15 @@ The program for data scraping is shown in the Python file named <a href = "/asse
   </tr>
 </table>
 
+<br>
+
+<div align="justify">
 As a web scraping project, we focused less on producing data mainly used for data analysis. However, we can provide some information about the products.
 
 We start by considering the prices. The cheapest beer products priced at 60 pesos are the 330 mL bottled and the 330mL canned versions of Tiger Crystal. On the other hand, the most expensive beer product is the Stella Artois 330mL Bottle Bundle of 24 priced at 3576 pesos. Next, we consider the ratings. The five beer products with the highest number of reviews are shown in the following table. The number of reviews is also indicated in the table.
+</div>
+
+<br>
 
 <table>
   <tr>
@@ -99,7 +105,13 @@ We start by considering the prices. The cheapest beer products priced at 60 peso
   </tr>
 </table>
 
+<br>
+
+<div align="justify">
 Now, we consider the star ratings. There are 77 products with a star rating of 5. We can filter this data further by including the number of reviews. The four highest-rated beer products with at least 5 reviews are presented in the following table, including their rating and number of reviews.
+</div>
+
+<br>
 
 <table>
   <tr>
@@ -129,5 +141,40 @@ Now, we consider the star ratings. There are 77 products with a star rating of 5
   </tr>
 </table>
 
+<br>
+
+Moreover, the four lower-rated beer products are shown in the following table.
+
+<br>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Rating</th>
+    <th>Reviews</th>
+  </tr>
+  <tr>
+    <td>Rochefort 8 330mL</td>
+    <td>3.0</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>Royal Dutch Ultra Strong 14% 500mL</td>
+    <td>3.5</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td>Tiger Crystal 330mL Can</td>
+    <td>3.8</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Paulaner Weissbier Party Keg 5L</td>
+    <td>3.8</td>
+    <td>5</td>
+  </tr>
+</table>
+
+<br>
 
 ~~~
