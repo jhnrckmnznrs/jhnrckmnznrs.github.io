@@ -174,7 +174,4 @@ Moreover, the four lower-rated beer products are shown in the following table.
     <td>5</td>
   </tr>
 </table>
-
-<br>
-
 ~~~
