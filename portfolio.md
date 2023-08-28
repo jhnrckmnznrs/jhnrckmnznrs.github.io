@@ -182,6 +182,17 @@ In this project, we conduct an A/B test using the <a href = "https://www.kaggle.
 First, we download the data saved in a CSV file and read the file using the pandas library. The data consists of the user ID, the number of views, the number of clicks, and the group where each user belongs from 80,000 users. Note that the values in the column associated to the user ID are distinct. Hence, we can drop the column from the dataframe.
 <br>
 Then, we inspect for missing values and inconsistent data types in each column. Using the info function from pandas, there are no null values present. The number of views and clicks are stored as 64-bit double-precision values, which expends memory storage. The minimum value for both columns is 0, while the maximum values are 21 and 206 for clicks and views, respectively. Hence, to free some memory, we convert each number of clicks as an 8-bit signed integer and each number of views as a 16-bit signed integer. We can also store each group label as a categorical data.
+<br>
+Now, we need to define a key metric to monitor for each group. We can compare the conversion rate defined by
 </div>
+~~~
 
+$$C = \dfrac{\sum_{g \in G} c_g}{\sum_{g \in G} v_g}$$
+
+where $G$ denotes the group (control or treatment), and $c_g$ is the number of clicks and $v_g$ is the number of views for user $g \in G$.
+
+~~~
+<div align = "justify">
+For each group, we can 
+</div>
 ~~~
