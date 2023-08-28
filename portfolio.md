@@ -4,7 +4,7 @@ title = "Data Science Portfolio"
 
 
 ## WEB SCRAPING
-#### AUGUST 22, 2023
+#### 22 AUGUST 2023
 
 ~~~
 
@@ -173,3 +173,11 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 ~~~
 
 ## A/B Testing (and Hypothesis Testing)
+#### 28 August 2023 
+~~~
+
+<div align = "justify">
+In this project, we conduct an A/B test using the <a href = "https://www.kaggle.com/datasets/sergylog/ab-test-useraggregated-results">Kaggle</a> data. We will use common statistical procedures as outlined in the <a href = "https://vkteam.medium.com/practitioners-guide-to-statistical-tests-ed2d580ef04f#1e3b">Medium</a> article by the VK Team.
+</div>
+
+~~~
