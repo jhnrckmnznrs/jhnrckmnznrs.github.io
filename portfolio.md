@@ -177,7 +177,9 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 ~~~
 
 <div align = "justify">
-In this project, we conduct an A/B test using the <a href = "https://www.kaggle.com/datasets/sergylog/ab-test-useraggregated-results">Kaggle</a> data. We will use common statistical procedures as outlined in the <a href = "https://vkteam.medium.com/practitioners-guide-to-statistical-tests-ed2d580ef04f#1e3b">Medium</a> article by the VK Team.
+In this project, we conduct an A/B test using the <a href = "https://www.kaggle.com/datasets/sergylog/ab-test-useraggregated-results">Kaggle</a> data. We will use common statistical procedures outlined in the <a href = "https://vkteam.medium.com/practitioners-guide-to-statistical-tests-ed2d580ef04f#1e3b">Medium</a> article by the VK Team. Moreover, we will implement the test in Python. 
+
+First, we download the data saved in a CSV file and read the file using the pandas library.
 </div>
 
 ~~~
