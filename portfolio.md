@@ -171,3 +171,5 @@ Moreover, the four lowest-rated beer products are shown in the following table.
   </tr>
 </table>
 ~~~
+
+## A/B Testing (and Hypothesis Testing)
