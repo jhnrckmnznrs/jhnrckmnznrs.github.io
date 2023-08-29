@@ -201,4 +201,8 @@ where $G$ denotes the group (control or treatment), and $c_g$ is the number of c
 <div align = "justify">
 We formulate a null and an alternative hypotheses for this statistical test. We choose the null hypothesis stating that "there is no significant difference between the groups" and the alternative hypothesis stating otherwise.
 </div>
+<br>
+<div align = "justify">
+To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%.
+</div>
 ~~~
