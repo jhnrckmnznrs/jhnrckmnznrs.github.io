@@ -199,6 +199,6 @@ where $G$ denotes the group (control or treatment), and $c_g$ is the number of c
 
 ~~~
 <div align = "justify">
-We formulate a null and an alternative hypotheses for this statistical test. The null hypothesis states that "there is no significant difference between the groups" while the alternative hypothesis states otherwise.
+We formulate a null and an alternative hypotheses for this statistical test. We choose the null hypothesis stating that "there is no significant difference between the groups" and the alternative hypothesis stating otherwise.
 </div>
 ~~~
