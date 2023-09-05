@@ -206,3 +206,5 @@ We formulate a null and an alternative hypotheses for this statistical test. We 
 To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%.
 </div>
 ~~~
+
+(To be continued)
