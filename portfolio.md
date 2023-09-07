@@ -232,11 +232,11 @@ We formulate a null and an alternative hypotheses for this statistical test. We 
 </div>
 <br>
 <div align = "justify">
-To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%.
+To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%. For a two sample t-test concerned on the number of clicks, the smallest sample size needed is four thousand seven hundred twenty-one (4721).
 </div>
 <br>
 <div align = "justify">
-
+To start with the hypothesis test, we check whether the assumptions of a t-test are satisfied or not. We can determine if the samples are normally distributed by looking at their histograms or quantile-quantile (Q-Q) plots. The following figures show the histogram for the number of clicks by the control group and the Q-Q plot for the number of clicks by the treatment group.
 </div>
 <div align = "justify">
 Now, we need to define a key metric to monitor for each group. We can compare the conversion rate defined by
