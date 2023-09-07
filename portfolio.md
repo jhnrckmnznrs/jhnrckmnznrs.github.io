@@ -181,13 +181,63 @@ In this project, we conduct an A/B test using the <a href = "https://www.kaggle.
 </div>
 <br>
 <div align = "justify">
-First, we download the data saved in a CSV file and read the file using the pandas library. The data consists of the user ID, the number of views, the number of clicks, and the group where each user belongs from 80,000 users. Note that the values in the column associated to the user ID are distinct. Hence, we can drop the column from the dataframe.
+First, we download the data saved in a CSV file and read the file using the pandas library. The data consists of the user ID, the number of views, the number of clicks, and the group where each user belongs from eighty-thousand (80,000) users. Please refer to the following table below to see the first five (5) observations. Note that the values in the column associated to the user ID are distinct. Hence, we can drop the column from the dataframe.
 </div>
+<br>
+<table>
+  <tr>
+    <th>user_id</th>
+    <th>group</th>
+    <th>views</th>
+    <th>clicks</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>control</td>
+    <td>3.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>control</td>
+    <td>1.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>control</td>
+    <td>3.0</td>
+    <td>1.0</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>control</td>
+    <td>5.0</td>
+    <td>0.0</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>control</td>
+    <td>2.0</td>
+    <td>0.0</td>
+  </tr>
+</table>
 <br>
 <div align = "justify">
 Then, we inspect for missing values and inconsistent data types in each column. Using the info function from pandas, there are no null values present. The number of views and clicks are stored as 64-bit double-precision values, which expends memory storage. The minimum value for both columns is 0, while the maximum values are 21 and 206 for clicks and views, respectively. Hence, to free some memory, we convert each number of clicks as an 8-bit signed integer and each number of views as a 16-bit signed integer. We can also store each group label as a categorical data.
 </div>
 <br>
+<div align = "justify">
+We formulate a null and an alternative hypotheses for this statistical test. We choose the null hypothesis stating that "there is no significant difference between the groups" and the alternative hypothesis stating otherwise.
+</div>
+<br>
+<div align = "justify">
+To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%.
+</div>
+<br>
+<div align = "justify">
+
+</div>
 <div align = "justify">
 Now, we need to define a key metric to monitor for each group. We can compare the conversion rate defined by
 </div>
@@ -196,15 +246,3 @@ Now, we need to define a key metric to monitor for each group. We can compare th
 $$C = \dfrac{\sum_{g \in G} c_g}{\sum_{g \in G} v_g}$$
 
 where $G$ denotes the group (control or treatment), and $c_g$ is the number of clicks and $v_g$ is the number of views for user $g \in G$.
-
-~~~
-<div align = "justify">
-We formulate a null and an alternative hypotheses for this statistical test. We choose the null hypothesis stating that "there is no significant difference between the groups" and the alternative hypothesis stating otherwise.
-</div>
-<br>
-<div align = "justify">
-To estimate the smallest sample size needed for this experiment, we choose a significance level of 0.05, a statistical power of 0.8, an allocation ratio of 1, and a minimum detectable effect of 2%.
-</div>
-~~~
-
-(To be continued)
