@@ -247,6 +247,9 @@ To start with the hypothesis test, we check whether the assumptions of a t-test 
   </div>
 </div>
 <div align = "justify">
+Both the histogram and the Q-Q plot show that the samples are not normally distributed. Hence, we refrain from using the t-test for the hypothesis tesing. Instead, we can use the non-parametric Mann-Whitney U Test. Using this test, we obtain a p-value close to zero and less than the signifance level 0.05. Therefore, we can reject the null hypothesis and say that there is a significant difference between the models exposed to the control and the treatment groups.  
+</div>
+<div align = "justify">
 Now, we need to define a key metric to monitor for each group. We can compare the conversion rate defined by
 </div>
 ~~~
