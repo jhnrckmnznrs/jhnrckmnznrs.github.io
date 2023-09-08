@@ -238,6 +238,14 @@ To estimate the smallest sample size needed for this experiment, we choose a sig
 <div align = "justify">
 To start with the hypothesis test, we check whether the assumptions of a t-test are satisfied or not. We can determine if the samples are normally distributed by looking at their histograms or quantile-quantile (Q-Q) plots. The following figures show the histogram for the number of clicks by the control group and the Q-Q plot for the number of clicks by the treatment group.
 </div>
+<div class="row">
+  <div class="column">
+    <img src="/assets/histogram.png" alt="Histogram" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="/assets/qqplot.png" alt="Q-Q Plot" style="width:100%">
+  </div>
+</div>
 <div align = "justify">
 Now, we need to define a key metric to monitor for each group. We can compare the conversion rate defined by
 </div>
