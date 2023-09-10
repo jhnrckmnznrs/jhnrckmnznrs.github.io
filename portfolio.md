@@ -352,20 +352,26 @@ We investigate the data type of the values in each column. We see that the <code
 We observe the distribution of the enrollment counts feature using the following visualization. For the plot, we shall use the Seaborn library. Notice that more than 250 enrollees are usually present. Moreover, the number of enrollees are either less than 200 or greater than 220. Lastly, the enrollment counts are not normally distributed.
 </div>
 <br>
-<img src="/assets/hist_enrol.png" alt="Histogram">
-
+<div align="center">
+<img src="/assets/hist_enrol.png" align="top" width="90%">
+</div>
+<br>
 <div align = "justify">
 Now, we check if each <code>course_id</code> is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
 </div>
 <br>
-<img src="/assets/bar_enrol.png" alt="Barplot">
-
+<div align="center">
+<img src="/assets/bar_enrol.png" align="top" width="90%">
+</div>
+<br>
 <div align = "justify">
 Moreover, we can say that students tend to enroll more in online courses than in classroom-taught courses. Consider the boxplot showing the enrollment counts across the course types. The range and the median of enrollment counts for online courses are farther and greater than that of the classroom-taught courses.
 </div>
 <br>
-<img src="/assets/box_enrol.png" alt="Boxplot">
-
+<div align="center">
+<img src="/assets/box_enrol.png" align="top" width="90%">
+</div>
+<br>
 <div align = "justify">
 The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the <code>get_dummies</code> method of <code>pandas</code>. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter <code>alpha</code> to be equal to <code>0.0001</code>.
 </div>
