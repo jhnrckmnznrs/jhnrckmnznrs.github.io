@@ -46,7 +46,7 @@ The program for data scraping is shown in the Python file named <a href = "/asse
     <td>Engkanto High Hive - Honey Ale 330mL Bottle 4-...</td>
     <td>407.0</td>
     <td>4.0</td>
-    <td>5.0</td>
+    <td>5</td>
   </tr>
   <tr>
     <td>Engkanto Green Lava - Double IPA 330mL Bottle ...</td>
@@ -264,6 +264,10 @@ where $G$ denotes the group (control or treatment), and $c_g$ is the number of c
 #### 9 September 2023
 
 ~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/enrollment.ipynb">notebook</a>.)
+</div>
+
 <div align = "justify">
 You are working as a data scientist at a local University. The university started offering online courses to reach a wider range of students. The university wants you to help them understand enrollment trends. They would like you to identify what contributes to higher enrollment. In particular, whether the course type (online or classroom) is a factor.
 </div>
