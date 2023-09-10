@@ -257,3 +257,126 @@ Now, we need to define a key metric to monitor for each group. We can compare th
 $$C = \dfrac{\sum_{g \in G} c_g}{\sum_{g \in G} v_g}$$
 
 where $G$ denotes the group (control or treatment), and $c_g$ is the number of clicks and $v_g$ is the number of views for user $g \in G$.
+
+(TO BE CONTINUED)
+
+## Local University Enrollment (DataCamp Data Science Associate Certification Project)
+#### 9 September 2023
+
+~~~
+<div align = "justify">
+You are working as a data scientist at a local University. The university started offering online courses to reach a wider range of students. The university wants you to help them understand enrollment trends. They would like you to identify what contributes to higher enrollment. In particular, whether the course type (online or classroom) is a factor.
+</div>
+
+<div align = "justify">
+First, we import and clean the data. Specifically, for every column in the data, we do the following:
+<ol>
+<li> Check the values whether they match the description given in the table above. </li>
+<li> Check number of missing values in the column. </li>
+</ol>
+We import `pandas` as `pd` and use the `read_csv` method to import the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. Then, we use the `head` method to observe the first few rows of the dataframe.
+</div>
+
+<table>
+  <tr>
+    <th>course_id</th>
+    <th>course_type</th>
+    <th>year</th>
+    <th>enrollment_count</th>
+    <th>pre_score</th>
+    <th>post_score</th>
+    <th>pre_requirement</th>
+    <th>department</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>classroom</td>
+    <td>2018</td>
+    <td>165</td>
+    <td>28.14</td>
+    <td>73.0</td>
+    <td>Beginner</td>
+    <td>Science</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>classroom</td>
+    <td>2020</td>
+    <td>175</td>
+    <td>79.68</td>
+    <td>86.0</td>
+    <td>None</td>
+    <td>Science</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>classroom</td>
+    <td>2018</td>
+    <td>165</td>
+    <td>28.14</td>
+    <td>73.0</td>
+    <td>Beginner</td>
+    <td>Science</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>online</td>
+    <td>2016</td>
+    <td>257</td>
+    <td>57.24</td>
+    <td>80.0</td>
+    <td>NaN</td>
+    <td>Mathematics</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>online</td>
+    <td>2013</td>
+    <td>251</td>
+    <td>97.67</td>
+    <td>75.0</td>
+    <td>Beginner</td>
+    <td>Technology</td>
+  </tr>
+</table>
+
+<div align = "justify">
+We investigate the data type of the values in each column. We see that the `pre_score` is not continuous and has `object` data type. First, we use `fillna` method filling in null values with appropriate values. Only the `post_score` and `pre_requirement` columns have missing values. Also, observe that some rows in `pre_score` has a non-null value of `'-'`. Hence, we treat it as a null value and replace with a value of `0`. Finally, we convert the column's data type to `float` using the `astype` method. As a supplement, we observed that there are `'Math'` and `'Mathematics'` values in the department column. We choose the `'Mathematics'` for all rows with the `'Math'` value.
+</div>
+
+<div align = "justify">
+We observe the distribution of the enrollment counts feature using the following visualization. For the plot, we shall use the Seaborn library. Notice that more than 250 enrollees are usually present. Moreover, the number of enrollees are either less than 200 or greater than 220. Lastly, the enrollment counts are not normally distributed.
+</div>
+
+<div>
+<img src="/assets/hist_enrol.png" alt="Q-Q Plot" style="width:100%">
+</div>
+
+<div align = "justify">
+Now, we check if each `course_id` is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
+</div>
+
+<div>
+<img src="/assets/bar_enrol.png" alt="Q-Q Plot" style="width:100%">
+</div>
+
+<div align = "justify">
+Moreover, we can say that students tend to enroll more in online courses than in classroom-taught courses. Consider the boxplot showing the enrollment counts across the course types. The range and the median of enrollment counts for online courses are farther and greater than that of the classroom-taught courses.
+</div>
+
+<div>
+<img src="/assets/box_enrol.png" alt="Q-Q Plot" style="width:100%">
+</div>
+
+<div align = "justify">
+The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the `get_dummies` method of `pandas`. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter `alpha` to be equal to `0.0001`.
+</div>
+
+<div align = "justify">
+We considered linear regression as a baseline model due to its simplicity and efficiency in computing. Linear regression provides a linear estimate of the relationship between the independent and the dependent variables. Moreover, the model is robust to overfitting. The loss function for the linear regression model is the ordinary least squares. In elastic net models, a loss function that puts more weight on errors is utilized. Although more complex and requires more tuning, an elastic net model is less prone to overfitting and able to select important features and handle correlated features.
+</div>
+
+<div align = "justify">
+We compare the root mean squared errors (RMSE) of the two models. The RMSE for the baseline model is 0.561153419986678 while the RMSE for the Comparison Model is 0.5600931357111498. The RMSE scores are equal up to the second decimal place. Thus, we conclude that the two models perform equally the same.
+</div>
+~~~
