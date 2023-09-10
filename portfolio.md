@@ -267,20 +267,20 @@ where $G$ denotes the group (control or treatment), and $c_g$ is the number of c
 <div align = "justify">
 (The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/enrollment.ipynb">notebook</a>.)
 </div>
-
+<br>
 <div align = "justify">
 You are working as a data scientist at a local University. The university started offering online courses to reach a wider range of students. The university wants you to help them understand enrollment trends. They would like you to identify what contributes to higher enrollment. In particular, whether the course type (online or classroom) is a factor.
 </div>
-
+<br>
 <div align = "justify">
 First, we import and clean the data. Specifically, for every column in the data, we do the following:
 <ol>
 <li> Check the values whether they match the description given in the table above. </li>
 <li> Check number of missing values in the column. </li>
 </ol>
-We import `pandas` as `pd` and use the `read_csv` method to import the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. Then, we use the `head` method to observe the first few rows of the dataframe.
+We import <code>pandas</code> as <code>pd</code> and use the <code>read_csv</code> method to import the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. Then, we use the <code>head</code> method to observe the first few rows of the dataframe.
 </div>
-
+<br>
 <table>
   <tr>
     <th>course_id</th>
@@ -345,7 +345,7 @@ We import `pandas` as `pd` and use the `read_csv` method to import the <a href =
 </table>
 
 <div align = "justify">
-We investigate the data type of the values in each column. We see that the `pre_score` is not continuous and has `object` data type. First, we use `fillna` method filling in null values with appropriate values. Only the `post_score` and `pre_requirement` columns have missing values. Also, observe that some rows in `pre_score` has a non-null value of `'-'`. Hence, we treat it as a null value and replace with a value of `0`. Finally, we convert the column's data type to `float` using the `astype` method. As a supplement, we observed that there are `'Math'` and `'Mathematics'` values in the department column. We choose the `'Mathematics'` for all rows with the `'Math'` value.
+We investigate the data type of the values in each column. We see that the <code>pre_score</code> is not continuous and has <code>object</code> data type. First, we use <code>fillna</code> method filling in null values with appropriate values. Only the <code>post_score</code> and <code>pre_requirement</code> columns have missing values. Also, observe that some rows in <code>pre_score</code> has a non-null value of <code>'-'</code>. Hence, we treat it as a null value and replace with a value of <code>0</code>. Finally, we convert the column's data type to <code>float</code> using the <code>astype</code> method. As a supplement, we observed that there are <code>'Math'</code> and <code>'Mathematics'</code> values in the department column. We choose the <code>'Mathematics'</code> for all rows with the <code>'Math'</code> value.
 </div>
 
 <div align = "justify">
@@ -357,7 +357,7 @@ We observe the distribution of the enrollment counts feature using the following
 </div>
 
 <div align = "justify">
-Now, we check if each `course_id` is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
+Now, we check if each <code>course_id</code> is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
 </div>
 
 <div>
@@ -373,7 +373,7 @@ Moreover, we can say that students tend to enroll more in online courses than in
 </div>
 
 <div align = "justify">
-The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the `get_dummies` method of `pandas`. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter `alpha` to be equal to `0.0001`.
+The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the <code>get_dummies</code> method of <code>pandas</code>. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter <code>alpha</code> to be equal to <code>0.0001</code>.
 </div>
 
 <div align = "justify">
