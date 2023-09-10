@@ -347,39 +347,33 @@ We import <code>pandas</code> as <code>pd</code> and use the <code>read_csv</cod
 <div align = "justify">
 We investigate the data type of the values in each column. We see that the <code>pre_score</code> is not continuous and has <code>object</code> data type. First, we use <code>fillna</code> method filling in null values with appropriate values. Only the <code>post_score</code> and <code>pre_requirement</code> columns have missing values. Also, observe that some rows in <code>pre_score</code> has a non-null value of <code>'-'</code>. Hence, we treat it as a null value and replace with a value of <code>0</code>. Finally, we convert the column's data type to <code>float</code> using the <code>astype</code> method. As a supplement, we observed that there are <code>'Math'</code> and <code>'Mathematics'</code> values in the department column. We choose the <code>'Mathematics'</code> for all rows with the <code>'Math'</code> value.
 </div>
-
+<br>
 <div align = "justify">
 We observe the distribution of the enrollment counts feature using the following visualization. For the plot, we shall use the Seaborn library. Notice that more than 250 enrollees are usually present. Moreover, the number of enrollees are either less than 200 or greater than 220. Lastly, the enrollment counts are not normally distributed.
 </div>
-
-<div>
-<img src="/assets/hist_enrol.png" alt="Q-Q Plot" style="width:100%">
-</div>
+<br>
+<img src="/assets/hist_enrol.png" alt="Histogram">
 
 <div align = "justify">
 Now, we check if each <code>course_id</code> is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
 </div>
-
-<div>
-<img src="/assets/bar_enrol.png" alt="Q-Q Plot" style="width:100%">
-</div>
+<br>
+<img src="/assets/bar_enrol.png" alt="Barplot">
 
 <div align = "justify">
 Moreover, we can say that students tend to enroll more in online courses than in classroom-taught courses. Consider the boxplot showing the enrollment counts across the course types. The range and the median of enrollment counts for online courses are farther and greater than that of the classroom-taught courses.
 </div>
-
-<div>
-<img src="/assets/box_enrol.png" alt="Q-Q Plot" style="width:100%">
-</div>
+<br>
+<img src="/assets/box_enrol.png" alt="Boxplot">
 
 <div align = "justify">
 The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the <code>get_dummies</code> method of <code>pandas</code>. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter <code>alpha</code> to be equal to <code>0.0001</code>.
 </div>
-
+<br>
 <div align = "justify">
 We considered linear regression as a baseline model due to its simplicity and efficiency in computing. Linear regression provides a linear estimate of the relationship between the independent and the dependent variables. Moreover, the model is robust to overfitting. The loss function for the linear regression model is the ordinary least squares. In elastic net models, a loss function that puts more weight on errors is utilized. Although more complex and requires more tuning, an elastic net model is less prone to overfitting and able to select important features and handle correlated features.
 </div>
-
+<br>
 <div align = "justify">
 We compare the root mean squared errors (RMSE) of the two models. The RMSE for the baseline model is 0.561153419986678 while the RMSE for the Comparison Model is 0.5600931357111498. The RMSE scores are equal up to the second decimal place. Thus, we conclude that the two models perform equally the same.
 </div>
