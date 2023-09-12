@@ -26,5 +26,6 @@ Some of my friends, including <a href="https://julialang.org">Julia</a>, <a href
 Feel free to connect with me by sending a message to my <a href="mailto:jdmanzanares@up.edu.ph">email address</a>. You can also reach out to me through <a href="https://www.facebook.com/johnrick.manz/">Faceboook</a>, <a href="https://twitter.com/jhnrckmnznrs">Twitter</a>, or <a href="https://www.instagram.com/jhnrckmnznrs/">Instagram</a>.
 </div>
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+<br><br>
 <div align = "center" class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="HORIZONTAL" data-vanity="johnrickmanz" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://ph.linkedin.com/in/johnrickmanz?trk=profile-badge">John Rick Manzanares</a></div>
 ~~~
