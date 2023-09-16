@@ -5,7 +5,31 @@ title = "Data Science Portfolio"
 ## Dashboard for Most Streamed Songs in Spotify this Year
 ## 16 September 2023
 
+~~~
+<div align = "justify">
+For this project, we use the <a href = "https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023">dataset</a> found in Kaggle. We showcase some SQL and Power BI skills for personal purposes. First, the data is imported in Microsoft SQL Server Management Studio. Executing the code below, the total number of tracks is nine-hundred fifty-three (953). 
+<div>
+<div align = "center">
+<code>
+SELECT COUNT(track_name)
+FROM dbo.Spotify2023;
+</code>
+</div>
+<div align = "justify">
+Most of the tracks, specifically four-hundred two (402), are songs released in 2022. Without stating the query, the oldest track is Agudo Magico 3 by Stryx, utku INC, and Thezth released in 1930. On the other hand, the latest track is Seven by Jung Kook featuring Latto released on 14 July 2023. 
+</div>
+<div align = "center">
+<code>
+SELECT released_year, COUNT(track_name) AS num_track
+FROM dbo.Spotify2023
+GROUP BY released_year
+ORDER BY num_track DESC;
+</code>
+</div>
+<div align = "justify">
 
+</div>
+~~~
 
 ## Titanic - Mahcine Learning from Disaster
 #### 16 September 2023
