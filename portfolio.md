@@ -19,7 +19,7 @@ Most of the tracks, specifically four-hundred two (402), are songs released in 2
 </div>
 ~~~
 
-## Titanic - Mahcine Learning from Disaster
+## Titanic - Machine Learning from Disaster
 #### 16 September 2023
 
 (Working on a Better Binary Classification Model)
