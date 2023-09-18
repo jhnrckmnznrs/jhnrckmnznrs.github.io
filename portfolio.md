@@ -22,7 +22,7 @@ Now, we examine the songs for the past five years. There are seven hundred sixty
 </div>
 <br>
 <div align = "justify">
-<img src="/assets/dashboard2019-2023.pdf" align="top" width="95%">
+<img src="/assets/dashboard2019-2023.png" align="top" width="95%">
 </div>
 ~~~
 
