@@ -3,7 +3,7 @@ title = "Data Science Portfolio"
 +++
 
 ## Dashboard for Most Streamed Songs in Spotify this Year
-#### 16 September 2023
+#### 16 September 2023 (Last Updated: 18 September 2023)
 
 ~~~
 <div align = "justify">
@@ -14,11 +14,15 @@ For this project, we use the <a href = "https://www.kaggle.com/datasets/nelgiriy
 <div>
 <br>
 <div align = "justify">
-Most of the tracks, specifically four-hundred two (402), are songs released in 2022. In terms of age, the oldest track is Agudo Magico 3 by Stryx, utku INC, and Thezth released in 1930. On the other hand, the latest track is Seven by Jung Kook featuring Latto released on 14 July 2023. In terms of the number of tracks, Taylor Swift has the highest numbers of songs in the dataset with thirty-four (34) songs followed by The Weekend with twenty-two (22) songs.    
+Most of the tracks, specifically four-hundred two (402), are songs released in the year two thousand and twenty two (2022). In terms of age, the oldest track is Agudo Magico 3 by Stryx, utku INC, and Thezth released in 1930. On the other hand, the latest track is Seven by Jung Kook featuring Latto released on 14 July 2023. In terms of the number of tracks, Taylor Swift has the highest numbers of songs in the dataset with thirty-four (34) songs followed by The Weekend with twenty-two (22) songs.    
 </div>
 <br>
 <div align = "justify">
-
+Now, we examine the songs for the past five years. There are seven hundred sixty-nine (769) tracks mostly comprised of tracks released in 2022. In this five-year window, the tracks 'As It Was' and 'Blinding Lights' by the Weekend, are the two of the top ten songs in terms of the number of streams. Non-instrumental songs with a high danceability factor are the most streamed are preferred by listeners. The average beats per minute (bpm) is approaximately one hundred twenty-two (122), which is near the <a href = "https://www.masterclass.com/articles/how-to-find-the-bpm-of-a-song">perfect tempo considered to be a hit</a>, according to some songwriters. Lastly, as a fun observation that needs to be experimented, about fifteen percent (15%) of the songs are released in May.
+</div>
+<br>
+<div align = "justify">
+<img src="/assets/dashboard2019-2023.pdf" align="top" width="95%">
 </div>
 ~~~
 
