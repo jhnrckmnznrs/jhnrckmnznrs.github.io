@@ -2,8 +2,14 @@
 title = "Data Science Portfolio"
 +++
 
+## Machine Unlearning
+#### (Future Project)
+
+## Topological Image Processing
+#### (Future Project)
+
 ## Dance Party Songs (DataCamp Competition)
-#### 19 September 2023
+#### (Project to Start Soon)
 
 ## Dashboard for Most Streamed Songs in Spotify this Year
 #### 16 September 2023 (Last Updated: 18 September 2023)
