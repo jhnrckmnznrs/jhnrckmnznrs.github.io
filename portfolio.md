@@ -2,6 +2,9 @@
 title = "Data Science Portfolio"
 +++
 
+## Dance Party Songs (DataCamp Competition)
+#### 19 September 2023
+
 ## Dashboard for Most Streamed Songs in Spotify this Year
 #### 16 September 2023 (Last Updated: 18 September 2023)
 
@@ -9,6 +12,7 @@ title = "Data Science Portfolio"
 <div align = "justify">
 (The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/moststreamedsongs.ipynb">notebook</a> and Power BI eXchange <a href = /assets/dashboard.pbix>file</a>.)
 </div>
+<br>
 <div align = "justify">
 For this project, we use the <a href = "https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023">dataset</a> found in Kaggle presenting the most streamed songs in the year 2023. We showcase some SQL and Power BI skills for personal purposes. First, the data is imported in Microsoft SQL Server Management Studio. The total number of tracks is nine-hundred fifty-three (953) with six-hundred fourty five (645) distinct artists or groups of artists.
 <div>
@@ -26,7 +30,7 @@ Now, we examine the songs for the past five years. There are seven hundred sixty
 </div>
 ~~~
 
-## Titanic - Machine Learning from Disaster
+## Titanic - Machine Learning from Disaster (Kaggle Competition)
 #### 16 September 2023
 
 (Working on a Better Binary Classification Model)
