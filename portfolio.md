@@ -11,7 +11,7 @@ title = "Data Science Portfolio"
 ## Dance Party Songs (DataCamp Competition)
 #### (Project to Start Soon)
 
-## Dashboard for Most Streamed Songs in Spotify this Year
+## Most Streamed Songs in Spotify on 2023
 #### 16 September 2023 (Last Updated: 18 September 2023)
 
 ~~~
@@ -39,7 +39,7 @@ Now, we examine the songs for the past five years. There are seven hundred sixty
 ## Titanic - Machine Learning from Disaster (Kaggle Competition)
 #### 16 September 2023
 
-(Working on a Better Binary Classification Model)
+Ahoy! 
 
 ## Local University Enrollment (DataCamp Data Science Associate Certification Project)
 #### 9 September 2023
