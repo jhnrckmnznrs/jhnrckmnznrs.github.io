@@ -28,9 +28,52 @@ Now, we examine the songs for the past five years. There are seven hundred sixty
 ~~~
 
 ## Titanic - Machine Learning from Disaster (Kaggle Competition)
-#### 16 September 2023
+#### 15 September 2023 (Last Updated: 20 September 2023)
 
-Ahoy! 
+~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/titanic_xgb.ipynb">notebook</a>.)
+</div>
+<br>
+<div align = "justify">
+Ahoy! Kaggle is hosting a titanic machine learning <a href = "https://www.kaggle.com/competitions/titanic">competition</a> where the goal is to classify whether a passenger survives or not.
+</div>
+<br>
+<div align = "justify">
+For each passenger, the features include the following:
+<ol>
+<li>Ticket class `pclass`: 	`1` = 1st, `2` = 2nd, `3` = 3rd</li>
+<li>Sex `sex`</li>
+<li>Age in years `Age`</li>
+<li>Number of siblings or spouses aboard `sibsp`</li>
+<li>Number of parents or children aboard `parch`</li>
+<li>Ticket Number `ticket`</li>
+<li>Fare `fare`</li>
+<li>Cabin Number `cabin`</li>
+<li>Port of  Embarkation `embarked` : `C` = Cherbourg, `Q` = Queenstown, `S` = Southampton</li>
+<li>Passenger ID `PassengerId`</li>
+<li>Passenger Name `name`</li>
+</ol>
+</div>
+<br>
+<div align = "justify">
+To start with the classification, we preprocess the dataset. We drop the `PassengerId`, the `ticket`, and the `name` columns as they contain unique values. We replace the `male` value to 0 and the `female` value to 1 in the `sex` column to contain numerical values. Observe that the columns `age`, `cabin`, and `embarked` are the columns with missing values. By setting a threshold of 30% for dropping features, we drop the `cabin` column. The mode is used to impute the categorical feature `embarked`, while the mean is used for the numerical feature `age`. In this case, mean imputation is justified since the ages are not highly skewed, as shown in the histogram below. Lastly, a one-hot encoder is implemented on the categorical variables `pclass` and `embarked` for training purposes.
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_hist.png">
+</div>
+<br>
+<div align = "justify">
+None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance.   
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_heatmap.png">
+</div>
+<br>
+~~~
+
 
 ## Local University Enrollment (DataCamp Data Science Associate Certification Project)
 #### 9 September 2023
