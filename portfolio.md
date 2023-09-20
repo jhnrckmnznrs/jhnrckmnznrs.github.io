@@ -65,13 +65,16 @@ To start with the classification, we preprocess the dataset. We drop the `Passen
 </div>
 <br>
 <div align = "justify">
-None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance.   
+None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance. Now, we are ready for model training.
 </div>
 <br>
 <div align = "center">
 <img src="/assets/titanic_heatmap.png">
 </div>
 <br>
+<div align = "justify">
+We choose among the logistic regression, the k-nearest neighbors, and the gradient-boosted decision tree models.
+</div>
 ~~~
 
 
