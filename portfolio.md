@@ -469,7 +469,7 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 ## Topological Image Processing
 #### (Future Project)
 
-## Topological Data Analysis of Agriculture
+## Agricultural Topological Data Analysis
 #### (Future Project)
 
 ## Sports Analytics using Topological Data Analysis
