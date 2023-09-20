@@ -2,7 +2,9 @@
 title = "Data Science Portfolio"
 +++
 
-## Most Streamed Songs in Spotify on 2023
+# MACHINE LEARNING
+
+## Listen to the Sound of a Dashboard (Spotify 2023)
 #### 16 September 2023 (Last Updated: 18 September 2023)
 
 ~~~
@@ -27,7 +29,7 @@ Now, we examine the songs for the past five years. There are seven hundred sixty
 </div>
 ~~~
 
-## Titanic - Machine Learning from Disaster (Kaggle Competition)
+## Disaster Learning of a Machine Learning Model
 #### 15 September 2023 (Last Updated: 20 September 2023)
 
 ~~~
@@ -85,8 +87,7 @@ The data for prediction has the same features. We preprocess the data similar to
 </div>
 ~~~
 
-
-## Local University Enrollment (DataCamp Data Science Associate Certification Project)
+## Local University Enrollment
 #### 9 September 2023
 
 ~~~
@@ -211,7 +212,9 @@ We compare the root mean squared errors (RMSE) of the two models. The RMSE for t
 </div>
 ~~~
 
-## A/B Testing (and Hypothesis Testing)
+# STATISTICAL TESTS
+
+## A/B Testing
 #### 28 August 2023 (Last Updated: 4 September 2023)
 ~~~
 
@@ -299,7 +302,9 @@ where $G$ denotes the group (control or treatment), and $c_g$ is the number of c
 
 (TO BE CONTINUED)
 
-## WEB SCRAPING
+# WEB SCRAPING
+
+## Scrape the Malt Extract from Your Beer
 #### 22 AUGUST 2023
 
 ~~~
@@ -468,17 +473,15 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 </table>
 ~~~
 
+# FUTURE PROJECTS
+
 ## Dance Party Songs (DataCamp Competition)
-#### (Project to Start Soon)
 
 ## Machine Unlearning
-#### (Future Project)
 
 ## Topological Image Processing
-#### (Future Project)
 
 ## Agricultural Topological Data Analysis
-#### (Future Project)
 
 ## Sports Analytics using Topological Data Analysis
 #### (Future Project)
