@@ -4,31 +4,6 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Listen to the Sound of a Dashboard (Spotify 2023)
-#### 16 September 2023 (Last Updated: 18 September 2023)
-
-~~~
-<div align = "justify">
-(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/moststreamedsongs.ipynb">notebook</a> and Power BI eXchange <a href = /assets/dashboard.pbix>file</a>.)
-</div>
-<br>
-<div align = "justify">
-For this project, we use the <a href = "https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023">dataset</a> found in Kaggle presenting the most streamed songs in the year 2023. We showcase some SQL and Power BI skills for personal purposes. First, the data is imported in Microsoft SQL Server Management Studio. The total number of tracks is nine-hundred fifty-three (953) with six-hundred fourty five (645) distinct artists or groups of artists.
-<div>
-<br>
-<div align = "justify">
-Most of the tracks, specifically four-hundred two (402), are songs released in the year two thousand and twenty two (2022). In terms of age, the oldest track is Agudo Magico 3 by Stryx, utku INC, and Thezth released in 1930. On the other hand, the latest track is Seven by Jung Kook featuring Latto released on 14 July 2023. In terms of the number of tracks, Taylor Swift has the highest numbers of songs in the dataset with thirty-four (34) songs followed by The Weekend with twenty-two (22) songs.    
-</div>
-<br>
-<div align = "justify">
-Now, we examine the songs for the past five years. There are seven hundred sixty-nine (769) tracks mostly comprised of tracks released in 2022. In this five-year window, the tracks 'As It Was' and 'Blinding Lights' by the Weekend, are the two of the top ten songs in terms of the number of streams. Non-instrumental songs with a high danceability factor are the most streamed are preferred by listeners. The average beats per minute (bpm) is approaximately one hundred twenty-two (122), which is near the <a href = "https://www.masterclass.com/articles/how-to-find-the-bpm-of-a-song">perfect tempo considered to be a hit</a>, according to some songwriters. Lastly, as a fun observation that needs to be experimented, about fifteen percent (15%) of the songs are released in May.
-</div>
-<br>
-<div align = "justify">
-<img src="/assets/dashboard2019-2023.png" align="top" width="95%">
-</div>
-~~~
-
 ## Disaster Learning of a Machine Learning Model
 #### 15 September 2023 (Last Updated: 20 September 2023)
 
@@ -209,6 +184,41 @@ We considered linear regression as a baseline model due to its simplicity and ef
 <br>
 <div align = "justify">
 We compare the root mean squared errors (RMSE) of the two models. The RMSE for the baseline model is 0.561153419986678 while the RMSE for the Comparison Model is 0.5600931357111498. The RMSE scores are equal up to the second decimal place. Thus, we conclude that the two models perform equally the same.
+</div>
+~~~
+
+## Bike Sharing Demand in South Korea
+#### 20 September 2023
+
+~~~
+(The associated codes in this project is located in the Jupyter <a href = "/assets/bike_korea.ipynb">notebook</a>.)
+~~~
+
+
+# DASHBOARDS
+
+## Listen to the Sound of a Dashboard (Spotify 2023)
+#### 16 September 2023 (Last Updated: 18 September 2023)
+
+~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/moststreamedsongs.ipynb">notebook</a> and Power BI eXchange <a href = /assets/dashboard.pbix>file</a>.)
+</div>
+<br>
+<div align = "justify">
+For this project, we use the <a href = "https://www.kaggle.com/datasets/nelgiriyewithana/top-spotify-songs-2023">dataset</a> found in Kaggle presenting the most streamed songs in the year 2023. We showcase some SQL and Power BI skills for personal purposes. First, the data is imported in Microsoft SQL Server Management Studio. The total number of tracks is nine-hundred fifty-three (953) with six-hundred fourty five (645) distinct artists or groups of artists.
+<div>
+<br>
+<div align = "justify">
+Most of the tracks, specifically four-hundred two (402), are songs released in the year two thousand and twenty two (2022). In terms of age, the oldest track is Agudo Magico 3 by Stryx, utku INC, and Thezth released in 1930. On the other hand, the latest track is Seven by Jung Kook featuring Latto released on 14 July 2023. In terms of the number of tracks, Taylor Swift has the highest numbers of songs in the dataset with thirty-four (34) songs followed by The Weekend with twenty-two (22) songs.    
+</div>
+<br>
+<div align = "justify">
+Now, we examine the songs for the past five years. There are seven hundred sixty-nine (769) tracks mostly comprised of tracks released in 2022. In this five-year window, the tracks 'As It Was' and 'Blinding Lights' by the Weekend, are the two of the top ten songs in terms of the number of streams. Non-instrumental songs with a high danceability factor are the most streamed are preferred by listeners. The average beats per minute (bpm) is approaximately one hundred twenty-two (122), which is near the <a href = "https://www.masterclass.com/articles/how-to-find-the-bpm-of-a-song">perfect tempo considered to be a hit</a>, according to some songwriters. Lastly, as a fun observation that needs to be experimented, about fifteen percent (15%) of the songs are released in May.
+</div>
+<br>
+<div align = "justify">
+<img src="/assets/dashboard2019-2023.png" align="top" width="95%">
 </div>
 ~~~
 
@@ -484,4 +494,3 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 ## Agricultural Topological Data Analysis
 
 ## Sports Analytics using Topological Data Analysis
-#### (Future Project)
