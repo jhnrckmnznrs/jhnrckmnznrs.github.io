@@ -2,15 +2,6 @@
 title = "Data Science Portfolio"
 +++
 
-## Machine Unlearning
-#### (Future Project)
-
-## Topological Image Processing
-#### (Future Project)
-
-## Dance Party Songs (DataCamp Competition)
-#### (Project to Start Soon)
-
 ## Most Streamed Songs in Spotify on 2023
 #### 16 September 2023 (Last Updated: 18 September 2023)
 
@@ -422,3 +413,18 @@ Moreover, the four lowest-rated beer products are shown in the following table.
   </tr>
 </table>
 ~~~
+
+## Dance Party Songs (DataCamp Competition)
+#### (Project to Start Soon)
+
+## Machine Unlearning
+#### (Future Project)
+
+## Topological Image Processing
+#### (Future Project)
+
+## Topological Data Analysis of Agriculture
+#### (Future Project)
+
+## Sports Analytics using Topological Data Analysis
+#### (Future Project)
