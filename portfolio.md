@@ -65,7 +65,7 @@ To start with the classification, we preprocess the dataset. We drop the `Passen
 </div>
 <br>
 <div align = "justify">
-None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance. Now, we are ready for model training.
+None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance. Next, we split the data where 75% comprises the training data. Now, we are ready for model training.
 </div>
 <br>
 <div align = "center">
@@ -73,7 +73,15 @@ None of the features are highly correlated to each other, as presented in the co
 </div>
 <br>
 <div align = "justify">
-We choose among the logistic regression, the k-nearest neighbors, and the gradient-boosted decision tree models.
+We choose among the logistic regression, the k-nearest neighbors (KNN), and the gradient-boosted decision tree (GBDT) models for binary classification. Note that decision trees are usually insensitive to scaling. This means that we can use the scaled data for fitting across all models. Logistic regression are intended for linear solutions while KNN are intended for non-linear solutions. All the models with default hyperparameters give an accuracy of around 75%. To improve the models, we employ stratified k-fold cross-validation and a randomized search cross-validation for hyperparameter tuning. Both the logistic regression and the KNN models produce an accuracy close to 85% while the GBDT model produce an accuracy of 88%. Although this is a slight advantage to the other models, we choose the GBDT model for the predictions.
+</div>
+<br>
+<div align="justify">
+The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the `fare` column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission.
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_test_hist_fare.png">
 </div>
 ~~~
 
