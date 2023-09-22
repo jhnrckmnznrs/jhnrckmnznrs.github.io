@@ -7,6 +7,8 @@ title = "Data Science Portfolio"
 ## Creating a Dance Playlist using Cluster Analysis
 #### 21 September 2023
 
+(To be updated once the DataCamp Competition ends)
+
 ## Disaster Learning of a Machine Learning Model
 #### 15 September 2023 (Last Updated: 22 September 2023)
 
