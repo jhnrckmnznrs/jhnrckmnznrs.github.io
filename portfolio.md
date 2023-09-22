@@ -19,22 +19,22 @@ Ahoy! Kaggle is hosting a titanic machine learning <a href = "https://www.kaggle
 <div align = "justify">
 For each passenger, the features include the following:
 <ol>
-<li>Ticket class `pclass`: 	`1` = 1st, `2` = 2nd, `3` = 3rd</li>
-<li>Sex `sex`</li>
-<li>Age in years `Age`</li>
-<li>Number of siblings or spouses aboard `sibsp`</li>
-<li>Number of parents or children aboard `parch`</li>
-<li>Ticket Number `ticket`</li>
-<li>Fare `fare`</li>
-<li>Cabin Number `cabin`</li>
-<li>Port of  Embarkation `embarked` : `C` = Cherbourg, `Q` = Queenstown, `S` = Southampton</li>
-<li>Passenger ID `PassengerId`</li>
-<li>Passenger Name `name`</li>
+<li>Ticket class <code>pclass</code>: 	<code>1</code> = 1st, <code>2</code> = 2nd, <code>3</code> = 3rd</li>
+<li>Sex <code>sex</code></li>
+<li>Age in years <code>Age</code></li>
+<li>Number of siblings or spouses aboard <code>sibsp</code></li>
+<li>Number of parents or children aboard <code>parch</code></li>
+<li>Ticket Number <code>ticket</code></li>
+<li>Fare <code>fare</code></li>
+<li>Cabin Number <code>cabin</code></li>
+<li>Port of  Embarkation <code>embarked</code> : <code>C</code> = Cherbourg, <code>Q</code> = Queenstown, <code>S</code> = Southampton</li>
+<li>Passenger ID <code>PassengerId</code></li>
+<li>Passenger Name <code>name</code></li>
 </ol>
 </div>
 <br>
 <div align = "justify">
-To start with the classification, we preprocess the dataset. We drop the `PassengerId`, the `ticket`, and the `name` columns as they contain unique values. We replace the `male` value to 0 and the `female` value to 1 in the `sex` column to contain numerical values. Observe that the columns `age`, `cabin`, and `embarked` are the columns with missing values. By setting a threshold of 30% for dropping features, we drop the `cabin` column. The mode is used to impute the categorical feature `embarked`, while the mean is used for the numerical feature `age`. In this case, mean imputation is justified since the ages are not highly skewed, as shown in the histogram below. Lastly, a one-hot encoder is implemented on the categorical variables `pclass` and `embarked` for training purposes.
+To start with the classification, we preprocess the dataset. We drop the <code>PassengerId</code>, the <code>ticket</code>, and the <code>name</code> columns as they contain unique values. We replace the <code>male</code> value to 0 and the <code>female</code> value to 1 in the <code>sex</code> column to contain numerical values. Observe that the columns <code>age</code>, <code>cabin</code>, and <code>embarked</code> are the columns with missing values. By setting a threshold of 30% for dropping features, we drop the <code>cabin</code> column. The mode is used to impute the categorical feature <code>embarked</code>, while the mean is used for the numerical feature <code>age</code>. In this case, mean imputation is justified since the ages are not highly skewed, as shown in the histogram below. Lastly, a one-hot encoder is implemented on the categorical variables <code>pclass</code> and <code>embarked</code> for training purposes.
 </div>
 <br>
 <div align = "center">
@@ -54,7 +54,7 @@ We choose among the logistic regression, the k-nearest neighbors (KNN), and the 
 </div>
 <br>
 <div align="justify">
-The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the `fare` column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission.
+The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the <code>fare<code/> column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission.
 </div>
 <br>
 <div align = "center">
