@@ -192,8 +192,43 @@ We compare the root mean squared errors (RMSE) of the two models. The RMSE for t
 
 ~~~
 (The associated codes in this project is located in the Jupyter <a href = "/assets/bike_korea.ipynb">notebook</a>.)
-~~~
 
+<div align = "justify">
+The dataset consists of the number of public bikes rented in Seoul's bike sharing system at each hour. It also includes information about the weather and the time, such as whether it was a public holiday.
+</div>
+<br>
+<div align = "justify">
+For data preprocessing, the column names of the dataset needs renaming as some are lengthy. For instance, the 'Dew point temperature(C)' column name is renamed as 'Dew Temp' and the 'Solar Radiation (MJ/m2)' column name is renamed as 'Solar Rad'. The dataset contains no missing values with six columns of floating point numbers, four columns of signed 64-bit integers, and four columns of string datatypes.
+</div>
+<br>
+<div align = "justify">
+Observe the barplot shown below. Summer is the season where most bikes are rented. Also, a non-holiday has a slightly better number of rented bikes compared to a holiday. The same observation holds for if the hours are considered instead of seasons. In this setting, bikes rented are high during the late afternoon to early evening hours than any other time window.
+</div>
+<br>
+<div align = "center">
+<img src = "/assets/bike_bar.png">
+<img src = "/assets/bike_line.png">
+</div>
+<br>
+<div align = "justify">
+Temperature and dew point temperatures are the highly correlated features in the dataset. A principal component analysis helps mitigate correlation. Note that decision tree-based models are immune to multicollinearity.
+</div>
+<div align = "center">
+<img src = "/assets/bike_corr.png">
+</div>
+<div align = "justify">
+Now, we proceed to the machine learning (ML) model. ML requires numerical values for training a model. One-hot encoding is a way to turn variables from categorical into numerical. We use a decision tree to predict the number of bikes rented. The coefficient of determination score is 0.79. We also utilize a model made up of multiple decision trees. This model is called a Random Forest model. The coefficient of determination score is slightly better than the previous model. For predictions, we can use this model instead. The model considers the hour and the temperature a person rents a bike as important predictors. On the other hand, the amount of snowfall is considered the least important.
+</div>
+<br>
+<div align = "justify">
+<a href = "https://archive.ics.uci.edu/ml/datasets/Seoul+Bike+Sharing+Demand">Source</a> of dataset.
+<b>Citations:</b>
+<ul>
+<li>Sathishkumar V E, Jangwoo Park, and Yongyun Cho. 'Using data mining techniques for bike sharing demand prediction in metropolitan city.' Computer Communications, Vol.153, pp.353-366, March, 2020</li>
+<li>Sathishkumar V E and Yongyun Cho. 'A rule-based model for Seoul Bike sharing demand prediction using weather data' European Journal of Remote Sensing, pp. 1-18, Feb, 2020 </li>
+</ul>
+</div>
+~~~
 
 # DASHBOARDS
 
