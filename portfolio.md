@@ -68,7 +68,7 @@ We also utilized the automated marchine learning package <a href = "https://gith
 </div>
 ~~~
 
-## Creating a Dance Playlist using Cluster Analysis
+## Dance-Themed Playlist Creation using Cluster Analysis
 #### 21 September 2023
 
 (To be updated once the DataCamp Competition ends)
