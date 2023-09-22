@@ -54,7 +54,7 @@ We choose among the logistic regression, the k-nearest neighbors (KNN), and the 
 </div>
 <br>
 <div align="justify">
-The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the <code>fare<code/> column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission. Upon submisison, Kaggle reveals that the predictions are 77.2% accurate.
+The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the <code>fare</code> column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission. Upon submisison, Kaggle reveals that the predictions are 77.2% accurate.
 </div>
 <br>
 <div align = "center">
