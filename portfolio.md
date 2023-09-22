@@ -4,11 +4,6 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Creating a Dance Playlist using Cluster Analysis
-#### 21 September 2023
-
-(To be updated once the DataCamp Competition ends)
-
 ## Disaster Learning of a Machine Learning Model
 #### 15 September 2023 (Last Updated: 22 September 2023)
 
@@ -65,7 +60,18 @@ The data for prediction has the same features. We preprocess the data similar to
 <div align = "center">
 <img src="/assets/titanic_test_hist_fare.png">
 </div>
+<div align="justify">
+We also utilized the automated marchine learning package <a href = "https://github.com/EpistasisLab/tpot/">TPOT</a>. This package enables one to find an ML model that works well for the cleaned data. In this case, we use it to find a non-deep learning model. After execution, the best pipeline found is also an GBDT model with Gini impurity for splitting the nodes. The predictions are different from the previously generated predictions but has the same accuracy score.
+</div>
+<div align = "center">
+<code>XGBClassifier(ZeroCount(SelectFwe(DecisionTreeClassifier(input_matrix, criterion=gini, max_depth=5, min_samples_leaf=4, min_samples_split=9), alpha=0.007)), learning_rate=0.5, max_depth=5, min_child_weight=16, n_estimators=100, n_jobs=1, subsample=0.7000000000000001, verbosity=0)</code>
+</div>
 ~~~
+
+## Creating a Dance Playlist using Cluster Analysis
+#### 21 September 2023
+
+(To be updated once the DataCamp Competition ends)
 
 ## Local University Enrollment
 #### 9 September 2023
