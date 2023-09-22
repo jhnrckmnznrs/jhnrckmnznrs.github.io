@@ -4,8 +4,11 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
+## Creating a Dance Playlist using Cluster Analysis
+#### 21 September 2023
+
 ## Disaster Learning of a Machine Learning Model
-#### 15 September 2023 (Last Updated: 20 September 2023)
+#### 15 September 2023 (Last Updated: 22 September 2023)
 
 ~~~
 <div align = "justify">
@@ -519,8 +522,6 @@ Moreover, the four lowest-rated beer products are shown in the following table.
 ~~~
 
 # FUTURE PROJECTS
-
-## Dance Party Songs (DataCamp Competition)
 
 ## Machine Unlearning
 
