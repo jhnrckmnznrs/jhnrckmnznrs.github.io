@@ -24,7 +24,7 @@ We are tasked to curate a dance-themed playlist for the party in order to create
 <br>
 <div align = "justify">
 <h3>Data Preprocessing</h3>
-To create a dance-themed playlist, a cluster analysis may be employed to allow grouping of 'similar' tracks. Before implementing clustering, we start by importing data as a dataframe using the <code>pandas</code> library and cleaning the data, if needed. First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
+To create a dance-themed playlist, a <b>cluster analysis</b> may be employed to allow grouping of 'similar' tracks. Before implementing clustering, we start by importing data as a dataframe using the <code>pandas</code> library and cleaning the data, if needed. First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
 </div>
 <br>
 <div align = "justify">
