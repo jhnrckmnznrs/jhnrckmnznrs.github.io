@@ -4,67 +4,6 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Dance-Themed Playlist Creation using Cluster Analysis
-#### 21 September 2023 (Last Updated: 26 September 2023)
-
-~~~
-<div align = "justify">
-(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/spotify_cluster.ipynb">notebook</a>.)
-</div>
-<br>
-<div align = "justify">
-<h2>Background</h2>
-While summer already ended here in the Philippines, temperatures turn up for those in the Northern Hemisphere. There is no better time than now to hold pool and beach parties. In sync with this plans, the company has decided to host a dance party. A <a href = "/assets/spotify_cluster.csv">list</a> of tracks containing one-hundred twenty five (125) genres of Spotify music tracks was collected, with each genre containing approximately one thousand (1000) tracks. Each row represents a track that has some audio features, such as danceability and valence, associated with it. The most recent song in the playlist is released on October 2022.
-</div>
-<br>
-<div align = "justify">
-<h2>Objective</h2>
-We are tasked to curate a dance-themed playlist for the party in order to create an atmosphere that will let attendees dance their hearts out.
-</div>
-<br>
-<div align = "justify">
-<h3>Data Preprocessing</h3>
-To create a dance-themed playlist, a <b>cluster analysis</b> may be employed to allow grouping of 'similar' tracks. Before implementing clustering, we start by importing data as a dataframe using the <code>pandas</code> library and cleaning the data, if needed. First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
-</div>
-<br>
-<div align = "justify">
-<h3>Feature Engineering</h3>
-After cleaning the data, every track must associate to a unique id. Now, we can drop the `track_id` column. This process also saves memory storage.
-<br>
-One may argue to drop the `artists` column since artists may produce songs of different genres. Instead, the column may be replaced by the number of artists present. Observe that the artists are separated by semicolons (;).
-</div>
-<div align = "justify">
-<h3>Dilemma</h3>
-The genre feature has one hundred fourteen (114) unique values. Some categories may classify into a single group but differences still occur. For examples, J-Pop and K-Pop may be considered as pop music but they have some differences.
-</div>
-<br>
-<div align = "justify">
-<h3>Feature Selection</h3>
-For now, we will not consider the track genre and use the remaining audio features. Cluster analysis are usually applied to solely continuous or categorical variables. The reason is that using, for example, Euclidean distance in clustering makes no sense for categorical variables. Mixed-type data are more common nowadays and studies uses one-hot encoding to analyze the data. For this project, we analyze using solely continuous, solely categorical, and mixed types.
-</div>
-<br>
-<div align = "justify">
-<h3>Multicollinearity</h3>
-To see correlation between the features, the heatmap corresponding to the correlation coefficients is shown below. None of the features are highly correlated to each other. Danceability and valence are moderately correlated. This correlation is justified since valence representative positiveness and more positive tracks are typically danceable songs. However, we intend not to remove valence since it still differs from the danceability score.  
-</div>
-<br>
-<div align = "justify">
-<h3>Anomaly Detection</h3>
-As shown from the boxplots, almost all features contains outliers or anomalies. 
-</div>
-<br>
-<div align = "justify">
-<h3>Model Selection</h3>
-We must choose clustering algorithms that are insensitive to outliers. Thus, either a density-based spatial clustering of applications with noise (DBSCAN) model or Guassian mixture models (GMM). GMM are characterized by high complexity and slow convergence. Hence, we can choose to implement DBSCAN. A closely related algorithm to DBSCAN is OPTICS. It is more suitable to large datasets than DBSCAN.
-</div>
-<br>
-<div align = "justify">
-<h3>Playlist Creation</h3>
-By observing the mean (or median) of the danceability score among the tracks in each cluster, we choose the cluster with the highest scores. Moreover, assuming the dance party is for adults, we remove songs with a children or kids genre. Lastly, the dance-themed playlist is completed by filtering the top 50 songs based on danceability.
-</div>
-~~~
-
-
 ## Local University Enrollment
 #### 9 September 2023
 
@@ -297,6 +236,65 @@ We also utilized the automated marchine learning package <a href = "https://gith
 </div>
 ~~~
 
+## Dance-Themed Playlist Creation using Cluster Analysis
+#### 21 September 2023 (Last Updated: 26 September 2023)
+
+~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/spotify_cluster.ipynb">notebook</a>.)
+</div>
+<br>
+<div align = "justify">
+<h2>Background</h2>
+While summer already ended here in the Philippines, temperatures turn up for those in the Northern Hemisphere. There is no better time than now to hold pool and beach parties. In sync with this plans, the company has decided to host a dance party. A <a href = "/assets/spotify_cluster.csv">list</a> of tracks containing one-hundred twenty five (125) genres of Spotify music tracks was collected, with each genre containing approximately one thousand (1000) tracks. Each row represents a track that has some audio features, such as danceability and valence, associated with it. The most recent song in the playlist is released on October 2022.
+</div>
+<br>
+<div align = "justify">
+<h2>Objective</h2>
+We are tasked to curate a dance-themed playlist for the party in order to create an atmosphere that will let attendees dance their hearts out.
+</div>
+<br>
+<div align = "justify">
+<h3>Data Preprocessing</h3>
+To create a dance-themed playlist, a <b>cluster analysis</b> may be employed to allow grouping of 'similar' tracks. Before implementing clustering, we start by importing data as a dataframe using the <code>pandas</code> library and cleaning the data, if needed. First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
+</div>
+<br>
+<div align = "justify">
+<h3>Feature Engineering</h3>
+After cleaning the data, every track must associate to a unique id. Now, we can drop the `track_id` column. This process also saves memory storage.
+<br>
+One may argue to drop the `artists` column since artists may produce songs of different genres. Instead, the column may be replaced by the number of artists present. Observe that the artists are separated by semicolons (;).
+</div>
+<div align = "justify">
+<h3>Dilemma</h3>
+The genre feature has one hundred fourteen (114) unique values. Some categories may classify into a single group but differences still occur. For examples, J-Pop and K-Pop may be considered as pop music but they have some differences.
+</div>
+<br>
+<div align = "justify">
+<h3>Feature Selection</h3>
+For now, we will not consider the track genre and use the remaining audio features. Cluster analysis are usually applied to solely continuous or categorical variables. The reason is that using, for example, Euclidean distance in clustering makes no sense for categorical variables. Mixed-type data are more common nowadays and studies uses one-hot encoding to analyze the data. For this project, we analyze using solely continuous, solely categorical, and mixed types.
+</div>
+<br>
+<div align = "justify">
+<h3>Multicollinearity</h3>
+To see correlation between the features, the heatmap corresponding to the correlation coefficients is shown below. None of the features are highly correlated to each other. Danceability and valence are moderately correlated. This correlation is justified since valence representative positiveness and more positive tracks are typically danceable songs. However, we intend not to remove valence since it still differs from the danceability score.  
+</div>
+<br>
+<div align = "justify">
+<h3>Anomaly Detection</h3>
+As shown from the boxplots, almost all features contains outliers or anomalies. 
+</div>
+<br>
+<div align = "justify">
+<h3>Model Selection</h3>
+We must choose clustering algorithms that are insensitive to outliers. Thus, either a density-based spatial clustering of applications with noise (DBSCAN) model or Guassian mixture models (GMM). GMM are characterized by high complexity and slow convergence. Hence, we can choose to implement DBSCAN. A closely related algorithm to DBSCAN is OPTICS. It is more suitable to large datasets than DBSCAN.
+</div>
+<br>
+<div align = "justify">
+<h3>Playlist Creation</h3>
+By observing the mean (or median) of the danceability score among the tracks in each cluster, we choose the cluster with the highest scores. Moreover, assuming the dance party is for adults, we remove songs with a children or kids genre. Lastly, the dance-themed playlist is completed by filtering the top 50 songs based on danceability.
+</div>
+~~~
 
 # DASHBOARDS
 
