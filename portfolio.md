@@ -4,70 +4,6 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Disaster Learning of a Machine Learning Model
-#### 15 September 2023 (Last Updated: 22 September 2023)
-
-~~~
-<div align = "justify">
-(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/titanic_xgb.ipynb">notebook</a>.)
-</div>
-<br>
-<div align = "justify">
-Ahoy! Kaggle is hosting a titanic machine learning <a href = "https://www.kaggle.com/competitions/titanic">competition</a> where the goal is to classify whether a passenger survives or not.
-</div>
-<br>
-<div align = "justify">
-For each passenger, the features include the following:
-<ol>
-<li>Ticket class <code>pclass</code>: 	<code>1</code> = 1st, <code>2</code> = 2nd, <code>3</code> = 3rd</li>
-<li>Sex <code>sex</code></li>
-<li>Age in years <code>Age</code></li>
-<li>Number of siblings or spouses aboard <code>sibsp</code></li>
-<li>Number of parents or children aboard <code>parch</code></li>
-<li>Ticket Number <code>ticket</code></li>
-<li>Fare <code>fare</code></li>
-<li>Cabin Number <code>cabin</code></li>
-<li>Port of  Embarkation <code>embarked</code> : <code>C</code> = Cherbourg, <code>Q</code> = Queenstown, <code>S</code> = Southampton</li>
-<li>Passenger ID <code>PassengerId</code></li>
-<li>Passenger Name <code>name</code></li>
-</ol>
-</div>
-<br>
-<div align = "justify">
-To start with the classification, we preprocess the dataset. We drop the <code>PassengerId</code>, the <code>ticket</code>, and the <code>name</code> columns as they contain unique values. We replace the <code>male</code> value to 0 and the <code>female</code> value to 1 in the <code>sex</code> column to contain numerical values. Observe that the columns <code>age</code>, <code>cabin</code>, and <code>embarked</code> are the columns with missing values. By setting a threshold of 30% for dropping features, we drop the <code>cabin</code> column. The mode is used to impute the categorical feature <code>embarked</code>, while the mean is used for the numerical feature <code>age</code>. In this case, mean imputation is justified since the ages are not highly skewed, as shown in the histogram below. Lastly, a one-hot encoder is implemented on the categorical variables <code>pclass</code> and <code>embarked</code> for training purposes.
-</div>
-<br>
-<div align = "center">
-<img src="/assets/titanic_hist.png">
-</div>
-<br>
-<div align = "justify">
-None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance. Next, we split the data where 75% comprises the training data. Now, we are ready for model training.
-</div>
-<br>
-<div align = "center">
-<img src="/assets/titanic_heatmap.png">
-</div>
-<br>
-<div align = "justify">
-We choose among the logistic regression, the k-nearest neighbors (KNN), and the gradient-boosted decision tree (GBDT) models for binary classification. Note that decision trees are usually insensitive to scaling. This means that we can use the scaled data for fitting across all models. Logistic regression are intended for linear solutions while KNN are intended for non-linear solutions. All the models with default hyperparameters give an accuracy of around 75%. To improve the models, we employ stratified k-fold cross-validation and a randomized search cross-validation for hyperparameter tuning. Both the logistic regression and the KNN models produce an accuracy close to 85% while the GBDT model produce an accuracy of 88%. Although this is a slight advantage to the other models, we choose the GBDT model for the predictions.
-</div>
-<br>
-<div align="justify">
-The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the <code>fare</code> column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission. Upon submisison, Kaggle reveals that the predictions are 77.2% accurate.
-</div>
-<br>
-<div align = "center">
-<img src="/assets/titanic_test_hist_fare.png">
-</div>
-<div align="justify">
-We also utilized the automated marchine learning package <a href = "https://github.com/EpistasisLab/tpot/">TPOT</a>. This package enables one to find an ML model that works well for the cleaned data. In this case, we use it to find a non-deep learning model. After execution, the best pipeline found is also an GBDT model with Gini impurity for splitting the nodes. The predictions are different from the previously generated predictions but has the same accuracy score.
-</div>
-<div align = "center">
-<code>XGBClassifier(ZeroCount(SelectFwe(DecisionTreeClassifier(input_matrix, criterion=gini, max_depth=5, min_samples_leaf=4, min_samples_split=9), alpha=0.007)), learning_rate=0.5, max_depth=5, min_child_weight=16, n_estimators=100, n_jobs=1, subsample=0.7000000000000001, verbosity=0)</code>
-</div>
-~~~
-
 ## Dance-Themed Playlist Creation using Cluster Analysis
 #### 21 September 2023
 
@@ -294,6 +230,71 @@ Now, we proceed to the machine learning (ML) model. ML requires numerical values
 </ul>
 </div>
 ~~~
+
+## Disaster Learning of a Machine Learning Model
+#### 15 September 2023 (Last Updated: 22 September 2023)
+
+~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/titanic_xgb.ipynb">notebook</a>.)
+</div>
+<br>
+<div align = "justify">
+Ahoy! Kaggle is hosting a titanic machine learning <a href = "https://www.kaggle.com/competitions/titanic">competition</a> where the goal is to classify whether a passenger survives or not.
+</div>
+<br>
+<div align = "justify">
+For each passenger, the features include the following:
+<ol>
+<li>Ticket class <code>pclass</code>: 	<code>1</code> = 1st, <code>2</code> = 2nd, <code>3</code> = 3rd</li>
+<li>Sex <code>sex</code></li>
+<li>Age in years <code>Age</code></li>
+<li>Number of siblings or spouses aboard <code>sibsp</code></li>
+<li>Number of parents or children aboard <code>parch</code></li>
+<li>Ticket Number <code>ticket</code></li>
+<li>Fare <code>fare</code></li>
+<li>Cabin Number <code>cabin</code></li>
+<li>Port of  Embarkation <code>embarked</code> : <code>C</code> = Cherbourg, <code>Q</code> = Queenstown, <code>S</code> = Southampton</li>
+<li>Passenger ID <code>PassengerId</code></li>
+<li>Passenger Name <code>name</code></li>
+</ol>
+</div>
+<br>
+<div align = "justify">
+To start with the classification, we preprocess the dataset. We drop the <code>PassengerId</code>, the <code>ticket</code>, and the <code>name</code> columns as they contain unique values. We replace the <code>male</code> value to 0 and the <code>female</code> value to 1 in the <code>sex</code> column to contain numerical values. Observe that the columns <code>age</code>, <code>cabin</code>, and <code>embarked</code> are the columns with missing values. By setting a threshold of 30% for dropping features, we drop the <code>cabin</code> column. The mode is used to impute the categorical feature <code>embarked</code>, while the mean is used for the numerical feature <code>age</code>. In this case, mean imputation is justified since the ages are not highly skewed, as shown in the histogram below. Lastly, a one-hot encoder is implemented on the categorical variables <code>pclass</code> and <code>embarked</code> for training purposes.
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_hist.png">
+</div>
+<br>
+<div align = "justify">
+None of the features are highly correlated to each other, as presented in the correlation heatmap below. However, the ages and the fares have high variances. Hence, we standardize those features by removing the mean and scaling to the unit variance. Next, we split the data where 75% comprises the training data. Now, we are ready for model training.
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_heatmap.png">
+</div>
+<br>
+<div align = "justify">
+We choose among the logistic regression, the k-nearest neighbors (KNN), and the gradient-boosted decision tree (GBDT) models for binary classification. Note that decision trees are usually insensitive to scaling. This means that we can use the scaled data for fitting across all models. Logistic regression are intended for linear solutions while KNN are intended for non-linear solutions. All the models with default hyperparameters give an accuracy of around 75%. To improve the models, we employ stratified k-fold cross-validation and a randomized search cross-validation for hyperparameter tuning. Both the logistic regression and the KNN models produce an accuracy close to 85% while the GBDT model produce an accuracy of 88%. Although this is a slight advantage to the other models, we choose the GBDT model for the predictions.
+</div>
+<br>
+<div align="justify">
+The data for prediction has the same features. We preprocess the data similar to the previous data. However, in this case, the <code>fare</code> column has a null value. For this feature, we impute with the median since the data is right-skewed, as shown in the histogram below. Afterwards, the similar steps follow until the fitting of data into the chosen model. We predict the survivability of the passengers and save the results as a comma-separated values (CSV) <a href = "/assets/gender_submission.csv">file</a> for submission. Upon submisison, Kaggle reveals that the predictions are 77.2% accurate.
+</div>
+<br>
+<div align = "center">
+<img src="/assets/titanic_test_hist_fare.png">
+</div>
+<div align="justify">
+We also utilized the automated marchine learning package <a href = "https://github.com/EpistasisLab/tpot/">TPOT</a>. This package enables one to find an ML model that works well for the cleaned data. In this case, we use it to find a non-deep learning model. After execution, the best pipeline found is also an GBDT model with Gini impurity for splitting the nodes. The predictions are different from the previously generated predictions but has the same accuracy score.
+</div>
+<div align = "center">
+<code>XGBClassifier(ZeroCount(SelectFwe(DecisionTreeClassifier(input_matrix, criterion=gini, max_depth=5, min_samples_leaf=4, min_samples_split=9), alpha=0.007)), learning_rate=0.5, max_depth=5, min_child_weight=16, n_estimators=100, n_jobs=1, subsample=0.7000000000000001, verbosity=0)</code>
+</div>
+~~~
+
 
 # DASHBOARDS
 
