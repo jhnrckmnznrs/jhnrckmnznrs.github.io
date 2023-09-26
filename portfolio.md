@@ -33,10 +33,10 @@ Enrollment trends in online courses accelerated dramatically during the COVID-19
 <h3>Data Preprocessing</h3>
 First, we import the data and clean the data using methods and functions available in the <code>pandas</code> library. For every column, we shall do the following:
 <ol>
-<li> Check the values whether they match the appropriate description (or data type). </li>
 <li> Check the number of missing values. </li>
+<li> Check the values whether they match the appropriate description (or data type). </li>
 </ol>
-We import <code>pandas</code> as <code>pd</code> and use the <code>read_csv</code> method to import the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. Then, we use the <code>head</code> method to observe the first few rows of the dataframe.
+The <code>pandas</code> are imported using the alias <code>pd</code>. The <code>.read_csv</code> method imports the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. The <code>.head</code> method allows observation of the first few specified rows of the pandas dataframe.
 </div>
 <br>
 <table>
@@ -103,7 +103,20 @@ We import <code>pandas</code> as <code>pd</code> and use the <code>read_csv</cod
 </table>
 
 <div align = "justify">
-We investigate the data type of the values in each column. We see that the <code>pre_score</code> is not continuous and has <code>object</code> data type. First, we use <code>fillna</code> method filling in null values with appropriate values. Only the <code>post_score</code> and <code>pre_requirement</code> columns have missing values. Also, observe that some rows in <code>pre_score</code> has a non-null value of <code>'-'</code>. Hence, we treat it as a null value and replace with a value of <code>0</code>. Finally, we convert the column's data type to <code>float</code> using the <code>astype</code> method. As a supplement, we observed that there are <code>'Math'</code> and <code>'Mathematics'</code> values in the department column. We choose the <code>'Mathematics'</code> for all rows with the <code>'Math'</code> value.
+Using the <code>.info</code> method, the data types of the features are as follows:
+<ul>
+  <li><code>course_type</code>: integer</li>
+  <li><code>year</code>: integer</li>
+  <li><code>enrollment_count</code>: string</li>
+  <li><code>pre_score</code>: string</li>
+  <li><code>post_score</code>: floating-point number</li>
+  <li><code>pre_requirement</code>: string</li>
+  <li><code>department</code>: string</li>
+</ul>
+
+For the missing values, the <code>post_score</code> and <code>pre_requirement</code> columns have 185 and 89 missing values respectively. These values are obtained using the <code>.isna</code> and <code>.sum</code> methods.
+
+Now, we correct the data types and fill-in the missing values. The missing scores are assumed to be equal to zero (0) while the missing pre-requisitees are assumed to be empty or <code>'None'</code>. Note that some values of the pre-scores are marked as a dash. We also replace these values as 0. Afterwards, the <code>pre_score</code> column is converted as a list of floating-point numbers, similar to the <code>post_score</code>, using the <code>.astype</code> method. Lastly, the <code>'Math'</code> and <code>'Mathematics'</code> values both exist in the department column. To ensure consistency, <code>'Math'</code> values are replaced by <code>'Mathematics'</code>.
 </div>
 <br>
 <div align = "justify">
