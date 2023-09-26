@@ -149,15 +149,18 @@ We proceed with the hypothesis testing using a Mann-Whitney U Test. This test is
 </div>
 <br>
 <div align = "justify">
-The university wants to predict how many students will enroll in a course. This is a regression type of machine learning where the target variable is the enrollment count. For a baseline model, we shall implement a simple Linear Regression model using the scikit-learn library. For the categorical variables, we use the <code>get_dummies</code> method of <code>pandas</code>. For a comparison model, we shall implement an Elastic Net model. We choose the hyperparameter <code>alpha</code> to be equal to <code>0.0001</code>.
+<h3>Regression Model</h3>
+We employ a regression model to predict the enrollment count of a course offering. For a baseline model, a simple Linear Regression model is implemented using the <code>scikit-learn</code> library. Linear regression is a good baseline model due to its simplicity and computing efficiency. It is also robust to overfitting. For a comparison model, we shall implement the Elastic Net model, which is also less prone to overfitting. In this model, the loss function puts more weight on errors is utilized. Additionally, an elastic net model is able to select important features and handle correlated features.
+<br>
+For feature training, the target variable <code>enrollment_count</code> is dropped from the set of features. The categorical variables are one-hot encoded to using the <code>.get_dummies</code> method of <code>pandas</code>.
 </div>
 <br>
 <div align = "justify">
-We considered linear regression as a baseline model due to its simplicity and efficiency in computing. Linear regression provides a linear estimate of the relationship between the independent and the dependent variables. Moreover, the model is robust to overfitting. The loss function for the linear regression model is the ordinary least squares. In elastic net models, a loss function that puts more weight on errors is utilized. Although more complex and requires more tuning, an elastic net model is less prone to overfitting and able to select important features and handle correlated features.
+We choose the learning rate of the elastic net equal to <code>0.0001</code>. After predicting the enrollment counts of a testing subset, the root mean-squared error (RMSE) for the baseline model is 0.561153419986678 while the RMSE for the comparison model is 0.5600931357111498. In this case, we conclude that the two models perform equally the same.
 </div>
 <br>
 <div align = "justify">
-We compare the root mean squared errors (RMSE) of the two models. The RMSE for the baseline model is 0.561153419986678 while the RMSE for the Comparison Model is 0.5600931357111498. The RMSE scores are equal up to the second decimal place. Thus, we conclude that the two models perform equally the same.
+Alternatively, we use the automated machine library TPOT to find a suitable model. This process may be beneficial especially when there are no time constraints in releasing a pipeline. 
 </div>
 ~~~
 
