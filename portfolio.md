@@ -115,12 +115,21 @@ Using the <code>.info</code> method, the data types of the features are as follo
 </ul>
 
 For the missing values, the <code>post_score</code> and <code>pre_requirement</code> columns have 185 and 89 missing values respectively. These values are obtained using the <code>.isna</code> and <code>.sum</code> methods.
-
+<br>
 Now, we correct the data types and fill-in the missing values. The missing scores are assumed to be equal to zero (0) while the missing pre-requisitees are assumed to be empty or <code>'None'</code>. Note that some values of the pre-scores are marked as a dash. We also replace these values as 0. Afterwards, the <code>pre_score</code> column is converted as a list of floating-point numbers, similar to the <code>post_score</code>, using the <code>.astype</code> method. Lastly, the <code>'Math'</code> and <code>'Mathematics'</code> values both exist in the department column. To ensure consistency, <code>'Math'</code> values are replaced by <code>'Mathematics'</code>.
+<br>
+The course ID column contain unique values. This means that the number of courses is one-thousand eight hundred fifty (1850). Using the <code>.value_counts</code> method, one thousand three hundred seventy-five (1375) are online while four hundred seventy-five (475) are classroom-based.
+<br>
+To provide an overview of the number of courses of each type, refer to the countplot shown below. Online courses are dominant for both the departments and the university. The Technology department offered the most online courses. For succeeding visualization, we shall mainly use the Seaborn package.
 </div>
 <br>
+<div align = "center">
+<img src = "/assets/enrollment_bar.png" align="top" width="90%">
+</div>
 <div align = "justify">
-We observe the distribution of the enrollment counts feature using the following visualization. For the plot, we shall use the Seaborn library. Notice that more than 250 enrollees are usually present. Moreover, the number of enrollees are either less than 200 or greater than 220. Lastly, the enrollment counts are not normally distributed.
+<h3>Hypothesis Testing</h3>
+
+Recall that we intend to compare the difference between the enrollment counts in each type of course. To start with the hypothesis testing, first observe the the distribution of the enrollment counts. Many courses attracts more than two-hundred fifty (250) enrollees. Moreover, no courses are enrolled with more than two hundred (200) or greater than two hundred twenty (220) students. Lastly, the t-test is not advised to utilize since the enrollment counts are not normally distributed.
 </div>
 <br>
 <div align="center">
@@ -128,19 +137,15 @@ We observe the distribution of the enrollment counts feature using the following
 </div>
 <br>
 <div align = "justify">
-Now, we check if each <code>course_id</code> is unique. The number of unique ID is the same as the number of rows. Hence, no duplicate IDs are recorded in the dataset. To visualize the balance of course types, we create a countplot using Seaborn. From the plot, online courses are more offered than classroom course type. As the difference is about 900 courses, we see a class imbalance across the course types.
-</div>
-<br>
-<div align="center">
-<img src="/assets/bar_enrol.png" align="top" width="90%">
-</div>
-<br>
-<div align = "justify">
-Moreover, we can say that students tend to enroll more in online courses than in classroom-taught courses. Consider the boxplot showing the enrollment counts across the course types. The range and the median of enrollment counts for online courses are farther and greater than that of the classroom-taught courses.
+We provide more insights about the enrollment. Consider the boxplot showing the enrollment counts across the course types. Students tend to enroll more in online courses than in classroom-taught courses. The range and the median of enrollment counts for online courses are farther and greater than that of the classroom-taught courses. As a remark, no anomalies in the enrollment counts are present for both course types. 
 </div>
 <br>
 <div align="center">
 <img src="/assets/box_enrol.png" align="top" width="90%">
+</div>
+<br>
+<div align="justify">
+We proceed with the hypothesis testing using a Mann-Whitney U Test. This test is a non-parametric version of the t-test suitable for non-normally distributed data. For implementation in Python, the <code>mannwhitneyu</code> function is imported in the <code>scipy.stats</code> library. By index slicing, the enrollment counts of classroom-based courses is separated from that of the online courses. We choose a significance value of 0.01 and a null hypothesis stating that there is no significant difference between the course type. A p-value of a power of negative two hundred thirty-six (-236) is obtained. Thus, the null hypothesis is rejected and say that there is a significant difference between the course type in the enrollment.
 </div>
 <br>
 <div align = "justify">
