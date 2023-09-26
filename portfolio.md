@@ -4,19 +4,33 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Local University Enrollment
-#### 9 September 2023
+## Does Online Courses Attract Students?
+#### 9 September 2023 (Last Updated: 26 September 2023)
 
 ~~~
 <div align = "justify">
 (The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/enrollment.ipynb">notebook</a>.)
 </div>
-<br>
 <div align = "justify">
-You are working as a data scientist at a local University. The university started offering online courses to reach a wider range of students. The university wants you to help them understand enrollment trends. They would like you to identify what contributes to higher enrollment. In particular, whether the course type (online or classroom) is a factor.
+<h3>Background and Objective</h3>
+You are working as a data scientist at a local University. The university started offering online courses to reach a wider range of students. The university wants you to help them understand enrollment trends. They would like you to identify what contributes to higher enrollment. In particular, whether the <b>course type</b> (online or classroom) is a factor.
 </div>
-<br>
 <div align = "justify">
+<h3>Executive Summary</h3>
+To determine whether course type is a factor in enrollment, we analyze the enrollment counts and test our hypotheses. Furthermore, we provide a machine learning model to predict enrollment counts of future offered courses by the university. The report is divided into the following sections:
+<ol>
+  <li>Introduction: Overview of enrollment trends in universities offering both online and onsite courses.</li>
+  <li>Data Preprocessing: Detailed explanation on data cleaning.</li>
+  <li>Hypothesis Testing: Test to determine whether difference in enrollment counts is significant.</li>
+  <li>Regression Model: Model to predict future enrollment trends.</li>
+</ol>
+</div>
+<div align = "justify">
+<h3>Introduction</h3>
+Enrollment trends in online courses accelerated dramatically during the COVID-19 pandemic. During the height of the pandemic, most classes moved to online-only instruction. While the effects of the pandemic has subsided, online learning remains popular, with many students choosing to take online courses or even complete entire degrees online. In hindsight, online courses offer flexibility and convenience that traditional classroom-based courses cannot. Students can take online courses at their own pace and on their own schedule, from anywhere in the world. This makes online learning a good option for students who are working full-time, have families, or live in remote areas. However, there are also some drawbacks such as the difficulty of staying motivated and engaged. Students also miss out on the social interaction and networking opportunities that are available in traditional classroom settings. It is important to note that online and onsite learning are not mutually exclusive. Many students choose to take a mix of online and onsite courses. This allows them to take advantage of the benefits of both types of learning.
+</div>
+<div align = "justify">
+<h3>Data Preprocessing</h3>
 First, we import and clean the data. Specifically, for every column in the data, we do the following:
 <ol>
 <li> Check the values whether they match the description given in the table above. </li>
