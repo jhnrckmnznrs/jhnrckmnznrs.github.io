@@ -33,7 +33,7 @@ Enrollment trends in online courses accelerated dramatically during the COVID-19
 <h3>Data Preprocessing</h3>
 First, we import the data and clean the data using methods and functions available in the <code>pandas</code> library. For every column, we shall do the following:
 <ol>
-<li> Check the values whether they match the description given in the table above. </li>
+<li> Check the values whether they match the appropriate description (or data type). </li>
 <li> Check the number of missing values. </li>
 </ol>
 We import <code>pandas</code> as <code>pd</code> and use the <code>read_csv</code> method to import the <a href = "https://s3.amazonaws.com/talent-assets.datacamp.com/university_enrollment_2306.csv"> dataset </a>. Then, we use the <code>head</code> method to observe the first few rows of the dataframe.
