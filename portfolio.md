@@ -160,7 +160,16 @@ We choose the learning rate of the elastic net equal to <code>0.0001</code>. Aft
 </div>
 <br>
 <div align = "justify">
-Alternatively, we use the automated machine library TPOT to find a suitable model. This process may be beneficial especially when there are no time constraints in releasing a pipeline. 
+Alternatively, we use the automated machine library TPOT to find a suitable model. This process may be beneficial especially when there are no time constraints in releasing a pipeline. Using the <code>TPOTRegressor</code> from TPOT, the best <a href = "/assets/enrollment_pipeline.py">pipeline</a> is as follows:
+<ol>
+  <li><code>SelectPercentile</code>: Keep eighty-four percent (84%) of the features based on percentile scores</li>
+  <li><code>StandardScaler</code>: Standardize features by removing the mean and scaling to unit variance.</li>
+  <li><code>Binarizer</code>: Binarize features with 0.55 as threshold.</li>
+  <li><code>RobustScaler</code>: Scale features that are robust to outliers.</li>
+  <li><code>MaxAbsScaler</code>: Scale each feature by its maximum absolute value.</li>
+  <li><code>LassoLarsCV</code>: Cross-validated L1 regularization using the least-angle regression algorithm</li>
+</ol>
+The root mean square error of the pipeline is 0.31574864822, which is way better compared than the intial models. Therefore, we choose this as a proposed model for production in identifying enrollment trends in this university.
 </div>
 ~~~
 
