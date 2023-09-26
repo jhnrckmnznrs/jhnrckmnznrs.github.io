@@ -147,9 +147,15 @@ We provide more insights about the enrollment. Consider the boxplot showing the 
 <div align="justify">
 We proceed with the hypothesis testing using a Mann-Whitney U Test. This test is a non-parametric version of the t-test suitable for non-normally distributed data. For implementation in Python, the <code>mannwhitneyu</code> function is imported in the <code>scipy.stats</code> library. By index slicing, the enrollment counts of classroom-based courses is separated from that of the online courses. We choose a significance value of 0.01 and a null hypothesis stating that there is no significant difference between the course type. A p-value of a power of negative two hundred thirty-six (-236) is obtained. Thus, the null hypothesis is rejected and say that there is a significant difference between the course type in the enrollment.
 </div>
-<br>
 <div align = "justify">
 <h3>Regression Model</h3>
+Before choosing a regression model, we look at the correlation coefficients of the features. Highly-correlated features need to be reduced as they cause bias to the model. A heatmap showing the correlation coefficients of features are shown below.
+</div>
+<div align ="center">
+<img src= "/assets/enrollment_heatmap.png">
+</div>
+<br>
+<div align = "justify">
 We employ a regression model to predict the enrollment count of a course offering. For a baseline model, a simple Linear Regression model is implemented using the <code>scikit-learn</code> library. Linear regression is a good baseline model due to its simplicity and computing efficiency. It is also robust to overfitting. For a comparison model, we shall implement the Elastic Net model, which is also less prone to overfitting. In this model, the loss function puts more weight on errors is utilized. Additionally, an elastic net model is able to select important features and handle correlated features.
 <br>
 For feature training, the target variable <code>enrollment_count</code> is dropped from the set of features. The categorical variables are one-hot encoded to using the <code>.get_dummies</code> method of <code>pandas</code>.
