@@ -5,23 +5,26 @@ title = "Data Science Portfolio"
 # MACHINE LEARNING
 
 ## Dance-Themed Playlist Creation using Cluster Analysis
-#### 21 September 2023
+#### 21 September 2023 (Last Updated: 26 September 2023)
 
 ~~~
 <div align = "justify">
-You have assembled information on more than `125` genres of Spotify music tracks in a file called `spotify.csv`, with each genre containing approximately `1000` tracks. All tracks, from all time, have been taken into account without any time period limitations. However, the data collection was concluded in `October 2022`.
-Each row represents a track that has some audio features associated with it.
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/spotify_cluster.ipynb">notebook</a>.)
 </div>
 <br>
 <div align = "justify">
-<h3>Data Preparation</h3>
-To create a dance-themed playlist, a cluster analysis may be employed to allow grouping of 'similar' tracks. 
-<br>
-We start the analysis by importing data using the <code>pandas</code> library. 
+<h2>Background</h2>
+While summer already ended here in the Philippines, temperatures turn up for those in the Northern Hemisphere. There is no better time than now to hold pool and beach parties. In sync with this plans, the company has decided to host a dance party. A <a href = "/assets/spotify_cluster.csv">list</a> of tracks containing one-hundred twenty five (125) genres of Spotify music tracks was collected, with each genre containing approximately one thousand (1000) tracks. Each row represents a track that has some audio features, such as danceability and valence, associated with it. The most recent song in the playlist is released on October 2022.
 </div>
+<br>
 <div align = "justify">
-<h3>Cleaning the Data</h3>
-First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
+<h2>Objective</h2>
+We are tasked to curate a dance-themed playlist for the party in order to create an atmosphere that will let attendees dance their hearts out.
+</div>
+<br>
+<div align = "justify">
+<h3>Data Preprocessing</h3>
+To create a dance-themed playlist, a cluster analysis may be employed to allow grouping of 'similar' tracks. Before implementing clustering, we start by importing data as a dataframe using the <code>pandas</code> library and cleaning the data, if needed. First, we drop rows with duplicate values across all features. Next, we drop rows with duplicates on the `track_id` column as tracks have unique identifications. Lastly, we drop rows with the same album name, track name, and set of artists. Note that album and track names are not subject to trademark while an artist does. Observations with missing artists, album name, and track name are also dropped. This process is justified because we cannot add an unknown song even though its audio features are given.
 </div>
 <br>
 <div align = "justify">
@@ -58,7 +61,6 @@ We must choose clustering algorithms that are insensitive to outliers. Thus, eit
 <div align = "justify">
 <h3>Playlist Creation</h3>
 By observing the mean (or median) of the danceability score among the tracks in each cluster, we choose the cluster with the highest scores. Moreover, assuming the dance party is for adults, we remove songs with a children or kids genre. Lastly, the dance-themed playlist is completed by filtering the top 50 songs based on danceability.
-We must choose clustering algorithms that are insensitive to outliers. Thus, either a density-based spatial clustering of applications with noise (DBSCAN) model or Guassian mixture models (GMM). GMM are characterized by high complexity and slow convergence. Hence, we can choose to implement DBSCAN. A closely related algorithm to DBSCAN is OPTICS. It is more suitable to large datasets than DBSCAN.
 </div>
 ~~~
 
