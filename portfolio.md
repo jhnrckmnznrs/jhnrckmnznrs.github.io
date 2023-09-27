@@ -4,7 +4,7 @@ title = "Data Science Portfolio"
 
 # MACHINE LEARNING
 
-## Does Online Courses Attract Students?
+## Online vs. Classroom: Which Enrollment Type is Right?
 #### 9 September 2023 (Last Updated: 26 September 2023)
 
 ~~~
@@ -176,6 +176,138 @@ Alternatively, we use the automated machine library TPOT to find a suitable mode
   <li><code>LassoLarsCV</code>: Cross-validated L1 regularization using the least-angle regression algorithm</li>
 </ol>
 The root mean square error of the pipeline is 0.31574864822, which is way better compared than the intial models. Therefore, we choose this as a proposed model for production in identifying enrollment trends in this university.
+</div>
+~~~
+
+## Machine Learning for Loan Approval: A Balancing Act Between Accuracy and Fairness
+#### 27 September 2023 (Last Updated: 27 September 2023)
+
+~~~
+<div align = "justify">
+(The associated codes and implementations in this project is located in the Jupyter <a href = "/assets/loan.ipynb">notebook</a>.)
+</div>
+<div align = "justify">
+<h3>Background and Objective</h3>
+A start-up company wants to automate loan approvals by building a classifier to predict whether a loan will be paid back. In this situation, it is more important to accurately predict whether a loan will not be paid back rather than if a loan is paid back. Your manager will want to know how you accounted for this in training and evaluation your model. As a machine learning scientist, we need to build the classifier and prepare a report accessible to a broad audience.
+</div>
+<div align = "justify">
+<h3>Executive Summary</h3>
+To determine whether a loan will be paid back, we analyze the important features of a borrower, such as the credit score, the number of public derogatory records, and others. In this scenario, we provide a machine learning model for the classification. The report is divided into the following sections:
+<ol>
+  <li>Introduction: Overview of loan repayment and factors affecting the failure of non-repayment.</li>
+  <li>Data Preprocessing: Detailed explanation on data cleaning.</li>
+  <li>Feature Engineering: Extract or select features to train in the classifier.</li>
+  <li>Classifier: Model to classify loan repayments.</li>
+</ol>
+</div>
+<div align = "justify">
+<h3>Introduction</h3>
+The repayment rate of loans is influenced by a variety of factors, including the borrower's creditworthiness, the type of loan, and the economic climate. Studies found that borrowers with higher credit scores are more likely to repay their loans on time and in full. Furthermorele, student loans are typically repaid at a lower rate than other types of loans, such as personal loans or auto loansLastinally, the economic climate can also affect the loan repayment rate. During economic downturns, borrowers may be more likely to default on their loans due to job loss or other financial difficult of defaults.
+</div>
+<div align = "justify">
+<h3>Data Preprocessing</h3>
+<div align = "justify">
+The dataset contains information mainly about the borrower, such as the credit score and the status of payment. For a complete list of features, observe the table provided below.
+</div>
+<br>
+<div align = "center">
+<table>
+<thead>
+<tr>
+<th style="text-align:right"></th>
+<th style="text-align:left">Variable</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:left">credit_policy</td>
+<td style="text-align:left">1 if the customer meets the credit underwriting criteria; 0 otherwise.</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:left">purpose</td>
+<td style="text-align:left">The purpose of the loan.</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:left">int_rate</td>
+<td style="text-align:left">The interest rate of the loan (more risky borrowers are assigned higher interest rates).</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:left">installment</td>
+<td style="text-align:left">The monthly installments owed by the borrower if the loan is funded.</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:left">log_annual_inc</td>
+<td style="text-align:left">The natural log of the self-reported annual income of the borrower.</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:left">dti</td>
+<td style="text-align:left">The debt-to-income ratio of the borrower (amount of debt divided by annual income).</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:left">fico</td>
+<td style="text-align:left">The FICO credit score of the borrower.</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:left">days_with_cr_line</td>
+<td style="text-align:left">The number of days the borrower has had a credit line.</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:left">revol_bal</td>
+<td style="text-align:left">The borrower&#39;s revolving balance (amount unpaid at the end of the credit card billing cycle).</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:left">revol_util</td>
+<td style="text-align:left">The borrower&#39;s revolving line utilization rate (the amount of the credit line used relative to total credit available).</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:left">inq_last_6mths</td>
+<td style="text-align:left">The borrower&#39;s number of inquiries by creditors in the last 6 months.</td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:left">delinq_2yrs</td>
+<td style="text-align:left">The number of times the borrower had been 30+ days past due on a payment in the past 2 years.</td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:left">pub_rec</td>
+<td style="text-align:left">The borrower&#39;s number of derogatory public records.</td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:left">not_fully_paid</td>
+<td style="text-align:left">1 if the loan is not fully paid; 0 otherwise.   </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div align = "justify">
+<a href="https://www.kaggle.com/itssuru/loan-data">Source</a> of dataset.
+</div>
+<br>
+<div align = "justify">
+Using the <code>.info</code> method, the data has no null values and the features are set to the appropriate data type. Moreover, the purpose column needs no improvement as it contains unique and justified values. For the classifier, the target variable is the not.fully.paid feature. Note that there is class imbalance as there are fewer examples of loans not fully paid. Specifically, eight thousand forty-five (8045) are fully paid while one thousand five hundred thirty-three (1533) are not. This is important to note since machine learning classifiers tend to underperform when class imbalance exists.
+<div align = "justify">
+<h3>Feature Engineering</h3>
+The heatmap of the correlation matrix between the numeric features are shown below. It is shown that FICO credit score and the interest rate are highly correlated. This is justified since FICO credit scoreare used by lenders to determine thes interest rate on loan. We opt to retain the weak to moderately correlated features. It is also possible that the features are too many. The classifier must also be fitted on a training data with a lower dimension. Dimensionality reduction is implemented using the Principal Component Analysis (PCA). By reducing the dimension to two (2), the features explains 99.9% of the variance.
+<br>
+For the categorical variable purpose, a one-hot encoding is applied to create a binary matrix.
+</div>
+<br>
+<div align="center">
+<img src="/assets/loan_corr.png" align="top" width="90%">
 </div>
 ~~~
 
