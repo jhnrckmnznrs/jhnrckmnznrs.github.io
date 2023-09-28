@@ -213,7 +213,7 @@ The repayment rate of loans is influenced by a variety of factors, including the
 <div align = "justify">
 <h3>Data Preprocessing</h3>
 <div align = "justify">
-The dataset contains information mainly about the borrower, such as the credit score and the status of payment. For a complete list of features, observe the table provided below.
+The <a href="/assets/loan_data.csv">dataset</a> contains information mainly about the borrower, such as the credit score and the status of payment. For a complete list of features, observe the table provided below.
 </div>
 <br>
 <div align = "center">
@@ -323,7 +323,7 @@ We use an extreme grandient-boosted (XGBoost) tree classifier for this situation
 <div align = "justify>
 Now, due to the class imbalance, a Synthetic Minority Over-sampling Technique (SMOTE) may be implemented to balance the two classes. The model obtained a 89% true negative rate, which is way lower than the previous two models. This may be due to the misrepresentation of the synthetic samples produced by SMOTE on the class.
 <br>
-Using an automated machine library like TPOT, an optimized pipieline is found based on the cross-validation scores. Looking at the true negative rates when the pipeline is fitted on the original and dimension-reduced training datasets, the true negative rates are 96% and 92% respectively.
+Using an automated machine library like TPOT, an optimized <a href = "/assets/tpot_loan.py>"pipieline</a> is found based on the cross-validation scores. Looking at the true negative rates when the pipeline is fitted on the original and dimension-reduced training datasets, the true negative rates are 96% and 92% respectively.
 </div>
 <div align = "justify">
 <h3>Conclusion</h3>
