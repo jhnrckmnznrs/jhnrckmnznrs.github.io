@@ -23,6 +23,7 @@ To determine whether course type is a factor in enrollment, we analyze the enrol
   <li>Data Preprocessing: Detailed explanation on data cleaning.</li>
   <li>Hypothesis Testing: Test to determine whether difference in enrollment counts is significant.</li>
   <li>Regression Model: Model to predict future enrollment trends.</li>
+  <li>Conclusion: Final remarks obtained from the model experiments.</li>
 </ol>
 </div>
 <div align = "justify">
@@ -175,7 +176,11 @@ Alternatively, we use the automated machine library TPOT to find a suitable mode
   <li><code>MaxAbsScaler</code>: Scale each feature by its maximum absolute value.</li>
   <li><code>LassoLarsCV</code>: Cross-validated L1 regularization using the least-angle regression algorithm</li>
 </ol>
-The root mean square error of the pipeline is 0.31574864822, which is way better compared than the intial models. Therefore, we choose this as a proposed model for production in identifying enrollment trends in this university.
+The root mean square error of the pipeline is 0.31574864822, which is way better compared than the intial models.
+</div>
+<div align = "justify">
+<h3>Conclusion</h3>
+Therefore, we choose this as a proposed model for production in identifying enrollment trends in this university.
 </div>
 ~~~
 
@@ -198,6 +203,7 @@ To determine whether a loan will be paid back, we analyze the important features
   <li>Data Preprocessing: Detailed explanation on data cleaning.</li>
   <li>Feature Engineering: Extract or select features to train in the classifier.</li>
   <li>Classifier: Model to classify loan repayments.</li>
+  <li>Conclusion: Final remarks obtained from the model experiments.</li>
 </ol>
 </div>
 <div align = "justify">
@@ -308,6 +314,20 @@ For the categorical variable purpose, a one-hot encoding is applied to create a 
 <br>
 <div align="center">
 <img src="/assets/loan_corr.png" align="top" width="90%">
+</div>
+<div align = "justify">
+<h3>Classifier</h3>
+We use an extreme grandient-boosted (XGBoost) tree classifier for this situation. A gradient boosted tree classifier utiilizes an ensemble of decision trees to make predictions. In addition, XGBoost is a specific implementation of a gradient boosted tree classifier that is popular due to its speed, scalibility, and accuracy. Note that the manager wants to accurately predict if a loan will not be paid back. Since <code>1</code> is the value for a loan not getting paid back, the true negative rate is the metric that the manager wants to see. In this case, the true negative rate is 96% which means that the model has a high accuracy on determining loans that will not be paid back. When the model is trained on a data whose dimension is reduced using PCA, the true negative rate slightly increases to 98%.
+</div>
+<br>
+<div align = "justify>
+Now, due to the class imbalance, a Synthetic Minority Over-sampling Technique (SMOTE) may be implemented to balance the two classes. The model obtained a 89% true negative rate, which is way lower than the previous two models. This may be due to the misrepresentation of the synthetic samples produced by SMOTE on the class.
+<br>
+Using an automated machine library like TPOT, an optimized pipieline is found based on the cross-validation scores. Looking at the true negative rates when the pipeline is fitted on the original and dimension-reduced training datasets, the true negative rates are 96% and 92% respectively.
+</div>
+<div align = "justify">
+<h3>Conclusion</h3>
+The XGBoost Classifier is a good model for finding loan application that will not be paid back due to its high score. Also, reducing the dimension of the data into 2 components using PCA helped increase the score by 2 percentage points. Applying PCA to the data and using the XGBoost model is the optimal choice (for now) in aiding the bank in loan repayments.
 </div>
 ~~~
 
