@@ -180,7 +180,7 @@ The root mean square error of the pipeline is 0.3135939840712398, which performs
 </div>
 <div align = "justify">
 <h3>Conclusion</h3>
-Therefore, we choose any model for deployment and observing more differences once new data are obtained.
+Therefore, we choose any model for deployment and observing more differences once new data are obtained. Note that any model is a good choice since the predictions on the holdout set roughly off by one (1) enrollee.
 </div>
 ~~~
 
