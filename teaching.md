@@ -19,7 +19,7 @@ tags = ["syntax", "code", "image"]
 ~~~
 <div align="justify">
 <ol>
-<li> <a href = "/assests/group_theory_presentation.pdf"> Group Theory </a> </li>
+<li> <a href = "/assets/group_theory_presentation.pdf"> Group Theory </a> </li>
 </ol>
 </div>
 ~~~
