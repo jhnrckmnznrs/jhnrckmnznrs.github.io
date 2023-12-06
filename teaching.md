@@ -14,6 +14,17 @@ tags = ["syntax", "code", "image"]
 </div>
 ~~~
 
+# LECTURE PRESENTATION 
+
+~~~
+<div align="justify">
+<ol>
+<li> <a href = "/assests/group_theory_presentation.pdf"> Group Theory </a> </li>
+</ol>
+</div>
+~~~
+
+
 # PRISON MATHEMATICS PROJECT
 
 ~~~
