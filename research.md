@@ -31,3 +31,11 @@ tags = ["syntax", "code"]
 <ol> <li> <a href="https://sites.google.com/view/tdaweek2023">TDA Week 2023 Conference</a> </li> <ul> <li> <a href="/assets/TDA Week Poster.png"> Poster Presentation </a> </li> </ul> <li> <a href="https://gtdaml.wixsite.com/2021">Second Graduate Student Conference: Geometry and Topology meet Data Analysis and Machine Learning (GTDAML2021)</a> </li> <ul> <li> <a href="/assets/GTDAML-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://www.mathsociety.ph/index.php?option=com_content&view=article&id=43&Itemid=163"> Mathematical Society of the Philippines Annual Convention (2021)</a> </li> <ul> <li> <a href="/assets/MSP-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://cinc.org"> Computing in Cardiology</a> 2021 </li></ol>
 </div>
 ~~~
+
+# OTHER PRESENTATIONS
+
+~~~
+<div align="justify">
+<ol> <li> <a href="/assets/export/index.html">TDA Research Group Presentation</a> </li> <ul> <li> <a href="/assets/TDA Week Poster.png"> Postponed </a> </li> </ul> </ol>
+</div>
+~~~
