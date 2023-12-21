@@ -36,6 +36,6 @@ tags = ["syntax", "code"]
 
 ~~~
 <div align="justify">
-<ol> <li> <a href="/assets/export/index.html">TDA Research Group Presentation</a> </li> <ul> <li> <a href="/assets/TDA Week Poster.png"> Postponed </a> </li> </ul> </ol>
+<ol> <li> <a href="/assets/export/index.html">TDA Research Group Presentation</a> </li> <ul> <li> Postponed </li> </ul> </ol>
 </div>
 ~~~
