@@ -36,6 +36,6 @@ tags = ["syntax", "code"]
 
 ~~~
 <div align="justify">
-<ol> <li> <a href="/assets/export/index.html">TDA Research Group Presentation</a> </li> <ul> <li> Postponed </li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">Citizen Science Event</a> </li> </ol> <ol> <li> <a href="/assets/export/index.html">Parol (Christmas Lantern) Making Contest</a> </li>
+<ol> <li> <a href="/assets/export/index.html">TDA Research Group Presentation</a> </li> <ul> <li> Postponed </li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">Citizen Science Event</a> </li> <li> <a href="/assets/export/index.html">Parol (Christmas Lantern) Making Contest</a> </li> </ol>
 </div>
 ~~~
