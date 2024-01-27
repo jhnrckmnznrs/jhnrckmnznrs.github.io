@@ -7,10 +7,10 @@ rss = "A short description of the page which would serve as **blurb** in a `RSS`
 tags = ["syntax", "code"]
 +++
 
-# CIP GRADUATE FELLOW
+# CIP GRADUATE FELLOWSHIP
 ~~~
 <div align="justify">
-As a dedicated CIP Fellow stationed at the QuICMaPP Facility, I have engaged in a diverse range of tasks and initiatives, leveraging my skills and expertise in the field. Here are some key highlights:
+Embarking my journey as a CIP Fellow stationed at the QuICMaPP Facility, I have actively participated in a diverse range of tasks and initiatives, leveraging my skills and expertise in the field. Here are some key highlights:
 <ol>
   <li>
     Object Detection Model Training and Hyperparameter Tuning
@@ -88,6 +88,7 @@ As a dedicated CIP Fellow stationed at the QuICMaPP Facility, I have engaged in 
     </ul>
   </li> 
 </ol>
+These accomplishments reflect my commitment to advancing knowledge and applying cutting-edge technologies in meaningful and creative ways. I am excited to continue contributing to innovative projects and driving positive change in my field.
 </div>
 ~~~
 
