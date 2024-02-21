@@ -41,6 +41,20 @@ Embarking my journey as a CIP Fellow stationed at the QuICMaPP Facility, I have 
     </ul>
   </li>
   <li>
+    Performance Evaluation of the Model
+    <ul>
+      <li>
+        Summarized the performance metrics and created visualizations to comopare the YOLOv5 (Default and Optimized) models and the YOLOv8 model.
+      </li>
+      <li>
+        Provided a short discussion of the history of YOLO, hyperparameter evolution, and object detection metrics.
+      </li>
+      <li>
+        Used hypothesis testing to determine whether the models are significantly difference from each other.
+      </li>
+    </ul>
+  </li>
+  <li>
     Literature Review on Image Monitoring Tools
     <ul>
       <li>
