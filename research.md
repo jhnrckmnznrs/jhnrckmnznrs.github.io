@@ -24,13 +24,10 @@ Embarking my journey as a CIP Fellow stationed at the QuICMaPP Facility, I have 
       <li>
         Performed five-fold cross validation to estimate the performance of the YOLO models on new data.
       </li>
-      <li>
-        Provided a comparison between the YOLOv5, optimized YOLOv5, and YOLOv8 models and summarized training results in preparation of manuscript writing.  
-      </li>
     </ul>
   </li>
   <li>
-    Class Activation Mapping (CAM) Analysis with YOLOv5
+    Class Activation Mapping (CAM) Analysis with the Trained YOLO Models
     <ul>
       <li>
         Applied Eigen-CAM to identify crucial regions of interest within the output of the YOLOv5 models and prepared a similar implementation on YOLOv8.
@@ -41,7 +38,7 @@ Embarking my journey as a CIP Fellow stationed at the QuICMaPP Facility, I have 
     </ul>
   </li>
   <li>
-    Performance Evaluation of the Model
+    Performance Evaluation of the Models
     <ul>
       <li>
         Summarized the performance metrics and created visualizations to comopare the YOLOv5 (Default and Optimized) models and the YOLOv8 model.
@@ -76,6 +73,20 @@ Embarking my journey as a CIP Fellow stationed at the QuICMaPP Facility, I have 
       </li>
       <li>
         Read advanced concepts on robust estimation and hypothesis testing.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Co-Supervision on the Student Assistantship (SA) Program
+    <ul>
+      <li>
+        Conducted initial assessment of the applicants to the SA program.
+      </li>
+      <li>
+        Conducted interviews to the shortlisted applicants.
+      </li>
+      <li>
+        Supervised accepted SAs in macroplastic tasks within the facility.
       </li>
     </ul>
   </li>
