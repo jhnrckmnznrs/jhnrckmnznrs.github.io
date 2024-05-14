@@ -4,7 +4,7 @@
 # ABOUT JOHN RICK
 ~~~
 <div align="center">
-<img src="/assets/sablay.jpg" align="top">
+<img src="/assets/JohnRick.jpg" align="top">
 </div>
 <div align="justify">
 Hey there! My name is John Rick Manzanares. I have been called John Rick, John Wick, John, Rick, and many others but I prefer the name 'John Rick'. I am a Filipino residing in <a href="https://philippines.travel/destinations/baguio-city"> Baguio City</a>, hailed as the Summer Capital of the Philippines and the City of Pines, located in the Central Cordillera of Northern Luzon. I finished high school at the <a href = "https://carc.pshs.edu.ph"> Philippine Science High School - Cordillera Administrative Region Campus</a>. Later on, I earned my Bachelor of Science in Mathematics (2018) and Master of Science in Mathematics (2022) degrees at the <a href = "https://www.upb.edu.ph"> University of the Philippines (UP) Baguio</a>. Currently, I work as a Department of Science and Technology-Science Education Institute Career (CIP) Incentive Program Master of Science Graduate Fellow at the Quantification, Identification, Classification, and Mapping of Plastics Pollution (QuICMaPP) Facility.
