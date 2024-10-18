@@ -1,4 +1,4 @@
-# My Website Repository
+# Personal Webpage
 
 Welcome to the GitHub repository for my personal website! This repository contains all the files and resources related to my website, providing an overview of the project structure, design, and functionality. My website serves as a showcase of my portfolio, projects, and other relevant information.
 
