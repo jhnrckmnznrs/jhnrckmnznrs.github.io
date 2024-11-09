@@ -29,6 +29,6 @@ tags = ["syntax", "code", "image"]
 
 ~~~
 <div align="justify">
-<ol> <li> Volunteer [December 2022 -- Present] </li> <ul> <li> Improving the mailing system for mentors and participants</li> <li> Creating a module on group or ring theory </li> </ul> </ol>
+<ol> <li> Volunteer [December 2022 -- February 2023] </li> <ul> <li> Improving the mailing system for mentors and participants</li> <li> Creating a module on group or ring theory </li> </ul> </ol>
 </div>
 ~~~
