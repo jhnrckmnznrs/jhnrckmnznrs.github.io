@@ -145,6 +145,6 @@ These accomplishments reflect my commitment to advancing knowledge and applying 
 
 ~~~
 <div align="justify">
-<ol> <li> <a href="/assets/export/index.html">TDA Research Group (UP Baguio) Presentation</a> </li> <ul> <li> Postponed </li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">QuICMaPP Facility Citizen Science Events</a> </li> <ul> <li> 05-10 January 2024</li> <li> 15 January 2024</li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">Parol (Christmas Lantern) Making Contest</a> </li> </ol>
+<ol> <li> <a href = "https://dioscuri-tda.org/BasicNotionsSeminar.html">Basic Notions Seminar (Dioscuri Centre in Topological Data Analysis)</a> </li> <li> <a href="https://dioscuri-tda.org/seminars.html">TDA Seminar (Dioscuri Centre in Topological Data Analysis)</a> </li> <li> <a href="/assets/export/index.html">TDA Research Group (UP Baguio) Presentation</a> </li> <ul> <li> Postponed </li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">QuICMaPP Facility Citizen Science Events</a> </li> <ul> <li> 05-10 January 2024</li> <li> 15 January 2024</li> </ul> <li> <a href="https://www.facebook.com/photo/?fbid=122129651666047871&set=pcb.122129651738047871">Parol (Christmas Lantern) Making Contest</a> </li> </ol>
 </div>
 ~~~
