@@ -1,5 +1,5 @@
 +++
-title = "Data Science Portfolio"
+title = "Thought Journal"
 +++
 
 # MACHINE LEARNING
@@ -785,13 +785,3 @@ Moreover, the four lowest-rated beer products are shown in the following table.
   </tr>
 </table>
 ~~~
-
-# FUTURE PROJECTS
-
-## Machine Unlearning
-
-## Topological Image Processing
-
-## Agricultural Topological Data Analysis
-
-## Sports Analytics using Topological Data Analysis
