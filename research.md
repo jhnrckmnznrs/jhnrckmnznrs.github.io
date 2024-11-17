@@ -7,6 +7,13 @@ rss = "A short description of the page which would serve as **blurb** in a `RSS`
 tags = ["syntax", "code"]
 +++
 
+# Marie Skłodowska-Curie Actions Fellowship in Doctoral Networks
+~~~
+<div align="justify">
+As an early stage researcher, I am engaged in interdisciplinary research within the GAP Project, focusing on topological analysis of bone medical images.
+</div>
+~~~
+
 # CIP GRADUATE FELLOWSHIP
 ~~~
 <div align="justify">
