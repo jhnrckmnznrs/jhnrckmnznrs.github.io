@@ -10,7 +10,33 @@ tags = ["syntax", "code"]
 # Marie Skłodowska-Curie Actions Fellowship in Doctoral Networks
 ~~~
 <div align="justify">
-As an early stage researcher, I am engaged in interdisciplinary research within the GAP Project, focusing on topological analysis of bone medical images.
+As an early stage researcher, I am engaged in interdisciplinary research within the GAP Project, focusing on topological analysis of bone medical images. Here are some key highlights:
+<ol>
+  <li>
+    Standard Bone Morphometry
+    <ul>
+      <li>
+        Extracted bone morphometric measurements using BoneJ (a plugin for ImageJ). 
+      </li>
+    </ul>
+  </li>
+  <li>
+    Topological Data Analysis
+    <ul>
+      <li>
+        Generated vector representations of the cubical persistent homology computed from the bone medical images. 
+      </li>
+    </ul>
+  </li>
+  <li>
+    Traditional Machine Learning
+    <ul>
+      <li>
+        Trained machine learning models for regression to predict bone strength using extracted features. 
+      </li>
+    </ul>
+  </li>
+</ol>
 </div>
 ~~~
 
