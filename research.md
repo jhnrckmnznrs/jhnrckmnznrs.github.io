@@ -154,15 +154,7 @@ These accomplishments reflect my commitment to advancing knowledge and applying 
 
 ~~~
 <div align="justify">
-<ol> <li> Ignacio, P.S., Bulauan, J.-A., & Manzanares, J.R. (2020). A Topology Informed Random Forest Classifier for ECG Classification. In 2020 Computing in Cardiology Conference (CinC). 2020 Computing in Cardiology Conference. Computing in Cardiology. <a href="https://doi.org/10.22489/cinc.2020.297">https://doi.org/10.22489/cinc.2020.297</a> </li> </ol>
-</div>
-~~~
-
-## PREPRINTS
-
-~~~
-<div align="justify">
-<ol> <li> Manzanares, J. R. D., & Ignacio, P. S. P. (2022). Stable Homology-Based Cycle Centrality Measures for Weighted Graphs (Version 1). arXiv. <a href="https://doi.org/10.48550/ARXIV.2208.05565">https://doi.org/10.48550/ARXIV.2208.05565</a> </li> </ol>
+<ol> <li> Ignacio, P.S., Bulauan, J.-A., & Manzanares, J.R. (2020). A Topology Informed Random Forest Classifier for ECG Classification. In 2020 Computing in Cardiology Conference (CinC). 2020 Computing in Cardiology Conference. Computing in Cardiology. <a href="https://doi.org/10.22489/cinc.2020.297">https://doi.org/10.22489/cinc.2020.297</a> </li> <li> Manzanares, J. R. D., & Ignacio, P. S. P. (2025). Stable homology-based cycle centrality measures. <em> Journal of Mathematics and Computer Science, 38</em>(2), 179–200. doi:10.22436/jmcs.038.02.03 </li> </ol>
 </div>
 ~~~
 
