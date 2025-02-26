@@ -4,6 +4,18 @@ title = "Thought Journal"
 
 # Strangers and Struggles in a New World
 
+#### 26 February 2025
+
+~~~
+<div align = "justify">
+Moving to a new opportunity does not always mean stepping into a better environment. The struggles I face now feel eerily familiar—most of them have little to do with the research itself. Preparing for a presentation about my work should have been exciting, a chance to showcase my academic background, project objectives, and research plans. Instead, it only served as a reminder of the endless roadblocks. The lack of necessary data left me stranded, and project mismanagement only deepened the frustration. With every passing day, my motivation wanes, and the passion that once fueled my academic journey continues to slip away.
+<br><br>
+Then there are the logistical nightmares—visa applications, endless bureaucratic red tape, and the exhausting process of securing temporary residence as a foreign researcher. The lack of administrative support from my employer makes everything needlessly difficult. For months, anxiety has been creeping in as I navigate a system that seems designed to be as inefficient as possible. The foreigner department’s website is as bad as ever—confusing, outdated, and utterly unhelpful. Maybe this is a sign that it is time to rethink my path.
+<br><br>
+Attending scientific meetings, once something I looked forward to, has only reinforced my disillusionment. I expected intellectual engagement, thought-provoking discussions, and valuable insights to refine my work. Instead, I encountered dismissiveness, condescension, and outright disrespect. There was no constructive criticism—just gatekeeping disguised as expertise. This experience has made one thing clearer than ever: academia may not be worth it. The decision to leave is becoming less of a possibility and more of an inevitability.
+</div>
+~~~
+
 #### 20 December 2024
 
 ~~~
