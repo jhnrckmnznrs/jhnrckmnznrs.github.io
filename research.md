@@ -26,6 +26,9 @@ As an early stage researcher, I am engaged in interdisciplinary research within 
       <li>
         Generated vector representations of the cubical persistent homology computed from the bone medical images. 
       </li>
+      <li>
+        Generalizing the concept of merge trees by tracking the dying of homology classes. 
+      </li>
     </ul>
   </li>
   <li>
