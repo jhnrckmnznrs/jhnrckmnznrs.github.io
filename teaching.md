@@ -5,6 +5,24 @@ rss_title = "Teaching Experience"
 tags = ["syntax", "code", "image"]
 +++
 
+# UNIVERSITY OF WARSAW
+
+~~~
+<div align="justify">
+<ol>
+<li> Introduction to TDA Exercise Classes [February 2025 -- July 2025] </li>
+  <ul>
+    <li>
+      Preparing exercise sheets comprising of (in-person) guided and homework exercises
+    </li>
+    <li>
+      Guiding students in analyzing and solving theoretical and practical exercises
+    </li>
+  </ul>
+</ol>
+</div>
+~~~
+
 # UNIVERSITY OF THE PHILIPPINES BAGUIO
 
 ~~~
