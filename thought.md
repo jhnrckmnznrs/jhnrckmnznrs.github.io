@@ -4,6 +4,20 @@ title = "Thought Journal"
 
 # Strangers and Struggles in a New World
 
+#### 16 May 2025
+
+~~~
+<div align = "justify">
+A recent <a href="https://sulf.se/app/uploads/2025/04/Report-migration-SULF-dca_final_May7_25_updated.pdf">report</a> by the Swedish Association of University Teachers and Researchers echoes a reality I know all too well. As a PhD student and early-stage researcher in Poland, the quality of life issues raised in the study feel painfully familiar. What I once imagined as a calm and inspiring academic journey quickly unraveled into a bureaucratic labyrinth—and the nightmare began as early as the first week. The difficulty of securing the right to stay in Poland, particularly due to the scarcity of available appointment slots for a temporary residence permit, continues to be an uphill battle. Unlike EU citizens who navigate a more streamlined process, I am left with an inefficient, disheartening path that drags on endlessly. Strangely, it seems that only institutional connections with the immigration offices can unlock appointments—an implicit reflection on how systems sometimes reward proximity over fairness.
+<br><br>
+This prolonged instability has taken a toll on both my quality of life and mental health. Even after eight months, I find myself mentally fatigued, weighed down by the cumulative stress of opening a bank account, searching for a home, and navigating countless government offices for registration. Still, I am without a work laptop—so my personal one has unwillingly become my academic lifeline. Every day, I haul it back and forth, slowly erasing the line I once drew between work and personal life. I had envisioned this fellowship as a period of growth and ambition. Instead, I feel like a shadow of the researcher I set out to become—disillusioned, anxious, and lacking the mental space to even focus on developing my project. I often wonder: how can brilliance bloom in soil that is so dry and cracked?
+<br><br>
+The PhD journey, once a beacon of purpose, now feels like a cautionary tale. Ironically, when I assert my rights as a Marie Skłodowska-Curie Actions (MSCA) Doctoral Fellow, as outlined clearly in the MSCA handbook—where host institutions are obligated to assist with administrative processes such as visa and residence permits—I am met with accusations of arrogance or disrespect. It is disheartening to be painted as problematic for simply requesting the support I was promised. I ask myself: what does it mean to uphold dignity in a system that often seems indifferent to it?
+<br><br>
+And so, here I am—navigating not only a research project but an entire infrastructure that feels unwelcoming. Each day may bring a new lesson in resilience. Our academic journeys deserve more than silent suffering. However, each day may also offer a new perspective on life. Perhaps the persistence of these unchanging academic challenges is not just a test of endurance, but a signal—reminding me that there are paths elsewhere, places that will truly value who I am and foster real growth, both personally and professionally.
+</div>
+~~~
+
 #### 26 February 2025
 
 ~~~
