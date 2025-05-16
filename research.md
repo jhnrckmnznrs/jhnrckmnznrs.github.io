@@ -13,10 +13,16 @@ tags = ["syntax", "code"]
 As an early stage researcher, I am engaged in interdisciplinary research within the GAP Project, focusing on topological analysis of bone medical images. Here are some key highlights:
 <ol>
   <li>
-    Standard Bone Morphometry
+    Bone Image Analysis
     <ul>
       <li>
         Extracted bone morphometric measurements using BoneJ (a plugin for ImageJ). 
+      </li>
+      <li>
+        Extracted quantitative measurements (similar to BoneJ) using efficient Python implementations. 
+      </li>
+      <li>
+        Explored image denoising and segmentation methods for micro-computed tomography (micro-CT) images.
       </li>
     </ul>
   </li>
@@ -36,6 +42,9 @@ As an early stage researcher, I am engaged in interdisciplinary research within 
     <ul>
       <li>
         Trained machine learning models for regression to predict bone strength using extracted features. 
+      </li>
+      <li>
+        Analyzed the performance of various feature sets to predict bone strength.
       </li>
     </ul>
   </li>
