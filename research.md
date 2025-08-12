@@ -24,6 +24,9 @@ As an early stage researcher, I am engaged in interdisciplinary research within 
       <li>
         Explored image denoising and segmentation methods for micro-computed tomography (micro-CT) images.
       </li>
+      <li>
+        Analyzed topological characteristics of segmented images.
+      </li>
     </ul>
   </li>
   <li>
@@ -166,7 +169,12 @@ These accomplishments reflect my commitment to advancing knowledge and applying 
 
 ~~~
 <div align="justify">
-<ol> <li> Ignacio, P.S., Bulauan, J.-A., & Manzanares, J.R. (2020). A Topology Informed Random Forest Classifier for ECG Classification. In 2020 Computing in Cardiology Conference (CinC). 2020 Computing in Cardiology Conference. Computing in Cardiology. <a href="https://doi.org/10.22489/cinc.2020.297">https://doi.org/10.22489/cinc.2020.297</a> </li> <li> Manzanares, J. R. D., & Ignacio, P. S. P. (2025). Stable homology-based cycle centrality measures. <em> Journal of Mathematics and Computer Science, 38</em>(2), 179–200. doi:10.22436/jmcs.038.02.03 </li> </ol>
+<ol>
+<li> Manzanares, J. R. D., & Ignacio, P. S. P. (2025). Stable homology-based cycle centrality measures. <em> Journal of Mathematics and Computer Science, 38</em>(2), 179–200. doi:10.22436/jmcs.038.02.03
+</li>
+<li> Ignacio, P.S., Bulauan, J.-A., & Manzanares, J.R. (2020). A Topology Informed Random Forest Classifier for ECG Classification. In 2020 Computing in Cardiology Conference (CinC). 2020 Computing in Cardiology Conference. Computing in Cardiology. <a href="https://doi.org/10.22489/cinc.2020.297">https://doi.org/10.22489/cinc.2020.297</a>
+</li>
+</ol>
 </div>
 ~~~
 
@@ -174,7 +182,38 @@ These accomplishments reflect my commitment to advancing knowledge and applying 
 
 ~~~
 <div align="justify">
-<ol> <li> <a href="https://sites.google.com/view/tdaweek2023">TDA Week 2023 Conference</a> </li> <ul> <li> <a href="/assets/TDA Week Poster.png"> Poster Presentation </a> </li> </ul> <li> <a href="https://gtdaml.wixsite.com/2021">Second Graduate Student Conference: Geometry and Topology meet Data Analysis and Machine Learning (GTDAML2021)</a> </li> <ul> <li> <a href="/assets/GTDAML-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://www.mathsociety.ph/index.php?option=com_content&view=article&id=43&Itemid=163"> Mathematical Society of the Philippines Annual Convention (2021)</a> </li> <ul> <li> <a href="/assets/MSP-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://cinc.org"> Computing in Cardiology</a> 2021 </li></ol>
+<ol>
+  <li>
+    <a href="https://sites.google.com/view/applied-topology-2025/home?authuser=0">Applied Topology in Poznań 2025</a>
+  </li>
+  <ul>
+    <li>
+      <a href="/assets/ATiPPoster.png"> Poster Presentation </a>
+    </li>
+  </ul>
+  <li>
+    <a href="https://www.pawelpilarczyk.com/bts2024/">Mathematical Analysis of Biomedical Time Series 2024</a>
+  </li>
+  <li>
+    <a href="https://sites.google.com/view/tdaweek2023">TDA Week 2023 Conference</a>
+  </li>
+  <ul>
+    <li>
+      <a href="/assets/TDA Week Poster.png"> Poster Presentation </a>
+    </li>
+  </ul>
+  <li>
+    <a href="https://gtdaml.wixsite.com/2021">Second Graduate Student Conference: Geometry and Topology meet Data Analysis and Machine Learning (GTDAML2021)</a>
+  </li>
+  <ul>
+    <li>
+      <a href="/assets/GTDAML-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://www.mathsociety.ph/index.php?option=com_content&view=article&id=43&Itemid=163"> Mathematical Society of the Philippines Annual Convention (2021) </a>
+  </li>
+  <ul>
+    <li>
+      <a href="/assets/MSP-Presentation.pdf"> Presentation </a> </li> </ul> <li> <a href="https://cinc.org"> Computing in Cardiology</a> 2021
+    </li>
+</ol>
 </div>
 ~~~
 
