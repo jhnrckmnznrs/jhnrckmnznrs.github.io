@@ -184,6 +184,9 @@ These accomplishments reflect my commitment to advancing knowledge and applying 
 <div align="justify">
 <ol>
   <li>
+    <a href="https://sites.google.com/view/liii-kzm">53rd Conference on the Applications of Mathematics</a>
+  </li>
+  <li>
     <a href="https://sites.google.com/view/applied-topology-2025/home?authuser=0">Applied Topology in Poznań 2025</a>
   </li>
   <ul>
