@@ -5,33 +5,53 @@ import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
 
 <Layout
   title="Trabecular Bone Viewer"
-  description="A browser based viewer for progressively refined trabecular bone surfaces."
+  description="A local browser viewer for TIFF, OME TIFF, image slice folders, and progressively refined trabecular bone surfaces."
 >
   <header class="page-hero shell">
     <p class="kicker">Research tool · Prototype</p>
-    <h1>Inspect trabecular bone in the browser.</h1>
+    <h1>Give the viewer a volume, not a format.</h1>
     <p class="page-intro">
-      This prototype is designed for fast first visualisation. It opens a small overview surface first,
-      then replaces it with finer geometry only when more detail is useful.
+      A bone volume may arrive as one multipage TIFF, one OME TIFF, hundreds of TIFF slices,
+      hundreds of PNG slices, or a prepared surface dataset. The viewer now treats these as
+      different sources for the same three dimensional object.
     </p>
   </header>
 
   <section class="section section-soft">
     <div class="shell viewer-intro-grid">
       <article>
-        <p class="eyebrow">Local first</p>
-        <h2>Your specimen can stay on your computer.</h2>
+        <p class="eyebrow">Inspect before loading</p>
+        <h2>Size determines the strategy.</h2>
         <p>
-          Select a prepared specimen folder below. The files are read by the browser from your device.
-          Local mode does not upload them to this website.
+          The viewer reads metadata first, estimates the raw volume and working memory, and decides whether
+          direct processing, a streamed preview, or future spatial refinement is the appropriate route.
         </p>
       </article>
+
       <article>
-        <p class="eyebrow">Progressive detail</p>
-        <h2>Do not wait for native detail before moving the model.</h2>
+        <p class="eyebrow">Local first</p>
+        <h2>The source can remain on your computer.</h2>
         <p>
-          The viewer starts with an overview mesh, can refine automatically through medium detail,
-          and loads the native surface only when you explicitly request it.
+          TIFF pages and slice files are read locally in the browser. A large source can therefore be
+          inspected without first uploading the complete scan to the website.
+        </p>
+      </article>
+
+      <article>
+        <p class="eyebrow">Flexible input</p>
+        <h2>One file or a directory of slices.</h2>
+        <p>
+          Multipage TIFF and OME TIFF are supported alongside folders containing one TIFF or PNG per slice.
+          Slice names are sorted numerically and the first, middle, and last names are shown for review.
+        </p>
+      </article>
+
+      <article>
+        <p class="eyebrow">Prepared data still matters</p>
+        <h2>Fast repeated viewing remains available.</h2>
+        <p>
+          Prepared multiresolution surfaces are still the preferred route when the same specimen is opened
+          repeatedly or native detail is too expensive to generate in the browser.
         </p>
       </article>
     </div>
@@ -47,65 +67,125 @@ import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
     <div class="shell">
       <div class="section-heading">
         <div>
-          <p class="kicker">How the prototype works</p>
-          <h2>One segmentation, several surfaces.</h2>
+          <p class="kicker">Processing regimes</p>
+          <h2>The viewer should refuse unsafe assumptions.</h2>
         </div>
         <p>
-          The preparation step converts a binary volume into several gzip compressed GLB meshes.
-          Coarse levels are for navigation. The final level is extracted from the native segmentation.
+          These boundaries are engineering defaults, not universal browser limits. They will be revised from
+          measurements on real datasets and ordinary computers.
         </p>
       </div>
 
-      <ol class="viewer-pipeline">
-        <li>
+      <div class="regime-grid">
+        <article>
           <span>01</span>
-          <div>
-            <h3>Prepare once</h3>
-            <p>Convert an OME TIFF or TIFF segmentation into a viewer folder with a manifest and surface levels.</p>
-          </div>
-        </li>
-        <li>
+          <h3>Direct processing</h3>
+          <p>
+            Small sources can offer several generated detail levels and, when the voxel count remains modest,
+            a surface from the native source grid.
+          </p>
+          <small>Initial rule: raw estimate at most 256 MiB.</small>
+        </article>
+
+        <article>
           <span>02</span>
-          <div>
-            <h3>Open the overview</h3>
-            <p>The smallest surface appears first so rotation, zoom, and pan become available quickly.</p>
-          </div>
-        </li>
-        <li>
+          <h3>Streaming preview</h3>
+          <p>
+            Medium sources are sampled slice by slice into smaller working volumes. The complete source is not
+            assembled simply to obtain a useful first surface.
+          </p>
+          <small>Initial rule: above 256 MiB and at most 4 GiB.</small>
+        </article>
+
+        <article>
           <span>03</span>
-          <div>
-            <h3>Refine only when useful</h3>
-            <p>Preview and medium surfaces replace the overview without resetting the camera.</p>
-          </div>
-        </li>
-        <li>
-          <span>04</span>
-          <div>
-            <h3>Request native detail</h3>
-            <p>The largest mesh is never required simply to begin looking at the specimen.</p>
-          </div>
-        </li>
-      </ol>
+          <h3>Spatial refinement required</h3>
+          <p>
+            Very large sources can still produce a coarse preview, but native inspection should refine spatial
+            regions instead of creating one complete native mesh.
+          </p>
+          <small>Initial rule: raw estimate above 4 GiB.</small>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">What is already flexible</p>
+          <h2>Several storage layouts, one viewer.</h2>
+        </div>
+        <p>
+          The current source adapters expose the same slice reading interface to the surface pipeline.
+        </p>
+      </div>
+
+      <div class="format-table-wrap">
+        <table class="format-table">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Current behaviour</th>
+              <th>Spacing</th>
+              <th>Large volume route</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Multipage TIFF</td>
+              <td>Pages are accessed lazily and resampled only when required.</td>
+              <td>Manual unless metadata are available.</td>
+              <td>Streamed preview.</td>
+            </tr>
+            <tr>
+              <td>OME TIFF</td>
+              <td>One channel and one time point are accepted.</td>
+              <td>Read from OME metadata when present.</td>
+              <td>Streamed preview.</td>
+            </tr>
+            <tr>
+              <td>TIFF slice folder</td>
+              <td>One image per file, natural numeric sorting.</td>
+              <td>Manual.</td>
+              <td>Selected slices are decoded individually.</td>
+            </tr>
+            <tr>
+              <td>PNG slice folder</td>
+              <td>Browser image decoding and natural numeric sorting.</td>
+              <td>Manual.</td>
+              <td>Selected slices are decoded individually.</td>
+            </tr>
+            <tr>
+              <td>Prepared dataset</td>
+              <td>Compressed surface levels load directly.</td>
+              <td>Stored in the manifest.</td>
+              <td>Fastest current route for repeated use.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <aside class="viewer-science-note">
         <strong>Scientific caution.</strong>
         <p>
-          The overview, preview, and medium meshes are visual navigation approximations. In the current
-          converter they use max pooling before surface extraction, which can alter thin structures and topology.
-          Use the native detail level for structural inspection when those differences matter.
+          Browser generated preview surfaces use selected Z slices and image resampling. They are intended
+          for navigation and can miss thin trabeculae or change topology. A prepared native surface or the
+          future spatial format should be used when those details matter.
         </p>
       </aside>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-soft">
     <div class="shell compact-callout">
-      <p class="kicker">Next engineering step</p>
-      <h2>Replace whole specimen levels with spatial chunks.</h2>
+      <p class="kicker">Next implementation target</p>
+      <h2>Preview the image before building the surface.</h2>
       <p>
-        This prototype tests the interaction model and gives us real measurements for file size, decompression,
-        parsing, first render time, and frame rate. If the native surface becomes too large, the next version
-        will divide it spatially and refine only the visible regions.
+        The next useful addition is an orthogonal slice view with a histogram and threshold preview.
+        That will make grayscale micro CT import much safer and will let spacing, ordering, and segmentation
+        be checked before a three dimensional surface is generated.
       </p>
       <div class="actions">
         <a class="button secondary" href="/research/topology-bone-fragility/">Back to the bone research interface</a>
@@ -130,7 +210,7 @@ import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
     .viewer-intro-grid h2 {
       margin: 0;
       font-family: ui-serif, Georgia, serif;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
       line-height: 1.1;
     }
 
@@ -143,34 +223,68 @@ import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
       padding-top: 2.5rem;
     }
 
-    .viewer-pipeline {
+    .regime-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 1rem;
-      margin: 0;
-      padding: 0;
-      list-style: none;
     }
 
-    .viewer-pipeline li {
-      padding: 1.2rem;
+    .regime-grid article {
+      padding: 1.25rem;
       border-top: 2px solid var(--pine);
-      background: rgba(255,255,255,.3);
+      background: rgba(255,255,255,.32);
     }
 
-    .viewer-pipeline > li > span {
+    .regime-grid span {
       color: var(--terracotta);
       font-family: ui-serif, Georgia, serif;
     }
 
-    .viewer-pipeline h3 {
-      margin: .55rem 0 .35rem;
+    .regime-grid h3 {
+      margin: .55rem 0 .4rem;
       font-family: ui-serif, Georgia, serif;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
     }
 
-    .viewer-pipeline p {
-      margin: 0;
+    .regime-grid p {
+      color: var(--ink-soft);
+    }
+
+    .regime-grid small {
+      color: var(--ink-soft);
+      font-size: .72rem;
+    }
+
+    .format-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.34);
+    }
+
+    .format-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: .86rem;
+    }
+
+    .format-table th,
+    .format-table td {
+      padding: .85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .format-table th {
+      color: var(--terracotta);
+      font-size: .72rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .format-table td:not(:first-child) {
       color: var(--ink-soft);
     }
 
@@ -188,14 +302,13 @@ import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
     }
 
     @media (max-width: 900px) {
-      .viewer-pipeline {
-        grid-template-columns: repeat(2, minmax(0,1fr));
+      .regime-grid {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 680px) {
-      .viewer-intro-grid,
-      .viewer-pipeline {
+      .viewer-intro-grid {
         grid-template-columns: 1fr;
       }
     }

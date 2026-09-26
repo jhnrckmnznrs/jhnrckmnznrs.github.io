@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test:viewer": "node tests/bone-viewer-smoke.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",
+    "geotiff": "^3.0.5",
+    "isosurface": "^1.0.0",
     "three": "^0.186.1"
   }
 }
