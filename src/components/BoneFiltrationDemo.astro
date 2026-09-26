@@ -1,0 +1,416 @@
+---
+const size = 11;
+const cells = [];
+
+for (let y = 0; y < size; y += 1) {
+  for (let x = 0; x < size; x += 1) {
+    const ringDistance = Math.abs(Math.hypot(x - 5.5, y - 4.8) - 3.05);
+    const ring = 18 + ringDistance * 18;
+    const lowerBlob = 28 + Math.hypot(x - 2.0, y - 8.4) * 13;
+    const bridge = 43 + Math.abs(y - 7.0) * 15 + Math.abs(x - 3.6) * 4;
+    const value = Math.max(10, Math.min(96, Math.round(Math.min(ring, lowerBlob, bridge))));
+    cells.push({ x, y, value });
+  }
+}
+---
+
+<section class="filtration-demo" id="filtration-demo" aria-labelledby="filtration-title">
+  <div class="demo-heading">
+    <div>
+      <p class="eyebrow">Interactive concept</p>
+      <h2 id="filtration-title">Move through a filtration</h2>
+    </div>
+    <p>
+      A filtration reveals a structure gradually. Here, cells enter when their scalar value
+      falls below the selected threshold.
+    </p>
+  </div>
+
+  <div class="demo-layout">
+    <div class="grid-panel">
+      <svg
+        class="cubical-grid"
+        viewBox="0 0 330 330"
+        role="img"
+        aria-labelledby="grid-title grid-desc"
+        data-grid
+      >
+        <title id="grid-title">Toy two-dimensional cubical filtration</title>
+        <desc id="grid-desc">
+          A synthetic grid in which cells become active as the filtration threshold increases.
+          Gold cells indicate enclosed background regions in the current toy example.
+        </desc>
+        {cells.map((cell) => (
+          <rect
+            x={cell.x * 30 + 1}
+            y={cell.y * 30 + 1}
+            width="28"
+            height="28"
+            rx="2"
+            data-cell
+            data-x={cell.x}
+            data-y={cell.y}
+            data-level={cell.value}
+          />
+        ))}
+      </svg>
+
+      <div class="legend" aria-hidden="true">
+        <span><i class="legend-cell inactive"></i> not yet entered</span>
+        <span><i class="legend-cell active"></i> entered</span>
+        <span><i class="legend-cell hole"></i> enclosed void</span>
+      </div>
+    </div>
+
+    <div class="controls-panel">
+      <label for="filtration-threshold">
+        Filtration threshold
+        <output id="filtration-value" for="filtration-threshold">45</output>
+      </label>
+      <input
+        id="filtration-threshold"
+        type="range"
+        min="10"
+        max="96"
+        value="45"
+        step="1"
+        data-threshold
+      />
+
+      <div class="betti-readout" aria-live="polite" aria-atomic="true">
+        <div>
+          <span class="symbol">β<sub>0</sub></span>
+          <strong data-b0>0</strong>
+          <small>edge-connected components</small>
+        </div>
+        <div>
+          <span class="symbol">β<sub>1</sub></span>
+          <strong data-b1>0</strong>
+          <small>enclosed voids</small>
+        </div>
+      </div>
+
+      <p class="demo-status" data-status>
+        Adjust the threshold to see components appear, merge, and enclose a void.
+      </p>
+
+      <div class="concept-note">
+        <strong>This is a teaching model, not patient data.</strong>
+        <p>
+          It is deliberately two-dimensional and uses edge adjacency so the change in topology
+          is easy to inspect. The research workflow operates on three-dimensional cubical complexes,
+          where dimensions 0, 1, and 2 describe components, tunnels, and cavities.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector('#filtration-demo');
+
+  if (root) {
+    const slider = root.querySelector('[data-threshold]');
+    const output = root.querySelector('#filtration-value');
+    const cells = Array.from(root.querySelectorAll('[data-cell]'));
+    const b0Node = root.querySelector('[data-b0]');
+    const b1Node = root.querySelector('[data-b1]');
+    const statusNode = root.querySelector('[data-status]');
+    const size = 11;
+
+    const key = (x, y) => `${x},${y}`;
+    const neighbours = (x, y) => [
+      [x - 1, y],
+      [x + 1, y],
+      [x, y - 1],
+      [x, y + 1]
+    ].filter(([nx, ny]) => nx >= 0 && nx < size && ny >= 0 && ny < size);
+
+    const countComponents = (active) => {
+      const seen = new Set();
+      let count = 0;
+
+      active.forEach((_, k) => {
+        if (seen.has(k)) return;
+        count += 1;
+        const queue = [k];
+        seen.add(k);
+
+        while (queue.length) {
+          const current = queue.shift();
+          const [x, y] = current.split(',').map(Number);
+
+          neighbours(x, y).forEach(([nx, ny]) => {
+            const next = key(nx, ny);
+            if (active.has(next) && !seen.has(next)) {
+              seen.add(next);
+              queue.push(next);
+            }
+          });
+        }
+      });
+
+      return count;
+    };
+
+    const findHoles = (active) => {
+      const seen = new Set();
+      const holeCells = new Set();
+      let holes = 0;
+
+      for (let y = 0; y < size; y += 1) {
+        for (let x = 0; x < size; x += 1) {
+          const start = key(x, y);
+          if (active.has(start) || seen.has(start)) continue;
+
+          const queue = [start];
+          const component = [];
+          let touchesBoundary = false;
+          seen.add(start);
+
+          while (queue.length) {
+            const current = queue.shift();
+            const [cx, cy] = current.split(',').map(Number);
+            component.push(current);
+
+            if (cx === 0 || cy === 0 || cx === size - 1 || cy === size - 1) {
+              touchesBoundary = true;
+            }
+
+            neighbours(cx, cy).forEach(([nx, ny]) => {
+              const next = key(nx, ny);
+              if (!active.has(next) && !seen.has(next)) {
+                seen.add(next);
+                queue.push(next);
+              }
+            });
+          }
+
+          if (!touchesBoundary) {
+            holes += 1;
+            component.forEach((cell) => holeCells.add(cell));
+          }
+        }
+      }
+
+      return { holes, holeCells };
+    };
+
+    const render = () => {
+      const threshold = Number(slider.value);
+      const active = new Map();
+
+      cells.forEach((cell) => {
+        const x = Number(cell.dataset.x);
+        const y = Number(cell.dataset.y);
+        const level = Number(cell.dataset.level);
+        const isActive = level <= threshold;
+        cell.classList.toggle('is-active', isActive);
+        cell.classList.remove('is-hole');
+
+        if (isActive) active.set(key(x, y), true);
+      });
+
+      const components = countComponents(active);
+      const { holes, holeCells } = findHoles(active);
+
+      cells.forEach((cell) => {
+        const cellKey = key(Number(cell.dataset.x), Number(cell.dataset.y));
+        if (!active.has(cellKey) && holeCells.has(cellKey)) {
+          cell.classList.add('is-hole');
+        }
+      });
+
+      output.value = threshold;
+      output.textContent = String(threshold);
+      b0Node.textContent = String(components);
+      b1Node.textContent = String(holes);
+
+      let message = 'At this threshold, no cells have entered the filtration.';
+      if (active.size > 0 && holes === 0 && components > 1) {
+        message = `There are ${components} separate components. Increase the threshold and watch for merging or enclosure.`;
+      } else if (active.size > 0 && holes === 0 && components === 1) {
+        message = 'The entered cells form one component, with no enclosed void under this toy adjacency convention.';
+      } else if (holes > 0) {
+        message = `The current set has ${components} component${components === 1 ? '' : 's'} and ${holes} enclosed void${holes === 1 ? '' : 's'}.`;
+      }
+
+      statusNode.textContent = message;
+    };
+
+    slider.addEventListener('input', render);
+    render();
+  }
+</script>
+
+<style>
+  .filtration-demo {
+    margin-top: 2.5rem;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .38);
+    box-shadow: var(--shadow);
+  }
+
+  .demo-heading {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+
+  .demo-heading h2 {
+    margin: 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: -.035em;
+  }
+
+  .demo-heading > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .demo-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, .85fr) minmax(300px, 1.15fr);
+    gap: clamp(1.25rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .grid-panel {
+    max-width: 470px;
+  }
+
+  .cubical-grid {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #e9e3d9;
+  }
+
+  [data-cell] {
+    fill: rgba(255,255,255,.38);
+    stroke: rgba(23,42,58,.07);
+    stroke-width: 1;
+    transition: fill 160ms ease, opacity 160ms ease;
+  }
+
+  [data-cell].is-active {
+    fill: var(--pine);
+  }
+
+  [data-cell].is-hole {
+    fill: var(--ochre);
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8rem 1rem;
+    margin-top: .75rem;
+    color: var(--ink-soft);
+    font-size: .75rem;
+  }
+
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+
+  .legend-cell {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.38);
+  }
+
+  .legend-cell.active { background: var(--pine); }
+  .legend-cell.hole { background: var(--ochre); }
+
+  .controls-panel label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    font-weight: 750;
+  }
+
+  .controls-panel output {
+    color: var(--terracotta);
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.4rem;
+  }
+
+  input[type='range'] {
+    width: 100%;
+    margin: .75rem 0 1.5rem;
+    accent-color: var(--terracotta);
+  }
+
+  .betti-readout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+  }
+
+  .betti-readout > div {
+    padding: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(244,241,234,.7);
+  }
+
+  .betti-readout .symbol {
+    color: var(--terracotta);
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.15rem;
+  }
+
+  .betti-readout strong {
+    display: block;
+    margin: .25rem 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+
+  .betti-readout small {
+    color: var(--ink-soft);
+  }
+
+  .demo-status {
+    min-height: 3.5rem;
+    margin: 1rem 0;
+    color: var(--ink-soft);
+  }
+
+  .concept-note {
+    padding: 1rem;
+    border-left: 3px solid var(--ochre);
+    background: rgba(197,164,93,.08);
+  }
+
+  .concept-note p {
+    margin: .35rem 0 0;
+    color: var(--ink-soft);
+    font-size: .9rem;
+  }
+
+  @media (max-width: 760px) {
+    .demo-heading,
+    .demo-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-cell] { transition: none; }
+  }
+</style>
