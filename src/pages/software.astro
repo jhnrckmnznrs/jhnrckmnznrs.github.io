@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    name: 'fast-ballmapper',
+    language: 'Python',
+    status: 'Active',
+    url: 'https://github.com/jhnrckmnznrs/fast-ballmapper',
+    description: 'Efficient cover construction for the Ball Mapper algorithm, with exact and approximate range-query backends and reproducible performance experiments.'
+  },
+  {
+    name: 'bone_morphometry',
+    language: 'Rust',
+    status: 'Active',
+    url: 'https://github.com/jhnrckmnznrs/bone_morphometry',
+    description: 'Research software for computing quantitative descriptors of three-dimensional bone microstructure with an emphasis on transparency and reproducibility.'
+  },
+  {
+    name: 'boneStrengthPrediction',
+    language: 'Python',
+    status: 'Research',
+    url: 'https://github.com/jhnrckmnznrs/boneStrengthPrediction',
+    description: 'Code and experiments related to predicting apparent bone strength from structural and topological features.'
+  },
+  {
+    name: 'tda-centrality',
+    language: 'Julia',
+    status: 'Archive',
+    url: 'https://github.com/jhnrckmnznrs/tda-centrality',
+    description: 'Code associated with earlier work on homology-based cycle centrality measures and the master’s thesis that preceded the published paper.'
+  },
+  {
+    name: 'probabilistic_ball_mapper',
+    language: 'Python',
+    status: 'Experimental',
+    url: 'https://github.com/jhnrckmnznrs/probabilistic_ball_mapper',
+    description: 'Experimental work extending and probing Ball Mapper-style constructions under probabilistic or approximate settings.'
+  }
+];
+---
+
+<Layout title="Software" description="Open research software by John Rick Manzanares.">
+  <header class="page-hero shell">
+    <p class="kicker">Software</p>
+    <h1>Code as part of the research record.</h1>
+    <p class="page-intro">
+      I maintain software when it helps make a mathematical or computational method easier to inspect,
+      reproduce, test, or reuse. These repositories range from active research packages to archived thesis code.
+    </p>
+  </header>
+
+  <section class="section">
+    <div class="shell software-grid">
+      {projects.map((project) => (
+        <article class="software-card">
+          <div class="meta-row">
+            <span>{project.language}</span>
+            <span>{project.status}</span>
+          </div>
+          <h2>{project.name}</h2>
+          <p>{project.description}</p>
+          <div class="inline-links">
+            <a href={project.url} target="_blank" rel="noopener noreferrer">GitHub repository →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

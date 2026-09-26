@@ -1,0 +1,157 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+---
+
+<Layout
+  title="Research"
+  description="Research by John Rick Manzanares in topological data analysis, bone microstructure, computational morphology, scientific computing, and machine learning."
+>
+  <header class="page-hero shell">
+    <p class="kicker">Research</p>
+    <h1>From shape to measurable structure.</h1>
+    <p class="page-intro">
+      My work sits between mathematics, computation, and scientific data. I am particularly interested
+      in descriptors that retain meaningful structure while remaining interpretable enough to connect
+      mathematical features with physical questions.
+    </p>
+  </header>
+
+  <section class="section" id="bone-fragility">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Current doctoral research</p>
+          <h2>Topology and bone fragility</h2>
+        </div>
+        <p>
+          Trabecular bone is a three-dimensional network whose mechanical behaviour depends on more
+          than local thickness or volume fraction. I study whether topological summaries can complement
+          conventional morphometry when describing this architecture.
+        </p>
+      </div>
+      <div class="stack">
+        <article class="info-card">
+          <h3>Persistent homology of micro-CT images</h3>
+          <p>
+            Cubical persistent homology is used to track connected components, tunnels, and cavities
+            across filtrations derived from image intensity and signed-distance information. Vector
+            representations such as persistence images make these summaries usable in statistical models.
+          </p>
+        </article>
+        <article class="info-card">
+          <h3>Structure–strength modelling</h3>
+          <p>
+            Topological descriptors are compared with standard bone morphometry in small-sample
+            regression settings. The emphasis is on careful validation, interpretable feature families,
+            and avoiding claims that exceed what the cohort can support.
+          </p>
+        </article>
+        <article class="info-card">
+          <h3>Directional and frame-invariant descriptors</h3>
+          <p>
+            A related line of work develops local and directional descriptors for anisotropic bone
+            architecture, including orientation fields and topological measurements designed to remain
+            meaningful under changes of coordinate frame.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="morphometry">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Scientific computing</p>
+          <h2>Computational morphology at scale</h2>
+        </div>
+        <p>
+          Large volumetric images make seemingly simple descriptors expensive. I work on implementations
+          that make morphology and topology practical on high-resolution three-dimensional data.
+        </p>
+      </div>
+      <div class="project-grid">
+        <ProjectCard
+          eyebrow="Open research software"
+          title="bone_morphometry"
+          description="A Rust implementation focused on transparent, reviewable computation of bone descriptors and reproducible research workflows."
+          href="https://github.com/jhnrckmnznrs/bone_morphometry"
+          tags={['Rust', 'morphometry', 'reproducibility']}
+          kind="morphology"
+          external
+        />
+        <ProjectCard
+          eyebrow="Large-volume topology"
+          title="Streaming topological summaries"
+          description="Memory-conscious computation of Betti and Minkowski-type summaries for volumes that are too large to treat as a single dense in-memory object."
+          href="/software/"
+          tags={['streaming', 'Betti numbers', 'large images']}
+          kind="bone"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ball-mapper">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Topological data analysis</p>
+          <h2>Ball Mapper and range queries</h2>
+        </div>
+        <p>
+          Ball Mapper is attractive because it gives a compact graph-based view of data. My work examines
+          how its cover construction can be accelerated while keeping the mathematical meaning of the
+          algorithm explicit.
+        </p>
+      </div>
+      <div class="stack">
+        <article class="info-card">
+          <h3>Exact and approximate neighbourhood search</h3>
+          <p>
+            The implementation separates the Ball Mapper construction from the range-query oracle,
+            allowing exact and approximate search backends to be studied systematically with attention
+            to boundary conventions, invariance, and empirical performance.
+          </p>
+          <div class="inline-links">
+            <a href="https://github.com/jhnrckmnznrs/fast-ballmapper">fast-ballmapper →</a>
+            <a href="https://github.com/jhnrckmnznrs/probabilistic_ball_mapper">probabilistic_ball_mapper →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scientific-ml">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Exploratory direction</p>
+          <h2>Topology-aware scientific machine learning</h2>
+        </div>
+        <p>
+          I am interested in models that learn mappings between fields while respecting scientifically
+          meaningful structure, including neural operators and physics-informed representations.
+        </p>
+      </div>
+      <div class="stack">
+        <article class="info-card">
+          <h3>Neural operators</h3>
+          <p>
+            A central question is how topological summaries or losses can complement operator-learning
+            architectures when the desired output is a field rather than a single scalar prediction.
+          </p>
+        </article>
+        <article class="info-card">
+          <h3>Earlier applied machine learning</h3>
+          <p>
+            Before the doctoral project, I worked on computer-vision methods for plastic pollution
+            monitoring and on topology-informed classification of electrocardiogram data. These projects
+            continue to shape my preference for methods that connect computation with a concrete scientific question.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>

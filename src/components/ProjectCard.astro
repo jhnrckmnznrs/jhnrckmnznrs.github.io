@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  tags: string[];
+  kind?: 'bone' | 'mapper' | 'operator' | 'morphology';
+  external?: boolean;
+}
+
+const { eyebrow, title, description, href, tags, kind = 'bone', external = false } = Astro.props;
+---
+
+<article class="project-card">
+  <div class:list={['project-swatch', `swatch-${kind}`]} aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="project-body">
+    <p class="eyebrow">{eyebrow}</p>
+    <h3><a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{title}</a></h3>
+    <p>{description}</p>
+    <ul class="tag-list" aria-label="Methods">
+      {tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  </div>
+</article>

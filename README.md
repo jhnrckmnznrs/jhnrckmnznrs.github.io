@@ -1,27 +1,63 @@
-# 🌱 Banyuhay of John Rick Manzanares
+# Banyuhay — personal website of John Rick Manzanares
 
-Welcome to **Banyuhay of John Rick Manzanares**, my personal website.  
-“Banyuhay” is a Filipino word meaning *metamorphosis* or *transformation* — a theme that reflects my academic journey, research work, and evolving interests in mathematics, computation, and the natural world.
+This repository contains the source for **https://jhnrckmnznrs.github.io/**.
 
-This site serves as a digital space where I share my background, research, projects, and ongoing transformations as a mathematician and researcher.
+“Banyuhay” is a Filipino word for *metamorphosis* or *transformation*. The site brings together my research, publications, software, teaching material, mathematical notes, and selected personal writing.
 
----
+## Stack
 
-## 🧑‍💻 About This Site
-This personal website is built to highlight:
-- My academic and research journey  
-- My work in computational geometry, applied topology, and machine learning  
-- My experiences as a Marie Skłodowska-Curie Actions Fellow  
-- My identity as a Filipino scientist and researcher  
-- A few humorous touches here and there (because we all need them)
+The site is intentionally small:
 
-The theme blends **professional clarity** with **personal storytelling**, guided by the idea of continuous transformation.
+- [Astro](https://astro.build/) for static generation
+- semantic HTML and custom CSS
+- no client-side framework
+- GitHub Actions + GitHub Pages for deployment
 
-## 📝 Template Reference / Credits
-This website is based on the **NeuralGlass** HTML template by TemplateMo:  
+## Local development
 
-> NeuralGlass is a cutting-edge cyberpunk glassmorphism HTML template featuring a striking purple, pink, and green color palette with futuristic neural network aesthetics. This single-page template combines transparent glass-effect panels with animated geometric shapes, pulsing neural lines, and quantum particle effects to create an immersive sci-fi atmosphere.  
+```bash
+npm install
+npm run dev
+```
 
-**Template link:** [NeuralGlass by TemplateMo](https://templatemo.com/tm-597-neural-glass)
+Create a production build with:
 
-All code modifications and content (text, images, personal data) were customized for **Banyuhay**.
+```bash
+npm run build
+```
+
+The generated site is written to `dist/`.
+
+## Structure
+
+```text
+src/
+├── components/
+├── layouts/
+├── pages/
+│   ├── research.astro
+│   ├── publications.astro
+│   ├── software.astro
+│   ├── teaching.astro
+│   ├── notes/
+│   └── about.astro
+└── styles/
+```
+
+The historical `assets/` directory is copied into the production build so existing presentation and poster links remain valid. New site-specific assets should be kept deliberately small.
+
+## Design
+
+The visual system replaces the previous NeuralGlass template with an original, quieter editorial design built around:
+
+- warm bone/off-white
+- deep ink/navy
+- pine green
+- terracotta
+- muted ochre
+
+The site uses mathematical and bone-inspired geometry sparingly rather than decorative particle effects.
+
+## Deployment
+
+Pull requests run a production build. Pushes to `master` build the site and publish `dist/` to GitHub Pages.
