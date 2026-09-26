@@ -1,28 +1,48 @@
-name: Deploy to GitHub Pages
+name: Build and deploy website
 
 on:
   push:
     branches:
-      - master  # or 'main', depending on your branch
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout your repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Node (optional, only if you use build scripts)
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      # Step 3: Deploy to GitHub Pages
-      - name: Deploy
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Preserve downloadable assets
+        run: |
+          if [ -d assets ]; then
+            mkdir -p dist/assets
+            cp -R assets/. dist/assets/
+          fi
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # root of your repo (contains index.html)
+          publish_dir: ./dist

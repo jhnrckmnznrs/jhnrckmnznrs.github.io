@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+---
+
+<Layout title="Home">
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <p class="kicker">Mathematician · Computational researcher</p>
+        <h1>Shape, structure, <span>and change.</span></h1>
+        <p class="hero-lead">
+          I am John Rick Manzanares, a Filipino mathematician working across topology,
+          geometry, scientific computing, and machine learning.
+        </p>
+        <p class="hero-role">
+          My doctoral research studies bone microstructure using mathematical and computational
+          tools, with an emphasis on interpretable descriptors of complex three-dimensional structure.
+        </p>
+        <div class="actions">
+          <a class="button" href="/research/">Explore research</a>
+          <a class="button secondary" href="/publications/">Publications</a>
+          <a class="button secondary" href="/software/">Software</a>
+        </div>
+      </div>
+      <HeroVisual />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Selected research</p>
+          <h2>Mathematics that meets structure.</h2>
+        </div>
+        <p>
+          My current work asks how geometric and topological information can help explain
+          mechanical behaviour in biological structures, while remaining computationally useful
+          and scientifically interpretable.
+        </p>
+      </div>
+
+      <div class="project-grid">
+        <ProjectCard
+          eyebrow="Doctoral research"
+          title="Topology and bone fragility"
+          description="Persistent homology, morphometry, and statistical learning for characterising trabecular microstructure and relating structural descriptors to apparent bone strength."
+          href="/research/#bone-fragility"
+          tags={['persistent homology', 'micro-CT', 'regression']}
+          kind="bone"
+        />
+        <ProjectCard
+          eyebrow="Scientific computing"
+          title="Computational bone morphometry"
+          description="Efficient, reproducible implementations of morphology, orientation, and geometric descriptors for large three-dimensional bone images."
+          href="/research/#morphometry"
+          tags={['Rust', '3D images', 'morphometry']}
+          kind="morphology"
+        />
+        <ProjectCard
+          eyebrow="Research software"
+          title="Fast Ball Mapper"
+          description="Efficient cover construction for Ball Mapper, with emphasis on exactness, range-query performance, reproducibility, and practical use on larger datasets."
+          href="https://github.com/jhnrckmnznrs/fast-ballmapper"
+          tags={['TDA', 'Python', 'range queries']}
+          kind="mapper"
+          external
+        />
+        <ProjectCard
+          eyebrow="Exploratory work"
+          title="Topology-aware scientific machine learning"
+          description="Investigating how topological information can be incorporated into neural operators and field-learning problems for scientific and biomedical applications."
+          href="/research/#scientific-ml"
+          tags={['neural operators', 'PDEs', 'topology']}
+          kind="operator"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section banyuhay-band">
+    <div class="shell banyuhay-grid">
+      <div>
+        <p class="kicker">The idea behind this site</p>
+        <p class="banyuhay-word">Banyuhay</p>
+      </div>
+      <div class="banyuhay-copy">
+        <p>
+          <em>Banyuhay</em> is a Filipino word for metamorphosis or transformation.
+          It is a useful description of both mathematics and a life in research:
+          ideas change, questions become sharper, and the path rarely remains what it was at the beginning.
+        </p>
+        <p>
+          This site gathers the parts of that continuing transformation: research,
+          software, teaching, mathematical notes, and occasional writing about academic life.
+        </p>
+        <a class="text-link" href="/about/">Read the longer story →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Recent work</p>
+          <h2>Research made reusable.</h2>
+        </div>
+        <p>
+          I prefer research outputs that can be inspected and reused. Alongside papers,
+          I maintain software and teaching material where the underlying methods can be explored directly.
+        </p>
+      </div>
+      <div class="software-grid">
+        <article class="software-card">
+          <p class="eyebrow">Python · TDA</p>
+          <h2>fast-ballmapper</h2>
+          <p>Efficient cover construction for the Ball Mapper algorithm.</p>
+          <div class="inline-links">
+            <a href="https://github.com/jhnrckmnznrs/fast-ballmapper">Repository →</a>
+          </div>
+        </article>
+        <article class="software-card">
+          <p class="eyebrow">Rust · Imaging</p>
+          <h2>bone_morphometry</h2>
+          <p>Research implementations for quantitative descriptors of three-dimensional bone microstructure.</p>
+          <div class="inline-links">
+            <a href="https://github.com/jhnrckmnznrs/bone_morphometry">Repository →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
