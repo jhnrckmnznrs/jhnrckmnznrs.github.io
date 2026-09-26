@@ -7,35 +7,41 @@ import Layout from '../layouts/Layout.astro';
     <p class="kicker">About</p>
     <h1>Becoming, always.</h1>
     <p class="page-intro">
-      “Banyuhay” means metamorphosis or transformation. The word has stayed with me because my path
-      through mathematics has repeatedly changed form while keeping the same underlying curiosity.
+      <em>Banyuhay</em> means metamorphosis or transformation in Filipino. The word has stayed with me because
+      my path through mathematics has changed form several times while keeping the same underlying curiosity.
     </p>
   </header>
 
   <section class="section">
     <div class="shell about-grid">
-      <img class="portrait" src="/assets/JohnRick.jpg" alt="Portrait of John Rick Manzanares" loading="lazy" />
-      <div>
+      <img class="portrait" src="/assets/JohnRick.jpg" alt="John Rick Manzanares" loading="lazy" />
+
+      <div class="about-story">
         <p>
-          I am John Rick Manzanares, a Filipino mathematician and computational researcher from
-          Baguio City in the northern Philippines. I studied mathematics at the University of the
-          Philippines Baguio after attending Philippine Science High School – Cordillera Administrative Region Campus.
+          I am John Rick Manzanares, a Filipino mathematician and computational researcher from Baguio City
+          in the northern Philippines. I studied mathematics at the University of the Philippines Baguio
+          after attending Philippine Science High School, Cordillera Administrative Region Campus.
         </p>
         <p>
-          My early interests were closer to differential geometry, but my research direction changed
-          after I encountered topological data analysis. My master’s work studied homology-based
-          centrality, and later projects brought topology into electrocardiogram classification,
-          computer vision, and scientific data analysis.
+          My early interests were closer to differential geometry. The direction changed when I encountered
+          topological data analysis and began to see topology not only as an abstract language, but also as a
+          way to ask quantitative questions about data and structure.
         </p>
         <p>
-          I am now a Marie Skłodowska-Curie doctoral fellow working in Poland. My doctoral research
-          focuses on mathematical and computational descriptions of bone microstructure, combining
-          topological data analysis, computational geometry, scientific computing, and machine learning.
+          My master’s work studied centrality measures built from homology. Later projects brought topology
+          into electrocardiogram classification, while other work moved toward computer vision and scientific
+          data analysis. Each change added another way to think about the same broad question: what information
+          about structure should be preserved when a complicated object is reduced to something we can compute with?
         </p>
         <p>
-          I also care about teaching and open research software. I like mathematical explanations
-          that define their objects carefully, code that can be reviewed rather than treated as a black box,
-          and tools that remain useful beyond a single experiment.
+          I am now a Marie Skłodowska-Curie doctoral fellow working in Poland. My doctoral research studies
+          bone microstructure using topological data analysis, computational geometry, scientific computing,
+          and machine learning.
+        </p>
+        <p>
+          Teaching and public software are also part of how I think about research. I prefer explanations that
+          define their objects carefully, code that can be inspected rather than treated as a black box, and
+          tools that remain useful after a single experiment is over.
         </p>
 
         <ul class="fact-list">
@@ -43,13 +49,34 @@ import Layout from '../layouts/Layout.astro';
           <li><strong>Current focus</strong><span>Bone microstructure and computational descriptors</span></li>
           <li><strong>From</strong><span>Baguio City, Philippines</span></li>
           <li><strong>Based in</strong><span>Poland</span></li>
-          <li><strong>Code</strong><span>Python, Rust, Julia, R, and the occasional language required by the problem</span></li>
+          <li><strong>Code</strong><span>Python, Rust, Julia, R, and whatever else the problem genuinely requires</span></li>
         </ul>
 
         <div class="actions">
           <a class="button" href="mailto:jdolormanzanares@impan.pl">Email me</a>
           <a class="button secondary" href="https://github.com/jhnrckmnznrs" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section banyuhay-band">
+    <div class="shell banyuhay-grid">
+      <div>
+        <p class="kicker">Why Banyuhay</p>
+        <p class="banyuhay-word">Change is not a detour.</p>
+      </div>
+      <div class="banyuhay-copy">
+        <p>
+          Research rarely develops as a straight line. A mathematical interest becomes a thesis, a thesis
+          becomes software, a computational problem exposes a new theorem, and a scientific application changes
+          the questions worth asking.
+        </p>
+        <p>
+          I want this website to show that process rather than flatten it into a list of positions and outputs.
+          The finished papers matter, but so do the explanations, failed directions, reusable code, teaching
+          material, and questions that are still open.
+        </p>
       </div>
     </div>
   </section>

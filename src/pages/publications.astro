@@ -2,54 +2,69 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Publications" description="Publications and scientific presentations by John Rick Manzanares.">
+<Layout title="Publications" description="Publications and selected scientific presentations by John Rick Manzanares.">
   <header class="page-hero shell">
     <p class="kicker">Publications</p>
-    <h1>Papers, talks, and posters.</h1>
+    <h1>Research in public form.</h1>
     <p class="page-intro">
-      Peer-reviewed work appears first, followed by selected scientific presentations.
-      Links point to the publisher, conference material, or archived presentation when available.
+      Papers are one part of the research record. This page also collects selected talks and posters so that
+      a reader can follow how the work has developed across different settings.
     </p>
   </header>
-
-  <section class="section">
-    <div class="shell stack">
-      <article class="publication">
-        <div class="publication-year">2025</div>
-        <div>
-          <h2>Stable homology-based cycle centrality measures</h2>
-          <p>John Rick D. Manzanares and Paul Samuel P. Ignacio</p>
-          <p class="venue">Journal of Mathematics and Computer Science, 38(2), 179–200.</p>
-          <div class="inline-links">
-            <a href="https://doi.org/10.22436/jmcs.038.02.03" target="_blank" rel="noopener noreferrer">DOI →</a>
-            <a href="https://github.com/jhnrckmnznrs/tda-centrality" target="_blank" rel="noopener noreferrer">Related code →</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="publication">
-        <div class="publication-year">2020</div>
-        <div>
-          <h2>A Topology Informed Random Forest Classifier for ECG Classification</h2>
-          <p>Paul Samuel P. Ignacio, J.-A. Bulauan, and John Rick Manzanares</p>
-          <p class="venue">Computing in Cardiology Conference.</p>
-          <div class="inline-links">
-            <a href="https://doi.org/10.22489/cinc.2020.297" target="_blank" rel="noopener noreferrer">DOI →</a>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
 
   <section class="section">
     <div class="shell">
       <div class="section-heading">
         <div>
-          <p class="kicker">Selected presentations</p>
-          <h2>Scientific meetings</h2>
+          <p class="kicker">Articles</p>
+          <h2>Peer reviewed work</h2>
         </div>
-        <p>Selected talks and posters from topology, biomedical mathematics, and applied mathematics meetings.</p>
+        <p>
+          Titles are shown as published. Links lead to the publisher or to related public code where available.
+        </p>
       </div>
+
+      <div class="stack">
+        <article class="publication">
+          <div class="publication-year">2025</div>
+          <div>
+            <h2>Stable homology-based cycle centrality measures</h2>
+            <p class="authors">John Rick D. Manzanares and Paul Samuel P. Ignacio</p>
+            <p class="venue"><cite>Journal of Mathematics and Computer Science</cite>, 38(2), 179 to 200.</p>
+            <div class="inline-links">
+              <a href="https://doi.org/10.22436/jmcs.038.02.03" target="_blank" rel="noopener noreferrer">DOI →</a>
+              <a href="https://github.com/jhnrckmnznrs/tda-centrality" target="_blank" rel="noopener noreferrer">Related code →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="publication">
+          <div class="publication-year">2020</div>
+          <div>
+            <h2>A Topology Informed Random Forest Classifier for ECG Classification</h2>
+            <p class="authors">Paul Samuel P. Ignacio, J.-A. Bulauan, and John Rick Manzanares</p>
+            <p class="venue"><cite>Computing in Cardiology Conference</cite>.</p>
+            <div class="inline-links">
+              <a href="https://doi.org/10.22489/cinc.2020.297" target="_blank" rel="noopener noreferrer">DOI →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Selected presentations</p>
+          <h2>Talks and posters</h2>
+        </div>
+        <p>
+          These are selected archived materials rather than a complete list of meetings attended.
+        </p>
+      </div>
+
       <div class="timeline">
         <article class="timeline-card">
           <time>2025</time>
@@ -66,7 +81,7 @@ import Layout from '../layouts/Layout.astro';
         <article class="timeline-card">
           <time>2024</time>
           <h3>Mathematical Analysis of Biomedical Time Series</h3>
-          <p>Scientific meeting participation and research presentation.</p>
+          <p>Research presentation.</p>
         </article>
         <article class="timeline-card">
           <time>2023</time>
@@ -86,6 +101,17 @@ import Layout from '../layouts/Layout.astro';
           <p>Scientific presentation.</p>
           <div class="inline-links"><a href="/assets/MSP-Presentation.pdf">Slides →</a></div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell compact-callout">
+      <p class="kicker">Beyond the paper</p>
+      <h2>Methods, code, and explanations live elsewhere on the site.</h2>
+      <div class="actions">
+        <a class="button" href="/research/">Research</a>
+        <a class="button secondary" href="/software/">Software</a>
       </div>
     </div>
   </section>
