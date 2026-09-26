@@ -44,16 +44,22 @@ approved for public dissemination or deliberately generated synthetic examples.
 
 ### Phase 3 — linked topology interaction
 
-Potential interaction:
+Status: **implemented for the synthetic teaching construction**
 
-1. move through the filtration;
-2. display the corresponding persistence diagram;
-3. select a persistence point;
-4. highlight the associated topological feature when a defensible representative can be shown;
-5. provide a text explanation for keyboard and screen-reader users.
+The pilot now:
 
-This stage should distinguish carefully between a persistence class and any chosen geometric
-representative of that class.
+1. moves through a deliberately constructed filtration with known positive-persistence classes;
+2. displays the corresponding finite persistence points;
+3. lets the reader select a persistence point by mouse or keyboard;
+4. reports dimension, birth, death, persistence, and whether the class is alive at the current threshold;
+5. provides controls to jump to the birth, an interior threshold, or the death of the selected class;
+6. highlights an explanatory witness in the grid;
+7. states explicitly that the highlighted witness is not a unique canonical representative of the persistence class;
+8. lists the essential H0 class separately because its death time is infinite.
+
+The teaching construction uses one finite H0 interval [28, 45), one finite H1 interval [28, 68),
+and one essential H0 class born at 18. It remains synthetic and must not be presented as an
+experimental result.
 
 ### Phase 4 — three-dimensional structure
 
