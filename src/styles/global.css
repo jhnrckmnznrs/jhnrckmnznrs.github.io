@@ -1028,7 +1028,8 @@ main { min-width: 0; }
   .about-grid,
   .research-interface-grid,
   .research-theme-heading,
-  .research-theme-grid {
+  .research-theme-grid,
+  .footer-grid {
     grid-template-columns: 1fr;
   }
 
