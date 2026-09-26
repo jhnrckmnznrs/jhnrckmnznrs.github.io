@@ -1073,6 +1073,13 @@
     box-shadow: var(--shadow);
   }
 
+  /* Author display rules such as .viewer-empty { display: grid } can override
+     the browser's default rendering for the hidden attribute. Keep hidden UI
+     states authoritative inside the viewer. */
+  .bone-viewer [hidden] {
+    display: none !important;
+  }
+
   .source-deck {
     display: grid;
     grid-template-columns: 1.2fr .8fr;
