@@ -1,11 +1,33 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import isosurface from 'isosurface';
-import {
+
+class FileReaderPolyfill {
+  result = null;
+  error = null;
+  onload = null;
+  onerror = null;
+
+  readAsArrayBuffer(blob) {
+    blob.arrayBuffer()
+      .then((result) => {
+        this.result = result;
+        this.onload?.({ target: this });
+      })
+      .catch((error) => {
+        this.error = error;
+        this.onerror?.({ target: this });
+      });
+  }
+}
+
+globalThis.FileReader = FileReaderPolyfill;
+
+const {
   openSingleTiff,
   openSliceSeries,
   planVolume
-} from '../src/lib/boneViewer/volumeSources.js';
+} = await import('../src/lib/boneViewer/volumeSources.js');
 
 async function namedBlob(relativePath, name = relativePath.split('/').at(-1)) {
   const bytes = await readFile(new URL(`./fixtures/${relativePath}`, import.meta.url));
