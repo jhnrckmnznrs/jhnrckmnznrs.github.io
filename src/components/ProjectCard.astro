@@ -18,9 +18,13 @@ const { eyebrow, title, description, href, tags, kind = 'bone', external = false
   </div>
   <div class="project-body">
     <p class="eyebrow">{eyebrow}</p>
-    <h3><a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{title}</a></h3>
+    <h3>
+      <a href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+        {title}
+      </a>
+    </h3>
     <p>{description}</p>
-    <ul class="tag-list" aria-label="Methods">
+    <ul class="tag-list" aria-label="Topics">
       {tags.map((tag) => <li>{tag}</li>)}
     </ul>
   </div>
