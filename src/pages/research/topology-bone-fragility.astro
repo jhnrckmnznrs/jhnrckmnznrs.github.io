@@ -46,6 +46,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
     <div class="shell">
       <a href="#question">Question</a>
       <a href="#explore">Explore</a>
+      <a href="/research/bone-viewer/">Bone viewer</a>
       <a href="#depth">Read deeper</a>
       <a href="#pipeline">Pipeline</a>
       <a href="#evidence">Evidence</a>
@@ -72,6 +73,25 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
             manuscript are shown in the teaching interaction.
           </p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section viewer-callout-section">
+    <div class="shell viewer-callout">
+      <div>
+        <p class="kicker">Browser inspection</p>
+        <h2>Open a prepared bone surface without ImageJ.</h2>
+      </div>
+      <div>
+        <p>
+          A separate prototype viewer opens a small overview first, then refines the specimen while
+          keeping the camera in place. Local mode reads prepared surfaces directly from your computer,
+          so research data do not need to be published to the website.
+        </p>
+        <div class="actions">
+          <a class="button" href="/research/bone-viewer/">Open the trabecular bone viewer</a>
+        </div>
       </div>
     </div>
   </section>
@@ -544,6 +564,44 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       background: rgba(70,96,82,.08);
     }
 
+    .viewer-callout-section {
+      padding-block: 2.4rem;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .viewer-callout {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .viewer-callout h2 {
+      margin: 0;
+      max-width: 11ch;
+      font-family: ui-serif, Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .viewer-callout p:not(.kicker) {
+      margin-top: 0;
+      max-width: 700px;
+      color: #dfe1dc;
+    }
+
+    .viewer-callout .kicker {
+      color: #ddb27b;
+    }
+
+    .viewer-callout .button {
+      color: var(--ink);
+      background: var(--paper);
+      border-color: var(--paper);
+    }
+
     .research-disclosure {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -801,6 +859,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
 
     @media (max-width: 900px) {
       .research-hero-grid,
+      .viewer-callout,
       .research-disclosure,
       .evidence-grid,
       .bridge-block > div:first-child {
