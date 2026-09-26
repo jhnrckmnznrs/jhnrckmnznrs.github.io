@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Test volume importer
+        run: npm run test:viewer
+
       - name: Build Astro site
         run: npm run build
 
