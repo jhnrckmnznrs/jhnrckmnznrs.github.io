@@ -3,14 +3,20 @@ import { readFile } from 'node:fs/promises';
 import isosurface from 'isosurface';
 import {
   openSingleTiff,
+  openSliceSeries,
   planVolume
 } from '../src/lib/boneViewer/volumeSources.js';
 
-const bytes = await readFile(new URL('./fixtures/tiny-volume.tif', import.meta.url));
-const blob = new Blob([bytes], { type: 'image/tiff' });
-Object.defineProperty(blob, 'name', { value: 'tiny-volume.tif' });
+async function namedBlob(relativePath, name = relativePath.split('/').at(-1)) {
+  const bytes = await readFile(new URL(`./fixtures/${relativePath}`, import.meta.url));
+  const blob = new Blob([bytes], { type: 'image/tiff' });
+  Object.defineProperty(blob, 'name', { value: name });
+  Object.defineProperty(blob, 'webkitRelativePath', { value: `series/${name}` });
+  return blob;
+}
 
-const source = await openSingleTiff(blob);
+const volumeBlob = await namedBlob('tiny-volume.tif', 'tiny-volume.tif');
+const source = await openSingleTiff(volumeBlob);
 
 assert.deepEqual(source.metadata.shapeZYX, [3, 4, 4]);
 assert.equal(source.metadata.fileCount, 1);
@@ -24,6 +30,23 @@ const plan = planVolume(source.metadata);
 assert.equal(plan.strategy, 'direct');
 assert.ok(plan.levels.length >= 1);
 assert.deepEqual(plan.levels.at(-1).shapeZYX, [3, 4, 4]);
+
+const seriesFiles = await Promise.all([
+  namedBlob('slice10.tif'),
+  namedBlob('slice2.tif'),
+  namedBlob('slice1.tif')
+]);
+
+const series = await openSliceSeries(seriesFiles);
+assert.deepEqual(series.metadata.shapeZYX, [3, 4, 4]);
+assert.deepEqual(series.metadata.ordering, {
+  first: 'slice1.tif',
+  middle: 'slice2.tif',
+  last: 'slice10.tif'
+});
+
+const seriesMiddle = await series.readSlice(1, 4, 4);
+assert.ok(Array.from(seriesMiddle).includes(2));
 
 const field = new Uint8Array(4 * 4 * 4);
 for (let z = 1; z < 3; z += 1) {
@@ -50,7 +73,9 @@ assert.ok(surface.cells.length > 0);
 
 console.log('Bone viewer smoke test passed.');
 console.log({
-  shapeZYX: source.metadata.shapeZYX,
+  multipageShapeZYX: source.metadata.shapeZYX,
+  seriesShapeZYX: series.metadata.shapeZYX,
+  seriesOrdering: series.metadata.ordering,
   strategy: plan.strategy,
   levels: plan.levels.map((level) => level.shapeZYX),
   surfaceVertices: surface.positions.length,
