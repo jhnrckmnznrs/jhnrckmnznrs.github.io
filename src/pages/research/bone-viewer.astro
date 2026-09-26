@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TrabecularBoneViewer from '../../components/TrabecularBoneViewer.astro';
+---
+
+<Layout
+  title="Trabecular Bone Viewer"
+  description="A browser based viewer for progressively refined trabecular bone surfaces."
+>
+  <header class="page-hero shell">
+    <p class="kicker">Research tool · Prototype</p>
+    <h1>Inspect trabecular bone in the browser.</h1>
+    <p class="page-intro">
+      This prototype is designed for fast first visualisation. It opens a small overview surface first,
+      then replaces it with finer geometry only when more detail is useful.
+    </p>
+  </header>
+
+  <section class="section section-soft">
+    <div class="shell viewer-intro-grid">
+      <article>
+        <p class="eyebrow">Local first</p>
+        <h2>Your specimen can stay on your computer.</h2>
+        <p>
+          Select a prepared specimen folder below. The files are read by the browser from your device.
+          Local mode does not upload them to this website.
+        </p>
+      </article>
+      <article>
+        <p class="eyebrow">Progressive detail</p>
+        <h2>Do not wait for native detail before moving the model.</h2>
+        <p>
+          The viewer starts with an overview mesh, can refine automatically through medium detail,
+          and loads the native surface only when you explicitly request it.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section viewer-section">
+    <div class="shell">
+      <TrabecularBoneViewer />
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">How the prototype works</p>
+          <h2>One segmentation, several surfaces.</h2>
+        </div>
+        <p>
+          The preparation step converts a binary volume into several gzip compressed GLB meshes.
+          Coarse levels are for navigation. The final level is extracted from the native segmentation.
+        </p>
+      </div>
+
+      <ol class="viewer-pipeline">
+        <li>
+          <span>01</span>
+          <div>
+            <h3>Prepare once</h3>
+            <p>Convert an OME TIFF or TIFF segmentation into a viewer folder with a manifest and surface levels.</p>
+          </div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>
+            <h3>Open the overview</h3>
+            <p>The smallest surface appears first so rotation, zoom, and pan become available quickly.</p>
+          </div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>
+            <h3>Refine only when useful</h3>
+            <p>Preview and medium surfaces replace the overview without resetting the camera.</p>
+          </div>
+        </li>
+        <li>
+          <span>04</span>
+          <div>
+            <h3>Request native detail</h3>
+            <p>The largest mesh is never required simply to begin looking at the specimen.</p>
+          </div>
+        </li>
+      </ol>
+
+      <aside class="viewer-science-note">
+        <strong>Scientific caution.</strong>
+        <p>
+          The overview, preview, and medium meshes are visual navigation approximations. In the current
+          converter they use max pooling before surface extraction, which can alter thin structures and topology.
+          Use the native detail level for structural inspection when those differences matter.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell compact-callout">
+      <p class="kicker">Next engineering step</p>
+      <h2>Replace whole specimen levels with spatial chunks.</h2>
+      <p>
+        This prototype tests the interaction model and gives us real measurements for file size, decompression,
+        parsing, first render time, and frame rate. If the native surface becomes too large, the next version
+        will divide it spatially and refine only the visible regions.
+      </p>
+      <div class="actions">
+        <a class="button secondary" href="/research/topology-bone-fragility/">Back to the bone research interface</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .viewer-intro-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1rem;
+    }
+
+    .viewer-intro-grid article {
+      padding: clamp(1.25rem, 3vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.34);
+    }
+
+    .viewer-intro-grid h2 {
+      margin: 0;
+      font-family: ui-serif, Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.1;
+    }
+
+    .viewer-intro-grid p:last-child {
+      margin-bottom: 0;
+      color: var(--ink-soft);
+    }
+
+    .viewer-section {
+      padding-top: 2.5rem;
+    }
+
+    .viewer-pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .viewer-pipeline li {
+      padding: 1.2rem;
+      border-top: 2px solid var(--pine);
+      background: rgba(255,255,255,.3);
+    }
+
+    .viewer-pipeline > li > span {
+      color: var(--terracotta);
+      font-family: ui-serif, Georgia, serif;
+    }
+
+    .viewer-pipeline h3 {
+      margin: .55rem 0 .35rem;
+      font-family: ui-serif, Georgia, serif;
+      font-size: 1.25rem;
+    }
+
+    .viewer-pipeline p {
+      margin: 0;
+      color: var(--ink-soft);
+    }
+
+    .viewer-science-note {
+      margin-top: 2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(197,164,93,.55);
+      border-radius: 14px;
+      background: rgba(197,164,93,.08);
+    }
+
+    .viewer-science-note p {
+      margin: .3rem 0 0;
+      color: var(--ink-soft);
+    }
+
+    @media (max-width: 900px) {
+      .viewer-pipeline {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .viewer-intro-grid,
+      .viewer-pipeline {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</Layout>

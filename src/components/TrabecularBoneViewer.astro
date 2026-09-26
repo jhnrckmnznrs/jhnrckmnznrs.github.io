@@ -1,0 +1,1031 @@
+---
+---
+
+<section class="bone-viewer" data-bone-viewer>
+  <div class="viewer-toolbar">
+    <div class="viewer-source">
+      <label class="file-button">
+        <span>Select prepared specimen folder</span>
+        <input type="file" multiple webkitdirectory data-folder-input />
+      </label>
+      <p class="source-note">
+        Local mode keeps the specimen files on this device. The page does not upload them.
+      </p>
+    </div>
+
+    <div class="viewer-actions">
+      <button type="button" data-reset disabled>Reset view</button>
+      <button type="button" data-fullscreen>Full screen</button>
+      <button type="button" data-screenshot disabled>Save image</button>
+    </div>
+  </div>
+
+  <div class="viewer-layout">
+    <div class="viewer-stage" data-stage>
+      <canvas data-canvas aria-label="Three dimensional trabecular bone viewer"></canvas>
+
+      <div class="viewer-empty" data-empty>
+        <p class="eyebrow">Viewer ready</p>
+        <h2>Select a prepared specimen folder.</h2>
+        <p>
+          The first surface shown will be the smallest overview mesh. Finer surfaces are loaded only
+          when requested or when automatic refinement is enabled.
+        </p>
+      </div>
+
+      <div class="viewer-loading" data-loading hidden aria-live="polite">
+        <span class="loading-dot"></span>
+        <span data-loading-text>Loading surface</span>
+      </div>
+
+      <div class="viewer-badge" data-level-badge hidden>
+        <span data-level-name>Overview</span>
+        <small data-level-kind>visual approximation</small>
+      </div>
+    </div>
+
+    <aside class="viewer-panel" aria-label="Viewer controls">
+      <section>
+        <p class="eyebrow">Dataset</p>
+        <h3 data-dataset-name>No specimen selected</h3>
+        <dl class="dataset-meta">
+          <div><dt>Grid</dt><dd data-grid>—</dd></div>
+          <div><dt>Spacing</dt><dd data-spacing>—</dd></div>
+          <div><dt>Extent</dt><dd data-extent>—</dd></div>
+        </dl>
+      </section>
+
+      <section>
+        <div class="control-heading">
+          <div>
+            <p class="eyebrow">Surface detail</p>
+            <h3>Levels</h3>
+          </div>
+          <label class="switch-row">
+            <input type="checkbox" data-auto-refine checked />
+            <span>Refine through medium</span>
+          </label>
+        </div>
+
+        <div class="level-list" data-level-list>
+          <p class="panel-placeholder">Levels appear after a dataset is selected.</p>
+        </div>
+
+        <p class="level-warning" data-level-warning>
+          Lower detail levels are for navigation. They may change thin trabeculae and topology.
+        </p>
+      </section>
+
+      <section>
+        <p class="eyebrow">Inspection</p>
+        <div class="control-stack">
+          <label class="switch-row">
+            <input type="checkbox" data-clip-toggle disabled />
+            <span>Clipping plane</span>
+          </label>
+          <label class="range-row">
+            <span>Clip position</span>
+            <input type="range" min="-1" max="1" step="0.002" value="1" data-clip-range disabled />
+          </label>
+          <label class="switch-row">
+            <input type="checkbox" data-wireframe disabled />
+            <span>Wireframe</span>
+          </label>
+          <label class="switch-row">
+            <input type="checkbox" data-axes disabled />
+            <span>Coordinate axes</span>
+          </label>
+          <label class="switch-row">
+            <input type="checkbox" data-autorotate />
+            <span>Slow rotation</span>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <p class="eyebrow">Performance</p>
+        <dl class="metric-grid">
+          <div><dt>Triangles</dt><dd data-triangles>—</dd></div>
+          <div><dt>Compressed</dt><dd data-compressed>—</dd></div>
+          <div><dt>Read</dt><dd data-read-ms>—</dd></div>
+          <div><dt>Decompress</dt><dd data-decompress-ms>—</dd></div>
+          <div><dt>Parse</dt><dd data-parse-ms>—</dd></div>
+          <div><dt>First frame</dt><dd data-frame-ms>—</dd></div>
+          <div><dt>FPS</dt><dd data-fps>—</dd></div>
+          <div><dt>Geometry</dt><dd data-geometry>—</dd></div>
+        </dl>
+      </section>
+
+      <section class="viewer-status">
+        <p class="eyebrow">Status</p>
+        <p data-status aria-live="polite">Waiting for a specimen folder.</p>
+      </section>
+    </aside>
+  </div>
+</section>
+
+<script>
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+  const root = document.querySelector('[data-bone-viewer]');
+
+  if (root) {
+    const canvas = root.querySelector('[data-canvas]');
+    const stage = root.querySelector('[data-stage]');
+    const folderInput = root.querySelector('[data-folder-input]');
+    const emptyState = root.querySelector('[data-empty]');
+    const loading = root.querySelector('[data-loading]');
+    const loadingText = root.querySelector('[data-loading-text]');
+    const statusNode = root.querySelector('[data-status]');
+    const levelList = root.querySelector('[data-level-list]');
+    const levelBadge = root.querySelector('[data-level-badge]');
+    const levelName = root.querySelector('[data-level-name]');
+    const levelKind = root.querySelector('[data-level-kind]');
+
+    const datasetName = root.querySelector('[data-dataset-name]');
+    const gridNode = root.querySelector('[data-grid]');
+    const spacingNode = root.querySelector('[data-spacing]');
+    const extentNode = root.querySelector('[data-extent]');
+
+    const autoRefine = root.querySelector('[data-auto-refine]');
+    const clipToggle = root.querySelector('[data-clip-toggle]');
+    const clipRange = root.querySelector('[data-clip-range]');
+    const wireframeToggle = root.querySelector('[data-wireframe]');
+    const axesToggle = root.querySelector('[data-axes]');
+    const autorotateToggle = root.querySelector('[data-autorotate]');
+    const resetButton = root.querySelector('[data-reset]');
+    const fullscreenButton = root.querySelector('[data-fullscreen]');
+    const screenshotButton = root.querySelector('[data-screenshot]');
+
+    const triangleNode = root.querySelector('[data-triangles]');
+    const compressedNode = root.querySelector('[data-compressed]');
+    const readNode = root.querySelector('[data-read-ms]');
+    const decompressNode = root.querySelector('[data-decompress-ms]');
+    const parseNode = root.querySelector('[data-parse-ms]');
+    const frameNode = root.querySelector('[data-frame-ms]');
+    const fpsNode = root.querySelector('[data-fps]');
+    const geometryNode = root.querySelector('[data-geometry]');
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      preserveDrawingBuffer: true,
+      powerPreference: 'high-performance'
+    });
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.localClippingEnabled = true;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.001, 1000);
+    camera.position.set(11, 8, 11);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.07;
+    controls.screenSpacePanning = true;
+
+    scene.add(new THREE.HemisphereLight(0xf8f3e8, 0x263742, 2.0));
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.7);
+    keyLight.position.set(6, 9, 8);
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xc9d9d0, 1.1);
+    fillLight.position.set(-7, 2, -4);
+    scene.add(fillLight);
+
+    const clipPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1000);
+
+    const material = new THREE.MeshStandardMaterial({
+      color: 0xd8cbb7,
+      roughness: 0.72,
+      metalness: 0.0,
+      side: THREE.DoubleSide,
+      clippingPlanes: []
+    });
+
+    const axes = new THREE.AxesHelper(2);
+    axes.visible = false;
+    scene.add(axes);
+
+    const loader = new GLTFLoader();
+
+    let currentObject = null;
+    let currentManifest = null;
+    let fileMap = new Map();
+    let manifestRoot = '';
+    let currentLevelId = null;
+    let modelBounds = null;
+    let loadingLevelId = null;
+    let autoRefineToken = 0;
+
+    const formatBytes = (bytes) => {
+      if (!Number.isFinite(bytes)) return '—';
+      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
+      return `${(bytes / 1024 ** 2).toFixed(bytes < 10 * 1024 ** 2 ? 2 : 1)} MB`;
+    };
+
+    const formatMs = (ms) => Number.isFinite(ms) ? `${ms.toFixed(ms < 10 ? 1 : 0)} ms` : '—';
+
+    const setStatus = (text) => {
+      statusNode.textContent = text;
+    };
+
+    const setLoading = (active, text = 'Loading surface') => {
+      loading.hidden = !active;
+      loadingText.textContent = text;
+    };
+
+    const setControlsEnabled = (enabled) => {
+      clipToggle.disabled = !enabled;
+      wireframeToggle.disabled = !enabled;
+      axesToggle.disabled = !enabled;
+      resetButton.disabled = !enabled;
+      screenshotButton.disabled = !enabled;
+      clipRange.disabled = !enabled || !clipToggle.checked;
+    };
+
+    const disposeObject = (object) => {
+      if (!object) return;
+      object.traverse((child) => {
+        if (child.isMesh) child.geometry?.dispose();
+      });
+      scene.remove(object);
+    };
+
+    const applyMaterial = (object) => {
+      object.traverse((child) => {
+        if (!child.isMesh) return;
+        child.material = material;
+        child.castShadow = false;
+        child.receiveShadow = false;
+      });
+    };
+
+    const fitCamera = (object, preserveView = false) => {
+      const box = new THREE.Box3().setFromObject(object);
+      modelBounds = box.clone();
+
+      if (preserveView) return;
+
+      const sphere = box.getBoundingSphere(new THREE.Sphere());
+      const radius = Math.max(sphere.radius, 0.001);
+      const distance = radius / Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
+
+      camera.near = Math.max(radius / 500, 0.001);
+      camera.far = Math.max(radius * 100, 100);
+      camera.updateProjectionMatrix();
+
+      camera.position.copy(sphere.center).add(new THREE.Vector3(1, 0.72, 1).normalize().multiplyScalar(distance * 1.25));
+      controls.target.copy(sphere.center);
+      controls.update();
+
+      axes.position.copy(box.min);
+      axes.scale.setScalar(Math.max(radius * 0.3, 0.5));
+    };
+
+    const updateClipping = () => {
+      if (!modelBounds || !clipToggle.checked) {
+        material.clippingPlanes = [];
+        material.needsUpdate = true;
+        return;
+      }
+
+      const t = (Number(clipRange.value) + 1) / 2;
+      const z = THREE.MathUtils.lerp(modelBounds.min.z, modelBounds.max.z, t);
+      clipPlane.set(new THREE.Vector3(0, 0, -1), z);
+      material.clippingPlanes = [clipPlane];
+      material.needsUpdate = true;
+    };
+
+    const resetMetrics = () => {
+      triangleNode.textContent = '—';
+      compressedNode.textContent = '—';
+      readNode.textContent = '—';
+      decompressNode.textContent = '—';
+      parseNode.textContent = '—';
+      frameNode.textContent = '—';
+      geometryNode.textContent = '—';
+    };
+
+    const fileRelativeToManifest = (file) => {
+      const path = file.webkitRelativePath || file.name;
+      if (!manifestRoot) return path;
+      return path.startsWith(manifestRoot) ? path.slice(manifestRoot.length) : path;
+    };
+
+    const readCompressedFile = async (file) => {
+      const readStart = performance.now();
+      const compressed = await file.arrayBuffer();
+      const readMs = performance.now() - readStart;
+
+      if (!file.name.endsWith('.gz')) {
+        return { buffer: compressed, readMs, decompressMs: 0 };
+      }
+
+      if (!('DecompressionStream' in window)) {
+        throw new Error('This browser does not support gzip decompression streams. Use a current Chrome, Firefox, Edge, or Safari release.');
+      }
+
+      const decompressStart = performance.now();
+      const stream = new Blob([compressed])
+        .stream()
+        .pipeThrough(new DecompressionStream('gzip'));
+      const buffer = await new Response(stream).arrayBuffer();
+      const decompressMs = performance.now() - decompressStart;
+
+      return { buffer, readMs, decompressMs };
+    };
+
+    const updateLevelButtons = () => {
+      if (!currentManifest) return;
+      const buttons = levelList.querySelectorAll('button');
+
+      buttons.forEach((button) => {
+        button.classList.toggle('is-active', button.dataset.level === currentLevelId);
+        button.disabled = loadingLevelId !== null;
+      });
+    };
+
+    const renderLevels = () => {
+      levelList.innerHTML = '';
+
+      for (const level of currentManifest.levels) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.level = level.id;
+        button.innerHTML = `
+          <span>
+            <strong>${level.label}</strong>
+            <small>${level.approximation === 'native segmentation' ? 'native surface' : 'navigation approximation'}</small>
+          </span>
+          <span class="level-size">
+            ${formatBytes(level.compressedBytes)}
+            <small>${Number(level.triangles).toLocaleString()} triangles</small>
+          </span>
+        `;
+
+        button.addEventListener('click', () => {
+          autoRefineToken += 1;
+          loadLevel(level.id, false);
+        });
+
+        levelList.appendChild(button);
+      }
+    };
+
+    const scheduleRefinement = async (loadedId, token) => {
+      if (!autoRefine.checked || token !== autoRefineToken || !currentManifest) return;
+
+      const progression = currentManifest.progression || currentManifest.levels.map((level) => level.id);
+      const index = progression.indexOf(loadedId);
+      const nextId = progression[index + 1];
+
+      if (!nextId || nextId === 'detail') return;
+
+      const pause = () => new Promise((resolve) => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => resolve(), { timeout: 900 });
+        } else {
+          setTimeout(resolve, 350);
+        }
+      });
+
+      await pause();
+
+      if (token === autoRefineToken && autoRefine.checked && currentLevelId === loadedId) {
+        loadLevel(nextId, true);
+      }
+    };
+
+    const loadLevel = async (levelId, automatic = false) => {
+      if (!currentManifest || loadingLevelId) return;
+
+      const level = currentManifest.levels.find((item) => item.id === levelId);
+      if (!level) return;
+
+      const file = fileMap.get(level.file);
+      if (!file) {
+        setStatus(`The folder does not contain ${level.file}.`);
+        return;
+      }
+
+      const token = autoRefineToken;
+      loadingLevelId = levelId;
+      updateLevelButtons();
+      setLoading(true, automatic ? `Refining to ${level.label}` : `Loading ${level.label}`);
+      setStatus(`${automatic ? 'Refining' : 'Loading'} ${level.label} from this device…`);
+
+      try {
+        const loadStart = performance.now();
+        const { buffer, readMs, decompressMs } = await readCompressedFile(file);
+
+        const parseStart = performance.now();
+        const gltf = await loader.parseAsync(buffer, '');
+        const parseMs = performance.now() - parseStart;
+
+        const object = gltf.scene;
+        applyMaterial(object);
+
+        const preserveView = currentObject !== null;
+        const previous = currentObject;
+        currentObject = object;
+        currentLevelId = level.id;
+
+        scene.add(object);
+        fitCamera(object, preserveView);
+        updateClipping();
+
+        if (previous) disposeObject(previous);
+
+        const firstFrameMs = await new Promise((resolve) => {
+          requestAnimationFrame(() => {
+            renderer.render(scene, camera);
+            resolve(performance.now() - loadStart);
+          });
+        });
+
+        triangleNode.textContent = Number(level.triangles).toLocaleString();
+        compressedNode.textContent = formatBytes(file.size);
+        readNode.textContent = formatMs(readMs);
+        decompressNode.textContent = formatMs(decompressMs);
+        parseNode.textContent = formatMs(parseMs);
+        frameNode.textContent = formatMs(firstFrameMs);
+
+        const estimatedGeometryBytes =
+          Number(level.vertices || 0) * 24 +
+          Number(level.triangles || 0) * 12;
+        geometryNode.textContent = formatBytes(estimatedGeometryBytes);
+
+        levelName.textContent = level.label;
+        levelKind.textContent = level.approximation === 'native segmentation'
+          ? 'surface from native segmentation'
+          : 'visual navigation approximation';
+        levelBadge.hidden = false;
+
+        emptyState.hidden = true;
+        setControlsEnabled(true);
+        setStatus(
+          level.approximation === 'native segmentation'
+            ? `${level.label} is visible. This surface was extracted from the native segmentation.`
+            : `${level.label} is visible. This level is a navigation approximation and may change thin structures.`
+        );
+
+        updateLevelButtons();
+        scheduleRefinement(level.id, token);
+      } catch (error) {
+        console.error(error);
+        setStatus(error instanceof Error ? error.message : 'The surface could not be loaded.');
+      } finally {
+        loadingLevelId = null;
+        setLoading(false);
+        updateLevelButtons();
+      }
+    };
+
+    const loadFolder = async (files) => {
+      autoRefineToken += 1;
+      disposeObject(currentObject);
+      currentObject = null;
+      currentManifest = null;
+      currentLevelId = null;
+      setControlsEnabled(false);
+      resetMetrics();
+      levelBadge.hidden = true;
+      emptyState.hidden = false;
+
+      const manifestFile = files.find((file) => file.name === 'manifest.json');
+      if (!manifestFile) {
+        setStatus('No manifest.json was found in the selected folder.');
+        return;
+      }
+
+      const manifestPath = manifestFile.webkitRelativePath || manifestFile.name;
+      manifestRoot = manifestPath.slice(0, manifestPath.length - 'manifest.json'.length);
+
+      try {
+        const manifest = JSON.parse(await manifestFile.text());
+
+        if (manifest.format !== 'banyuhay-bone-viewer' || manifest.version !== 1) {
+          throw new Error('This folder does not use the supported Banyuhay bone viewer format.');
+        }
+
+        currentManifest = manifest;
+        fileMap = new Map(files.map((file) => [fileRelativeToManifest(file), file]));
+
+        datasetName.textContent = manifest.label || manifest.id || 'Local specimen';
+
+        const shape = manifest.source?.shapeZYX || [];
+        gridNode.textContent = shape.length === 3 ? `${shape[0]} × ${shape[1]} × ${shape[2]}` : '—';
+
+        const spacing = manifest.source?.spacingMicrometresZYX || [];
+        spacingNode.textContent = spacing.length === 3
+          ? `${spacing.map((value) => Number(value).toFixed(2)).join(' × ')} µm`
+          : '—';
+
+        const extent = manifest.source?.physicalExtentMillimetresZYX || [];
+        extentNode.textContent = extent.length === 3
+          ? `${extent.map((value) => Number(value).toFixed(2)).join(' × ')} mm`
+          : '—';
+
+        renderLevels();
+        updateLevelButtons();
+
+        const defaultLevel = manifest.defaultLevel || manifest.levels?.[0]?.id;
+        if (!defaultLevel) throw new Error('The manifest contains no surface levels.');
+
+        setStatus('Dataset metadata loaded. Opening the smallest surface first.');
+        await loadLevel(defaultLevel, false);
+      } catch (error) {
+        console.error(error);
+        setStatus(error instanceof Error ? error.message : 'The dataset manifest could not be read.');
+      }
+    };
+
+    folderInput.addEventListener('change', () => {
+      const files = Array.from(folderInput.files || []);
+      if (files.length) loadFolder(files);
+    });
+
+    clipToggle.addEventListener('change', () => {
+      clipRange.disabled = !clipToggle.checked;
+      updateClipping();
+    });
+
+    clipRange.addEventListener('input', updateClipping);
+
+    wireframeToggle.addEventListener('change', () => {
+      material.wireframe = wireframeToggle.checked;
+      material.needsUpdate = true;
+    });
+
+    axesToggle.addEventListener('change', () => {
+      axes.visible = axesToggle.checked;
+    });
+
+    resetButton.addEventListener('click', () => {
+      if (currentObject) fitCamera(currentObject, false);
+    });
+
+    fullscreenButton.addEventListener('click', async () => {
+      try {
+        if (!document.fullscreenElement) {
+          await stage.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch {
+        setStatus('Full screen mode is not available in this browser context.');
+      }
+    });
+
+    screenshotButton.addEventListener('click', () => {
+      renderer.render(scene, camera);
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${currentManifest?.id || 'bone'}-${currentLevelId || 'surface'}.png`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      }, 'image/png');
+    });
+
+    let fpsFrames = 0;
+    let fpsStart = performance.now();
+
+    const resize = () => {
+      const width = Math.max(stage.clientWidth, 1);
+      const height = Math.max(stage.clientHeight, 1);
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(stage);
+    resize();
+
+    const animate = (now) => {
+      controls.autoRotate = autorotateToggle.checked;
+      controls.autoRotateSpeed = 0.8;
+      controls.update();
+
+      renderer.render(scene, camera);
+
+      fpsFrames += 1;
+      const elapsed = now - fpsStart;
+
+      if (elapsed >= 1000) {
+        fpsNode.textContent = String(Math.round((fpsFrames * 1000) / elapsed));
+        fpsFrames = 0;
+        fpsStart = now;
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+  }
+</script>
+
+<style>
+  .bone-viewer {
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    overflow: hidden;
+    background: rgba(255,255,255,.42);
+    box-shadow: var(--shadow);
+  }
+
+  .viewer-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: .9rem 1rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(244,241,234,.82);
+  }
+
+  .viewer-source {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    min-width: 0;
+  }
+
+  .file-button {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: .55rem .8rem;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    color: var(--paper);
+    background: var(--ink);
+    cursor: pointer;
+    font-size: .82rem;
+    font-weight: 750;
+  }
+
+  .file-button input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .source-note {
+    margin: 0;
+    max-width: 440px;
+    color: var(--ink-soft);
+    font-size: .75rem;
+    line-height: 1.4;
+  }
+
+  .viewer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+
+  .viewer-actions button,
+  .level-list button,
+  .control-stack button {
+    appearance: none;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    background: rgba(255,255,255,.5);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .viewer-actions button {
+    padding: .5rem .65rem;
+    font-size: .76rem;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+  }
+
+  .viewer-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    min-height: 660px;
+  }
+
+  .viewer-stage {
+    position: relative;
+    min-width: 0;
+    min-height: 660px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 48% 38%, rgba(255,255,255,.75), rgba(222,210,191,.26) 48%, rgba(23,42,58,.08)),
+      #e9e3d9;
+  }
+
+  .viewer-stage:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #e9e3d9;
+  }
+
+  .viewer-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  .viewer-empty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    padding: 2rem;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .viewer-empty h2 {
+    margin: 0;
+    max-width: 15ch;
+    font-family: ui-serif, Georgia, serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .viewer-empty p:last-child {
+    max-width: 520px;
+    color: var(--ink-soft);
+  }
+
+  .viewer-loading {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .55rem .75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(244,241,234,.94);
+    box-shadow: var(--shadow);
+    font-size: .78rem;
+  }
+
+  .loading-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    animation: pulse 900ms ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { opacity: .35; transform: scale(.8); }
+    to { opacity: 1; transform: scale(1.15); }
+  }
+
+  .viewer-badge {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: grid;
+    gap: .05rem;
+    padding: .55rem .7rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(244,241,234,.92);
+    box-shadow: 0 8px 30px rgba(23,42,58,.08);
+  }
+
+  .viewer-badge span {
+    font-family: ui-serif, Georgia, serif;
+    font-weight: 700;
+  }
+
+  .viewer-badge small {
+    color: var(--ink-soft);
+    font-size: .65rem;
+  }
+
+  .viewer-panel {
+    display: grid;
+    align-content: start;
+    border-left: 1px solid var(--line);
+    background: rgba(244,241,234,.76);
+  }
+
+  .viewer-panel section {
+    padding: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .viewer-panel h3 {
+    margin: 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.2rem;
+  }
+
+  .dataset-meta,
+  .metric-grid {
+    margin: .8rem 0 0;
+  }
+
+  .dataset-meta div {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: .5rem;
+    padding: .35rem 0;
+    border-top: 1px solid rgba(23,42,58,.08);
+  }
+
+  .dataset-meta dt,
+  .metric-grid dt {
+    color: var(--ink-soft);
+    font-size: .66rem;
+    font-weight: 750;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .dataset-meta dd,
+  .metric-grid dd {
+    margin: 0;
+    font-size: .78rem;
+  }
+
+  .control-heading {
+    display: grid;
+    gap: .7rem;
+  }
+
+  .switch-row,
+  .range-row {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    color: var(--ink-soft);
+    font-size: .78rem;
+  }
+
+  .switch-row input {
+    accent-color: var(--terracotta);
+  }
+
+  .range-row {
+    display: grid;
+    gap: .3rem;
+  }
+
+  .range-row input {
+    width: 100%;
+    accent-color: var(--terracotta);
+  }
+
+  .level-list {
+    display: grid;
+    gap: .45rem;
+    margin-top: .8rem;
+  }
+
+  .level-list button {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem;
+    align-items: center;
+    width: 100%;
+    padding: .65rem .7rem;
+    text-align: left;
+  }
+
+  .level-list button > span {
+    display: grid;
+    gap: .05rem;
+  }
+
+  .level-list button strong {
+    font-size: .8rem;
+  }
+
+  .level-list button small {
+    color: var(--ink-soft);
+    font-size: .64rem;
+  }
+
+  .level-list button.is-active {
+    border-color: var(--terracotta);
+    background: rgba(166,90,67,.08);
+  }
+
+  .level-size {
+    text-align: right;
+    font-family: ui-serif, Georgia, serif;
+    font-size: .78rem;
+  }
+
+  .panel-placeholder,
+  .level-warning {
+    margin: .7rem 0 0;
+    color: var(--ink-soft);
+    font-size: .72rem;
+  }
+
+  .level-warning {
+    padding-left: .7rem;
+    border-left: 2px solid var(--ochre);
+  }
+
+  .control-stack {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: .45rem;
+  }
+
+  .metric-grid div {
+    padding: .55rem;
+    border: 1px solid rgba(23,42,58,.09);
+    border-radius: 9px;
+    background: rgba(255,255,255,.34);
+  }
+
+  .metric-grid dd {
+    margin-top: .12rem;
+    font-family: ui-serif, Georgia, serif;
+    font-size: .9rem;
+  }
+
+  .viewer-status p:last-child {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: .76rem;
+  }
+
+  @media (max-width: 980px) {
+    .viewer-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .viewer-panel {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .viewer-panel section {
+      border-right: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .viewer-toolbar {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .viewer-source {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .viewer-layout,
+    .viewer-stage {
+      min-height: 520px;
+    }
+
+    .viewer-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .viewer-panel section {
+      border-right: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loading-dot { animation: none; }
+  }
+</style>
