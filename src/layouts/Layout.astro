@@ -10,10 +10,20 @@ interface Props {
 
 const {
   title,
-  description = 'John Rick Manzanares — mathematician and computational researcher working across topology, geometry, scientific computing, and machine learning.'
+  description = 'John Rick Manzanares, a mathematician and computational researcher working with topology, geometry, scientific computing, and machine learning.'
 } = Astro.props;
+
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
-const fullTitle = title === 'Home' ? 'John Rick Manzanares — Banyuhay' : `${title} | John Rick Manzanares`;
+const fullTitle = title === 'Home' ? 'John Rick Manzanares | Banyuhay' : `${title} | John Rick Manzanares`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'John Rick Manzanares',
+  url: 'https://jhnrckmnznrs.github.io/',
+  jobTitle: 'Mathematician and computational researcher',
+  sameAs: ['https://github.com/jhnrckmnznrs']
+};
 ---
 
 <!doctype html>
@@ -22,15 +32,22 @@ const fullTitle = title === 'Home' ? 'John Rick Manzanares — Banyuhay' : `${ti
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="John Rick Manzanares" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f4f1ea" />
+    <meta name="color-scheme" content="light" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Banyuhay of John Rick Manzanares" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
     <title>{fullTitle}</title>
   </head>
   <body>

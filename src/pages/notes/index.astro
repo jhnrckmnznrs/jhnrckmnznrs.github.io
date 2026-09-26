@@ -2,32 +2,67 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Notes" description="Mathematical notes and occasional writing by John Rick Manzanares.">
+<Layout title="Notes" description="Mathematical notes, research explanations, and selected writing by John Rick Manzanares.">
   <header class="page-hero shell">
     <p class="kicker">Notes</p>
-    <h1>Working notes, explanations, and reflections.</h1>
+    <h1>A notebook for ideas that need more room.</h1>
     <p class="page-intro">
-      This is the less formal side of the site: mathematical explanations I want to make self-contained,
-      teaching notes in progress, and occasional writing about research and academic life.
+      Some ideas are too explanatory for a paper and too substantial for a short post. This section is
+      where I want to develop them carefully, with definitions, examples, and enough context to stand on their own.
     </p>
   </header>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Three kinds of notes</p>
+          <h2>Different writing, one notebook.</h2>
+        </div>
+        <p>
+          The categories are meant to separate mathematical exposition from research commentary and personal writing.
+        </p>
+      </div>
+
+      <div class="path-grid">
+        <div class="path-card path-card-static">
+          <span>Mathematics</span>
+          <strong>Definitions, examples, and proofs</strong>
+          <p>Notes in topology, analysis, operators, and related mathematical foundations.</p>
+        </div>
+        <div class="path-card path-card-static">
+          <span>Research notes</span>
+          <strong>Methods explained outside the paper format</strong>
+          <p>Longer explanations of algorithms, modelling choices, scientific computing, and reproducibility.</p>
+        </div>
+        <div class="path-card path-card-static">
+          <span>Academic life</span>
+          <strong>Personal writing and reflection</strong>
+          <p>Selected writing about research, movement between places, and life in academia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="section">
     <div class="shell">
       <div class="section-heading">
         <div>
           <p class="kicker">Academic life</p>
-          <h2>Personal writing</h2>
+          <h2>Selected writing</h2>
         </div>
-        <p>The long-form journal that previously lived on the home page now has its own reading space.</p>
+        <p>
+          The journal that once occupied the home page now has its own reading space.
+        </p>
       </div>
+
       <div class="timeline">
         <article class="timeline-card">
           <time>Updated 16 May 2025</time>
           <h3>Strangers and Struggles in a New World</h3>
           <p>
-            Notes written during the first year of moving abroad for doctoral research, spanning
-            November 2024 to May 2025.
+            Notes written during the first year of moving abroad for doctoral research, from November 2024
+            to May 2025.
           </p>
           <div class="inline-links">
             <a href="/notes/strangers-and-struggles-in-a-new-world/">Read article →</a>
@@ -37,18 +72,14 @@ import Layout from '../../layouts/Layout.astro';
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
-      <div class="section-heading">
-        <div>
-          <p class="kicker">Mathematics</p>
-          <h2>A growing notebook</h2>
-        </div>
-        <p>
-          Future entries will collect self-contained explanations in topology, analysis, TDA,
-          scientific computing, and related topics rather than burying them in one long page.
-        </p>
-      </div>
+  <section class="section section-soft">
+    <div class="shell compact-callout">
+      <p class="kicker">Writing principle</p>
+      <h2>Make the note useful without the conversation that produced it.</h2>
+      <p>
+        Mathematical notes should define their objects, state assumptions, and explain notation. Research notes
+        should distinguish established results from interpretation and work still in progress.
+      </p>
     </div>
   </section>
 </Layout>

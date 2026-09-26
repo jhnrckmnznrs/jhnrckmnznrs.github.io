@@ -5,50 +5,87 @@ const projects = [
   {
     name: 'fast-ballmapper',
     language: 'Python',
-    status: 'Active',
+    status: 'Maintained',
+    purpose: 'Topological data analysis',
     url: 'https://github.com/jhnrckmnznrs/fast-ballmapper',
-    description: 'Efficient cover construction for the Ball Mapper algorithm, with exact and approximate range-query backends and reproducible performance experiments.'
+    description: 'Efficient cover construction for the Ball Mapper algorithm, with exact and approximate range query backends and reproducible performance experiments.'
   },
   {
     name: 'bone_morphometry',
     language: 'Rust',
-    status: 'Active',
+    status: 'Maintained',
+    purpose: 'Bone image analysis',
     url: 'https://github.com/jhnrckmnznrs/bone_morphometry',
-    description: 'Research software for computing quantitative descriptors of three-dimensional bone microstructure with an emphasis on transparency and reproducibility.'
+    description: 'Region aware morphometry for trabecular bone images in three dimensions, including conventional measurements and advanced structural descriptors.'
   },
   {
     name: 'boneStrengthPrediction',
     language: 'Python',
-    status: 'Research',
+    status: 'Research code',
+    purpose: 'Bone strength modelling',
     url: 'https://github.com/jhnrckmnznrs/boneStrengthPrediction',
-    description: 'Code and experiments related to predicting apparent bone strength from structural and topological features.'
+    description: 'Scripts and experiments for structural and topological analysis related to apparent bone strength.'
   },
   {
     name: 'tda-centrality',
     language: 'Julia',
     status: 'Archive',
+    purpose: 'Earlier topology research',
     url: 'https://github.com/jhnrckmnznrs/tda-centrality',
-    description: 'Code associated with earlier work on homology-based cycle centrality measures and the master’s thesis that preceded the published paper.'
+    description: 'Code associated with earlier work on cycle centrality measures built from homology and the master’s thesis that preceded the published paper.'
   },
   {
     name: 'probabilistic_ball_mapper',
     language: 'Python',
-    status: 'Experimental',
+    status: 'Experiment',
+    purpose: 'Ball Mapper research',
     url: 'https://github.com/jhnrckmnznrs/probabilistic_ball_mapper',
-    description: 'Experimental work extending and probing Ball Mapper-style constructions under probabilistic or approximate settings.'
+    description: 'Experimental work on probabilistic and approximate variants of Ball Mapper style constructions.'
   }
 ];
 ---
 
-<Layout title="Software" description="Open research software by John Rick Manzanares.">
+<Layout title="Software" description="Research software and public code by John Rick Manzanares.">
   <header class="page-hero shell">
     <p class="kicker">Software</p>
-    <h1>Code as part of the research record.</h1>
+    <h1>Code is part of the argument.</h1>
     <p class="page-intro">
-      I maintain software when it helps make a mathematical or computational method easier to inspect,
-      reproduce, test, or reuse. These repositories range from active research packages to archived thesis code.
+      A research repository should make it easier to understand what was computed, which assumptions were
+      used, and how another person could inspect or repeat the calculation.
     </p>
   </header>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Software principles</p>
+          <h2>What I want public code to provide.</h2>
+        </div>
+        <p>
+          Not every repository is a polished package, but its role should still be clear.
+        </p>
+      </div>
+
+      <div class="principle-grid principle-grid-three">
+        <article>
+          <span>01</span>
+          <h3>Traceability</h3>
+          <p>The code should make it possible to trace a result back to a method and a set of assumptions.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Reviewability</h3>
+          <p>Important numerical conventions should be visible rather than hidden behind a black box.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Reproducibility</h3>
+          <p>Inputs, parameters, versions, tests, and validation material should be explicit when they matter.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="section">
     <div class="shell software-grid">
@@ -58,13 +95,26 @@ const projects = [
             <span>{project.language}</span>
             <span>{project.status}</span>
           </div>
+          <p class="software-purpose">{project.purpose}</p>
           <h2>{project.name}</h2>
           <p>{project.description}</p>
           <div class="inline-links">
-            <a href={project.url} target="_blank" rel="noopener noreferrer">GitHub repository →</a>
+            <a href={project.url} target="_blank" rel="noopener noreferrer">Open repository →</a>
           </div>
         </article>
       ))}
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell compact-callout">
+      <p class="kicker">A note on maturity</p>
+      <h2>Public does not always mean finished.</h2>
+      <p>
+        Some repositories are maintained software, some are active research code, and some are archives.
+        The status shown above is meant to make that distinction visible rather than presenting every
+        repository as equally mature.
+      </p>
     </div>
   </section>
 </Layout>

@@ -5,32 +5,32 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
 
 <Layout
   title="Topology and Bone Fragility"
-  description="An interactive research interface introducing John Rick Manzanares's work on topological and morphometric descriptions of trabecular bone microstructure."
+  description="An interactive introduction to John Rick Manzanares's research on topology, morphometry, and trabecular bone structure."
 >
-  <header class="research-hero">
+  <header class="research-hero" id="question">
     <div class="shell research-hero-grid">
       <div>
-        <p class="kicker">Research interface · Doctoral work</p>
-        <h1>Can the shape of bone tell us something about its strength?</h1>
+        <p class="kicker">Doctoral research · Interactive explanation</p>
+        <h1>Can shape help explain bone strength?</h1>
         <p class="research-lead">
-          Trabecular bone is not simply “more bone” or “less bone.” It is a three-dimensional
-          network whose connectivity, tunnels, cavities, orientation, and local geometry all
-          contribute to its architecture.
+          Trabecular bone is not simply more bone or less bone. It is a network in three dimensions.
+          Connectivity, tunnels, cavities, orientation, local geometry, and load paths all contribute
+          to its architecture.
         </p>
         <div class="actions">
-          <a class="button" href="#explore">Explore the idea</a>
+          <a class="button" href="#explore">Explore the topology</a>
           <a class="button secondary" href="#pipeline">See the research pipeline</a>
         </div>
       </div>
 
-      <aside class="research-question" aria-label="Research question">
+      <aside class="research-question" aria-label="Central research question">
         <p class="eyebrow">Central question</p>
         <p>
           Can topological descriptors capture aspects of trabecular architecture that complement
-          conventional morphometry when modelling apparent bone strength?
+          conventional morphometry when apparent bone strength is the outcome of interest?
         </p>
-        <div class="question-chain" aria-label="Research chain">
-          <span>micro-CT</span>
+        <div class="question-chain" aria-label="Research sequence">
+          <span>micro CT</span>
           <span aria-hidden="true">→</span>
           <span>structure</span>
           <span aria-hidden="true">→</span>
@@ -42,18 +42,51 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
     </div>
   </header>
 
+  <nav class="research-local-nav" aria-label="On this research page">
+    <div class="shell">
+      <a href="#question">Question</a>
+      <a href="#explore">Explore</a>
+      <a href="#depth">Read deeper</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#next">Next questions</a>
+    </div>
+  </nav>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="research-disclosure">
+        <article>
+          <p class="eyebrow">What this page does</p>
+          <h2>It explains the research idea in layers.</h2>
+          <p>
+            The page begins with intuition, then connects a synthetic filtration to persistence,
+            introduces the mathematical structure, and finally shows how the ideas enter the research workflow.
+          </p>
+        </article>
+        <article>
+          <p class="eyebrow">What this page does not do</p>
+          <h2>It does not present unpublished outcome results.</h2>
+          <p>
+            No research specimen images, identifying information, or detailed numerical results from the
+            manuscript are shown in the teaching interaction.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="explore">
     <div class="shell">
       <div class="section-heading">
         <div>
           <p class="kicker">Start with the idea</p>
-          <h2>What topology adds</h2>
+          <h2>Topology asks a different structural question.</h2>
         </div>
         <p>
-          Conventional morphometry measures quantities such as bone volume fraction, trabecular
-          thickness, separation, connectivity density, and anisotropy. Topology asks a different
-          question: what kinds of connected structures, loops, and enclosed voids exist, and how
-          persistent are they as the image is filtered?
+          Conventional morphometry measures quantities such as bone volume fraction, trabecular thickness,
+          separation, connectivity density, and anisotropy. Persistent homology studies how topological
+          features appear and disappear across a changing threshold or scalar field.
         </p>
       </div>
 
@@ -61,67 +94,125 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
         <article>
           <span class="dimension">H<sub>0</sub></span>
           <h3>Components</h3>
-          <p>Tracks when separate pieces appear and when they merge into larger connected structures.</p>
+          <p>Tracks separate pieces and the thresholds at which they merge.</p>
         </article>
         <article>
           <span class="dimension">H<sub>1</sub></span>
           <h3>Tunnels</h3>
-          <p>Captures loop-like structure: paths that surround a passage without filling it in.</p>
+          <p>Tracks loop structure surrounding a passage that has not been filled.</p>
         </article>
         <article>
           <span class="dimension">H<sub>2</sub></span>
           <h3>Cavities</h3>
-          <p>Captures enclosed three-dimensional voids bounded by the surrounding structure.</p>
+          <p>Tracks voids enclosed by surrounding structure in three dimensions.</p>
         </article>
       </div>
 
       <BoneFiltrationDemo />
+
+      <div class="bridge-block">
+        <div>
+          <p class="kicker">From the teaching example to the research data</p>
+          <h2>The object changes, but the logic is the same.</h2>
+        </div>
+        <div class="bridge-grid">
+          <article>
+            <span>01</span>
+            <h3>Start with an image volume</h3>
+            <p>A calibrated micro CT volume provides intensity and spatial information inside a defined analysis region.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Build a scalar filtration</h3>
+            <p>Image intensity or signed distance values determine when cells enter a cubical complex.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Track topology across thresholds</h3>
+            <p>Persistent homology records which structural features survive as the filtration changes.</p>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section depth-section">
+  <section class="section depth-section" id="depth">
     <div class="shell">
       <div class="section-heading">
         <div>
-          <p class="kicker">Choose your depth</p>
-          <h2>One project, three ways in</h2>
+          <p class="kicker">Read at the level you need</p>
+          <h2>One project, three ways in.</h2>
         </div>
         <p>
-          The same research can be approached through intuition, mathematical structure, or implementation.
-          The buttons below change the level of detail without changing the underlying scientific question.
+          The scientific question is the same in every view. Only the level of detail changes.
         </p>
       </div>
 
       <div class="depth-interface" data-depth-interface>
-        <div class="depth-tabs" role="tablist" aria-label="Explanation depth">
-          <button type="button" role="tab" aria-selected="true" data-depth-tab="intuition">Intuition</button>
-          <button type="button" role="tab" aria-selected="false" data-depth-tab="mathematics">Mathematics</button>
-          <button type="button" role="tab" aria-selected="false" data-depth-tab="implementation">Implementation</button>
+        <div class="depth-tabs" role="tablist" aria-label="Explanation level">
+          <button
+            id="tab-intuition"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-intuition"
+            data-depth-tab="intuition"
+          >
+            Intuition
+          </button>
+          <button
+            id="tab-mathematics"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-mathematics"
+            data-depth-tab="mathematics"
+          >
+            Mathematics
+          </button>
+          <button
+            id="tab-implementation"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-implementation"
+            data-depth-tab="implementation"
+          >
+            Implementation
+          </button>
         </div>
 
         <div class="depth-panels">
-          <section data-depth-panel="intuition">
+          <section
+            id="panel-intuition"
+            role="tabpanel"
+            aria-labelledby="tab-intuition"
+            data-depth-panel="intuition"
+          >
             <p class="eyebrow">Intuition</p>
-            <h3>A single threshold can hide structure.</h3>
+            <h3>A single threshold can hide how structure changes.</h3>
             <p>
-              A segmented image gives one binary answer: bone or not bone. Persistent homology instead
-              studies a sequence of related shapes. Features that appear only briefly may reflect small-scale
-              detail or noise; features that persist across a wider part of the filtration represent structure
-              that survives a larger change in threshold.
+              A binary segmentation gives one answer at one chosen threshold. Persistent homology instead
+              studies a sequence of related shapes. A feature that disappears almost immediately behaves
+              differently from one that remains present across a broad part of the filtration.
             </p>
             <p>
-              The goal is not to replace morphometry. It is to ask whether a different mathematical summary
-              carries complementary information about architecture.
+              Persistence is therefore about stability across change. The aim in this project is not to
+              replace morphometry, but to ask whether topology provides complementary information about architecture.
             </p>
           </section>
 
-          <section data-depth-panel="mathematics">
+          <section
+            id="panel-mathematics"
+            role="tabpanel"
+            aria-labelledby="tab-mathematics"
+            data-depth-panel="mathematics"
+          >
             <p class="eyebrow">Mathematics</p>
-            <h3>A nested family of cubical complexes.</h3>
+            <h3>A filtration is a nested family of complexes.</h3>
             <p>
-              Let <em>f</em> assign a scalar value to each cell of a cubical complex. For a threshold
-              <em>t</em>, a sublevel filtration contains all cells whose filtration value is at most
-              <em>t</em>:
+              Let <em>K</em> be a cubical complex and let <em>f</em> assign a scalar filtration value to its cells.
+              For a threshold <em>t</em>, define the sublevel complex
             </p>
 
             <div class="math-display" aria-label="K sub t equals the set of cells Q such that f of Q is less than or equal to t">
@@ -140,8 +231,8 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
             </div>
 
             <p>
-              Whenever <em>s</em> is at most <em>t</em>, inclusion from
-              <em>K</em><sub>s</sub> into <em>K</em><sub>t</sub> induces a map on homology:
+              If <em>s</em> is at most <em>t</em>, then <em>K</em><sub>s</sub> is contained in
+              <em>K</em><sub>t</sub>. Inclusion induces a map on homology:
             </p>
 
             <div class="math-display" aria-label="H k of K sub s maps to H k of K sub t">
@@ -156,29 +247,39 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
             </div>
 
             <p>
-              Persistent homology records when homology classes are born and when they die. A persistence
-              diagram summarizes a class by a point <span class="nowrap">(birth, death)</span>; its distance
-              from the diagonal is related to how long the feature persists.
+              Persistent homology records when homology classes appear and when they disappear.
+              A finite class can be represented by a point <span class="nowrap">(birth, death)</span>
+              in a persistence diagram. The difference between death and birth is its persistence.
             </p>
+
+            <aside class="math-note">
+              <strong>Important distinction.</strong>
+              A persistence class is algebraic. A geometric cycle used to illustrate it is a representative,
+              and representatives need not be unique.
+            </aside>
           </section>
 
-          <section data-depth-panel="implementation">
+          <section
+            id="panel-implementation"
+            role="tabpanel"
+            aria-labelledby="tab-implementation"
+            data-depth-panel="implementation"
+          >
             <p class="eyebrow">Implementation</p>
-            <h3>Images become scalar fields, then topological summaries.</h3>
+            <h3>Images become scalar fields, then cubical filtrations.</h3>
             <p>
-              The topological workflow is kept separate from the conventional morphometry executable.
-              Three-dimensional image volumes are restricted to an analysis region, converted into scalar
-              filtrations such as image intensity or signed-distance information, and processed as cubical
-              complexes. Persistent homology is then vectorized for statistical modelling.
+              Image volumes are restricted to an analysis region and converted into scalar filtrations based
+              on quantities such as image intensity or signed distance. Cubical persistent homology then produces
+              interval or diagram data that can be transformed into representations suitable for modelling.
             </p>
             <p>
-              This separation is intentional: the open-source <code>bone-morphometry</code> Rust program
-              handles conventional and advanced non-persistent descriptors, while the persistent-homology
-              workflow remains independently inspectable.
+              The conventional morphometry code is deliberately kept separate from the persistent homology workflow.
+              The public <code>bone_morphometry</code> package handles morphometry and other scalar descriptors.
+              Topological analysis remains independently inspectable in the associated research repository.
             </p>
             <div class="inline-links">
               <a href="https://github.com/jhnrckmnznrs/bone_morphometry" target="_blank" rel="noopener noreferrer">bone_morphometry →</a>
-              <a href="https://github.com/jhnrckmnznrs/boneStrengthPrediction" target="_blank" rel="noopener noreferrer">topological workflow repository →</a>
+              <a href="https://github.com/jhnrckmnznrs/boneStrengthPrediction" target="_blank" rel="noopener noreferrer">Topological analysis code →</a>
             </div>
           </section>
         </div>
@@ -191,12 +292,11 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       <div class="section-heading">
         <div>
           <p class="kicker">Research provenance</p>
-          <h2>From image to model</h2>
+          <h2>Make the path from image to model visible.</h2>
         </div>
         <p>
-          A research interface should make the chain from data to conclusion visible. The current workflow
-          is organized into explicit stages so that preprocessing, descriptors, and modelling can be inspected
-          separately.
+          Each stage changes the object being analysed. Showing those changes helps separate image processing,
+          mathematical description, and statistical modelling.
         </p>
       </div>
 
@@ -204,22 +304,22 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
         <li>
           <span>01</span>
           <div>
-            <h3>micro-CT volume and analysis region</h3>
-            <p>Begin with a calibrated three-dimensional image and a defined region of interest.</p>
+            <h3>Image volume and analysis region</h3>
+            <p>Begin with a calibrated volume and an explicitly defined region of interest.</p>
           </div>
         </li>
         <li>
           <span>02</span>
           <div>
             <h3>Preprocessing and segmentation</h3>
-            <p>Construct a binary bone representation while keeping the analysis domain explicit.</p>
+            <p>Construct a bone representation while preserving the intended analysis domain.</p>
           </div>
         </li>
         <li>
           <span>03</span>
           <div>
             <h3>Scalar filtration</h3>
-            <p>Use grayscale or distance-based scalar information to create a nested sequence of cubical complexes.</p>
+            <p>Use image intensity or distance information to determine when cells enter the complex.</p>
           </div>
         </li>
         <li>
@@ -232,30 +332,29 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
         <li>
           <span>05</span>
           <div>
-            <h3>Vector representation</h3>
-            <p>Convert persistence information into representations suitable for comparison and statistical learning.</p>
+            <h3>Numerical representation</h3>
+            <p>Transform persistence information into features that can be compared or used in statistical models.</p>
           </div>
         </li>
         <li>
           <span>06</span>
           <div>
-            <h3>Validation and structure–strength modelling</h3>
-            <p>Compare topological and morphometric feature families using validation procedures appropriate for a small cohort.</p>
+            <h3>Validation and strength modelling</h3>
+            <p>Compare topological and morphometric feature families with procedures appropriate for a small cohort.</p>
           </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-soft" id="evidence">
     <div class="shell evidence-grid">
       <article class="evidence-card">
-        <p class="eyebrow">What is public now</p>
-        <h2>Methods and software</h2>
+        <p class="eyebrow">Public now</p>
+        <h2>Methods, software, and the conceptual interface</h2>
         <p>
-          The conceptual framework, computational workflow, and research software can be documented
-          without publishing outcome tables prematurely. The Rust morphometry package is designed to
-          expose descriptor families explicitly and includes validation material for independent checks.
+          The mathematical idea, the teaching interaction, and public software can be inspected without
+          releasing detailed outcome comparisons before the corresponding manuscript is public.
         </p>
         <div class="inline-links">
           <a href="https://github.com/jhnrckmnznrs/bone_morphometry" target="_blank" rel="noopener noreferrer">Inspect the Rust package →</a>
@@ -263,45 +362,44 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       </article>
 
       <article class="evidence-card status-card">
-        <p class="eyebrow">Research status</p>
-        <h2>Results are still being prepared for publication.</h2>
+        <p class="eyebrow">Still in preparation</p>
+        <h2>Detailed numerical comparisons</h2>
         <p>
-          Detailed strength-prediction comparisons and manuscript-level numerical results are intentionally
-          omitted from this public interface for now. They can be added here once the corresponding work is public.
+          Strength prediction tables, manuscript figures, and other detailed outcome results are intentionally
+          absent from this public teaching page for now.
         </p>
       </article>
     </div>
   </section>
 
-  <section class="section next-questions">
+  <section class="section next-questions" id="next">
     <div class="shell">
       <div class="section-heading">
         <div>
-          <p class="kicker">What comes next</p>
-          <h2>Questions beyond a single descriptor</h2>
+          <p class="kicker">Questions that follow</p>
+          <h2>The first descriptor is not the end of the problem.</h2>
         </div>
         <p>
-          The project naturally leads to broader questions about directionality, invariance, local structure,
-          mechanics, and learned field representations.
+          Bone structure also raises questions about direction, invariance, mechanics, and field learning.
         </p>
       </div>
 
       <div class="question-grid">
         <article>
           <h3>Direction</h3>
-          <p>How should topology be adapted when trabecular architecture is strongly anisotropic?</p>
+          <p>How should topology respond when trabecular architecture has a preferred orientation?</p>
         </article>
         <article>
           <h3>Invariance</h3>
-          <p>Which descriptors remain meaningful when the coordinate frame changes?</p>
+          <p>Which descriptors retain their meaning when the coordinate frame changes?</p>
         </article>
         <article>
           <h3>Mechanics</h3>
-          <p>How do topological changes relate to load paths, stiffness, and localized structural weakness?</p>
+          <p>How do structural changes relate to load paths, stiffness, and local weakness?</p>
         </article>
         <article>
           <h3>Operator learning</h3>
-          <p>Can topology help neural operators preserve structural information when predicting physical fields?</p>
+          <p>Can topology help learned field models preserve information that matters to the physics?</p>
         </article>
       </div>
 
@@ -336,10 +434,16 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
         tab.addEventListener('click', () => select(tab.dataset.depthTab));
 
         tab.addEventListener('keydown', (event) => {
-          if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+
           event.preventDefault();
-          const offset = event.key === 'ArrowRight' ? 1 : -1;
-          const nextIndex = (index + offset + tabs.length) % tabs.length;
+          let nextIndex = index;
+
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+          if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = tabs.length - 1;
+
           tabs[nextIndex].focus();
           select(tabs[nextIndex].dataset.depthTab);
         });
@@ -363,7 +467,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
 
     .research-hero h1 {
       margin: 0;
-      max-width: 14ch;
+      max-width: 13ch;
       font-family: ui-serif, Georgia, serif;
       font-size: clamp(3.2rem, 7.2vw, 6.6rem);
       font-weight: 500;
@@ -382,7 +486,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       padding: 1.5rem;
       border: 1px solid var(--line);
       border-radius: 26px;
-      background: rgba(255,255,255,.4);
+      background: rgba(255,255,255,.45);
       box-shadow: var(--shadow);
     }
 
@@ -405,8 +509,64 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       letter-spacing: .08em;
     }
 
-    .question-chain span:nth-child(even) {
-      color: var(--terracotta);
+    .question-chain span:nth-child(even) { color: var(--terracotta); }
+
+    .research-local-nav {
+      position: sticky;
+      top: 76px;
+      z-index: 70;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(244,241,234,.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .research-local-nav .shell {
+      display: flex;
+      gap: .25rem;
+      padding-block: .55rem;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .research-local-nav a {
+      flex: 0 0 auto;
+      padding: .35rem .6rem;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: .78rem;
+    }
+
+    .research-local-nav a:hover,
+    .research-local-nav a:focus-visible {
+      color: var(--ink);
+      background: rgba(70,96,82,.08);
+    }
+
+    .research-disclosure {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .research-disclosure article {
+      padding: clamp(1.2rem, 3vw, 2rem);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,.34);
+    }
+
+    .research-disclosure h2 {
+      margin: 0;
+      font-family: ui-serif, Georgia, serif;
+      font-size: 1.8rem;
+      line-height: 1.15;
+    }
+
+    .research-disclosure p:last-child {
+      color: var(--ink-soft);
+      margin-bottom: 0;
     }
 
     .dimension-grid,
@@ -439,6 +599,57 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
 
     .dimension-grid p,
     .question-grid p {
+      margin: 0;
+      color: var(--ink-soft);
+    }
+
+    .bridge-block {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .bridge-block > div:first-child {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 1.5rem;
+    }
+
+    .bridge-block h2 {
+      margin: 0;
+      max-width: 12ch;
+      font-family: ui-serif, Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .bridge-grid article {
+      padding: 1.2rem;
+      border-top: 2px solid var(--pine);
+      background: rgba(255,255,255,.25);
+    }
+
+    .bridge-grid span {
+      color: var(--terracotta);
+      font-family: ui-serif, Georgia, serif;
+    }
+
+    .bridge-grid h3 {
+      margin: .5rem 0;
+      font-family: ui-serif, Georgia, serif;
+    }
+
+    .bridge-grid p {
       margin: 0;
       color: var(--ink-soft);
     }
@@ -500,9 +711,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       line-height: 1.1;
     }
 
-    .depth-panels p {
-      color: var(--ink-soft);
-    }
+    .depth-panels p { color: var(--ink-soft); }
 
     .math-display {
       margin: 1.5rem 0;
@@ -513,16 +722,24 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       font-size: 1.25rem;
     }
 
+    .math-note {
+      margin-top: 1.5rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(197,164,93,.55);
+      border-radius: 14px;
+      background: rgba(197,164,93,.08);
+      color: var(--ink-soft);
+    }
+
+    .math-note strong { color: var(--ink); }
     .nowrap { white-space: nowrap; }
 
     .pipeline {
-      position: relative;
       display: grid;
       gap: 0;
       margin: 0;
       padding: 0;
       list-style: none;
-      counter-reset: pipeline;
     }
 
     .pipeline li {
@@ -533,9 +750,7 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       border-top: 1px solid var(--line);
     }
 
-    .pipeline li:last-child {
-      border-bottom: 1px solid var(--line);
-    }
+    .pipeline li:last-child { border-bottom: 1px solid var(--line); }
 
     .pipeline > li > span {
       color: var(--terracotta);
@@ -574,30 +789,26 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       line-height: 1.12;
     }
 
-    .evidence-card > p:not(.eyebrow) {
-      color: var(--ink-soft);
-    }
+    .evidence-card > p:not(.eyebrow) { color: var(--ink-soft); }
 
     .status-card {
       border-color: rgba(197,164,93,.55);
       background: rgba(197,164,93,.08);
     }
 
-    .question-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .return-link {
-      margin-top: 2rem;
-    }
+    .question-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .return-link { margin-top: 2rem; }
 
     @media (max-width: 900px) {
       .research-hero-grid,
-      .evidence-grid {
+      .research-disclosure,
+      .evidence-grid,
+      .bridge-block > div:first-child {
         grid-template-columns: 1fr;
       }
 
-      .dimension-grid {
+      .dimension-grid,
+      .bridge-grid {
         grid-template-columns: 1fr;
       }
 
@@ -610,6 +821,8 @@ import BoneFiltrationDemo from '../../components/BoneFiltrationDemo.astro';
       .research-hero h1 {
         font-size: clamp(3rem, 15vw, 4.7rem);
       }
+
+      .research-local-nav { top: 72px; }
 
       .question-grid {
         grid-template-columns: 1fr;

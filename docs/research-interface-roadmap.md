@@ -1,163 +1,166 @@
 # Research Interface Roadmap
 
-This document treats the website as both an academic profile and a laboratory for better
-mathematical research communication.
+This website is both an academic profile and a laboratory for better mathematical research communication.
 
-The guiding principle is progressive disclosure:
+The guiding sequence is:
 
-> research question → intuition → mathematics → interaction → implementation → evidence → code
+> research question → intuition → interaction → mathematics → implementation → evidence → code
 
-The website should remain useful when JavaScript is unavailable and should not require a reader
-to understand every mathematical layer before reaching the information they need.
+A visitor should be able to stop at any point and still leave with a coherent understanding of what the project asks and why it matters.
+
+## Editorial principles
+
+### Write for clarity before compression
+
+The site should prefer ordinary phrases over dense compound constructions. Hyphens and dashes are useful when they carry meaning, but they should not become the default rhythm of the prose.
+
+Use a hyphen when it is part of a proper name, a repository name, a published title, or when removing it would make a phrase genuinely ambiguous. Otherwise, rewrite the sentence.
+
+### Separate kinds of evidence
+
+Every research page should distinguish among:
+
+- a teaching example created to explain an idea;
+- a method actually used in the research;
+- a result already suitable for public dissemination;
+- work that is still being prepared.
+
+A schematic visual should never look like experimental evidence.
+
+### Let readers choose depth
+
+The same project can be explained at several levels:
+
+1. **Intuition** for the scientific idea and motivation.
+2. **Mathematics** for definitions, assumptions, maps, and formal structure.
+3. **Implementation** for algorithms, code, numerical conventions, and reproducibility.
+
+These views should describe the same research. They should not become separate versions with different claims.
 
 ## Pilot: Topology and Bone Fragility
 
-### Phase 1 — conceptual interface
+### Stage 1: research question and conceptual structure
 
-Status: **implemented in the redesign branch**
+Status: **implemented**
 
-- dedicated research page;
-- plain-language research question;
-- separate descriptions of H0, H1, and H2;
-- interactive two-dimensional filtration toy model;
-- live component and void counts;
-- explicit warning that the toy example is not patient data;
-- progressive Intuition / Mathematics / Implementation views;
-- mathematical definitions rendered with native MathML;
-- visible research-provenance pipeline;
+The page now includes:
+
+- a direct research question;
+- a clear distinction between teaching content and unpublished results;
+- explanations of H0, H1, and H2;
+- a visible path from image volume to modelling;
 - links to relevant public repositories;
-- manuscript-level numerical results deliberately withheld while the work is not yet public.
+- layered intuition, mathematics, and implementation views.
 
-### Phase 2 — public research figures
+### Stage 2: linked filtration and persistence
 
-When the corresponding results can be made public:
+Status: **implemented with synthetic data**
 
-- replace or complement schematic visuals with selected real micro-CT figures;
-- add a clearly documented example scalar field;
-- show a real persistence diagram or persistence image;
-- add figure-level provenance: specimen state, preprocessing, filtration, software version,
-  and relevant manuscript figure/table reference;
-- provide text alternatives for each scientific visual.
+The teaching construction contains:
 
-Do not upload identifiable or restricted data. Public examples should use data that are already
-approved for public dissemination or deliberately generated synthetic examples.
+- one essential H0 class born at 18;
+- one finite H0 interval [28, 45);
+- one finite H1 interval [28, 68).
 
-### Phase 3 — linked topology interaction
+The interface lets a reader:
 
-Status: **implemented for the synthetic teaching construction**
+1. move the filtration threshold;
+2. observe live Betti numbers;
+3. inspect the corresponding persistence diagram;
+4. see which finite classes are alive at the current threshold;
+5. select a persistence point with a pointer or keyboard;
+6. read its dimension, birth, death, persistence, and current state;
+7. jump directly to its birth, an interior threshold, or its death;
+8. inspect an explanatory witness in the grid.
 
-The pilot now:
+The interface states explicitly that the highlighted witness is chosen for explanation. It is not presented as a unique canonical representative of the persistence class.
 
-1. moves through a deliberately constructed filtration with known positive-persistence classes;
-2. displays the corresponding finite persistence points;
-3. lets the reader select a persistence point by mouse or keyboard;
-4. reports dimension, birth, death, persistence, and whether the class is alive at the current threshold;
-5. provides controls to jump to the birth, an interior threshold, or the death of the selected class;
-6. highlights an explanatory witness in the grid;
-7. states explicitly that the highlighted witness is not a unique canonical representative of the persistence class;
-8. lists the essential H0 class separately because its death time is infinite.
+### Stage 3: public research figures
 
-The teaching construction uses one finite H0 interval [28, 45), one finite H1 interval [28, 68),
-and one essential H0 class born at 18. It remains synthetic and must not be presented as an
-experimental result.
+When the corresponding material can be made public:
 
-### Phase 4 — three-dimensional structure
+- add selected micro CT figures that are approved for public dissemination;
+- add a documented example scalar field;
+- add a real persistence diagram or persistence image;
+- connect each figure to specimen state, preprocessing, filtration, software version, and relevant manuscript material;
+- provide meaningful text alternatives for every scientific visual.
 
-Explore a lightweight browser-based 3-D view only if it improves comprehension.
+Do not upload restricted or identifying data.
+
+### Stage 4: interaction with public research examples
+
+A later version can connect a public image example to a real diagram.
+
+Possible interaction:
+
+1. move through a real or approved example filtration;
+2. update the persistence diagram;
+3. select a persistence point;
+4. display an appropriate geometric representative when one can be justified;
+5. explain the representative and its nonuniqueness;
+6. provide a text alternative for readers who cannot use the visual interaction.
+
+### Stage 5: structure in three dimensions
+
+A browser based view in three dimensions should be added only if it improves comprehension.
 
 Requirements:
 
-- keyboard-operable controls;
-- a non-3-D alternative;
-- reduced-motion behaviour;
-- no essential information encoded only by rotation, colour, or animation;
-- reasonable performance on ordinary laptops and mobile devices.
+- all essential controls must be keyboard accessible;
+- a nonvisual or static alternative must be available;
+- reduced motion preferences must be respected;
+- colour and rotation must not be the only carriers of information;
+- performance must remain reasonable on ordinary laptops and mobile devices.
 
-A static or slice-based explanation is preferable if a 3-D viewer adds complexity without
-improving understanding.
+A sequence of slices or carefully chosen static figures is preferable if a 3D viewer adds complexity without adding understanding.
 
 ## Accessibility research
 
-The interface should be developed against questions such as:
+The interface should continue to be tested against questions such as:
 
-- Can a keyboard-only user reach every explanation and control?
+- Can a keyboard user reach every control and explanation?
 - Does the page remain understandable without colour?
-- Are mathematical expressions exposed semantically rather than only as images?
-- Can a screen-reader user understand the purpose and state of an interactive mathematical figure?
+- Are mathematical expressions represented semantically?
+- Can a screen reader user understand the purpose and current state of an interactive mathematical figure?
 - Is there a useful alternative when an interaction is intrinsically visual?
-- Does reduced-motion mode preserve all information?
+- Does reduced motion preserve every piece of information?
 
-Native MathML is preferred where practical because it keeps mathematical structure in the document.
-Rendered fallback approaches should be evaluated with assistive technologies before adoption.
+Native MathML is preferred where practical because it keeps mathematical structure in the document. Any fallback rendering approach should be tested with assistive technologies before adoption.
 
 ## Usability research
 
-A future small usability study could compare the research interface with a conventional
-paper-first project page.
+A future study could compare the research interface with a conventional project page centred on a paper.
 
 Example tasks:
 
 1. Explain the central research question in one sentence.
 2. Identify what H0, H1, and H2 describe.
 3. Find the software used for conventional morphometry.
-4. Explain why a filtration is used rather than a single threshold.
-5. Locate the paper, code, or public evidence associated with a claim.
+4. Explain why a filtration is studied rather than a single threshold.
+5. Locate the public code or evidence associated with a claim.
 
-Possible measurements:
+Possible observations include:
 
 - task completion;
-- time to locate information;
+- time needed to locate information;
 - navigation errors;
 - comprehension responses;
-- perceived workload;
-- qualitative comments on confusing terminology or visuals.
+- perceived effort;
+- qualitative comments about terminology and visuals.
 
-For any study intended for publication, determine institutional ethics requirements before
-collecting participant data.
+For any study intended for publication, institutional ethics requirements should be determined before participant data are collected.
 
-## Content modes
+## Reusable interface components
 
-The current three modes are intentionally audience-oriented rather than expertise labels.
-
-### Intuition
-
-For a reader who wants the scientific idea without formal prerequisites.
-
-### Mathematics
-
-For a reader who wants definitions, maps, assumptions, and mathematical structure.
-
-### Implementation
-
-For a reader who wants to know how the mathematics is converted into a reproducible computational
-workflow.
-
-The three modes should describe the same research faithfully. They should not become separate,
-contradictory versions of the project.
-
-## Evidence policy
-
-The site should distinguish among:
-
-- **conceptual demonstrations** — created to explain an idea;
-- **research methods** — methods actually used in the project;
-- **public results** — results already suitable for public dissemination;
-- **work in progress** — described without prematurely releasing manuscript-level findings.
-
-A visual should never look like an experimental result if it is only schematic.
-
-## Reusable components
-
-If the pilot succeeds, extract reusable components for other research pages:
+If the pilot continues to work well, reusable components can support other research pages:
 
 - filtration controller;
 - semantic mathematical display;
 - progressive explanation tabs;
-- research pipeline / provenance chain;
+- research provenance chain;
 - figure metadata panel;
-- code-and-paper links;
+- links between papers and code;
 - accessible interactive chart wrapper;
-- “conceptual / real data” disclosure component.
+- disclosure component for teaching examples and real research material.
 
-The same design system can then support Ball Mapper, directional topology, bone morphometry,
-neural operators, and teaching notes without rebuilding interaction patterns independently.
+The same design language can then support Ball Mapper, directional topology, bone morphometry, neural operators, and mathematical notes without rebuilding the interaction model for every page.

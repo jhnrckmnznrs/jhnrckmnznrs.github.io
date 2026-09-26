@@ -8,23 +8,67 @@ import ProjectCard from '../components/ProjectCard.astro';
   <section class="hero">
     <div class="shell hero-grid">
       <div>
-        <p class="kicker">Mathematician · Computational researcher</p>
-        <h1>Shape, structure, <span>and change.</span></h1>
+        <p class="kicker">Mathematics · Scientific computing · Research</p>
+        <h1>I study structure <span>through mathematics.</span></h1>
         <p class="hero-lead">
-          I am John Rick Manzanares, a Filipino mathematician working across topology,
-          geometry, scientific computing, and machine learning.
+          I am John Rick Manzanares, a Filipino mathematician and computational researcher.
+          I use topology, geometry, scientific computing, and machine learning to study complex structures
+          and the information they preserve.
         </p>
         <p class="hero-role">
-          My doctoral research studies bone microstructure using mathematical and computational
-          tools, with an emphasis on interpretable descriptors of complex three-dimensional structure.
+          My doctoral research focuses on trabecular bone. I am interested in what its geometry and topology
+          can tell us beyond conventional summary measurements, and how those descriptions can be connected
+          to mechanics.
         </p>
         <div class="actions">
-          <a class="button" href="/research/">Explore research</a>
-          <a class="button secondary" href="/publications/">Publications</a>
-          <a class="button secondary" href="/software/">Software</a>
+          <a class="button" href="/research/">Start with the research</a>
+          <a class="button secondary" href="/publications/">Read publications</a>
+          <a class="button secondary" href="/software/">Browse software</a>
         </div>
       </div>
       <HeroVisual />
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Current questions</p>
+          <h2>The questions come before the tools.</h2>
+        </div>
+        <p>
+          I try to begin with a structural or scientific question, then choose the mathematics and
+          computation that make the question precise enough to investigate.
+        </p>
+      </div>
+
+      <div class="question-grid-home">
+        <article class="question-card">
+          <span>01</span>
+          <h3>What does conventional morphometry miss?</h3>
+          <p>
+            Bone volume, thickness, and separation are useful, but they do not describe every aspect of
+            connectivity, cavities, orientation, or organisation.
+          </p>
+        </article>
+        <article class="question-card">
+          <span>02</span>
+          <h3>Which descriptors remain meaningful when the frame changes?</h3>
+          <p>
+            Structural descriptors should reflect the object being studied rather than an arbitrary choice
+            of coordinates whenever possible.
+          </p>
+        </article>
+        <article class="question-card">
+          <span>03</span>
+          <h3>How can topology enter scientific machine learning?</h3>
+          <p>
+            I am interested in ways to preserve structural information when a model learns fields,
+            operators, or mechanical responses.
+          </p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -33,12 +77,11 @@ import ProjectCard from '../components/ProjectCard.astro';
       <div class="section-heading">
         <div>
           <p class="kicker">Selected research</p>
-          <h2>Mathematics that meets structure.</h2>
+          <h2>From mathematical structure to scientific evidence.</h2>
         </div>
         <p>
-          My current work asks how geometric and topological information can help explain
-          mechanical behaviour in biological structures, while remaining computationally useful
-          and scientifically interpretable.
+          These projects share a common concern: how to extract information from complicated shape
+          without losing the mathematical meaning of the descriptor or the scientific meaning of the result.
         </p>
       </div>
 
@@ -46,36 +89,94 @@ import ProjectCard from '../components/ProjectCard.astro';
         <ProjectCard
           eyebrow="Doctoral research"
           title="Topology and bone fragility"
-          description="Persistent homology, morphometry, and statistical learning for characterising trabecular microstructure and relating structural descriptors to apparent bone strength."
+          description="Persistent homology, morphometry, and statistical modelling for trabecular structure and apparent bone strength."
           href="/research/topology-bone-fragility/"
-          tags={['persistent homology', 'micro-CT', 'regression']}
+          tags={['persistent homology', 'micro CT', 'bone strength']}
           kind="bone"
         />
         <ProjectCard
           eyebrow="Scientific computing"
           title="Computational bone morphometry"
-          description="Efficient, reproducible implementations of morphology, orientation, and geometric descriptors for large three-dimensional bone images."
+          description="Transparent implementations of morphology, orientation, graph, and geometric descriptors for bone images in three dimensions."
           href="/research/#morphometry"
-          tags={['Rust', '3D images', 'morphometry']}
+          tags={['Rust', '3D imaging', 'morphometry']}
           kind="morphology"
         />
         <ProjectCard
           eyebrow="Research software"
           title="Fast Ball Mapper"
-          description="Efficient cover construction for Ball Mapper, with emphasis on exactness, range-query performance, reproducibility, and practical use on larger datasets."
+          description="Efficient cover construction for Ball Mapper, with attention to exactness, range queries, performance, and reproducibility."
           href="https://github.com/jhnrckmnznrs/fast-ballmapper"
           tags={['TDA', 'Python', 'range queries']}
           kind="mapper"
           external
         />
         <ProjectCard
-          eyebrow="Exploratory work"
-          title="Topology-aware scientific machine learning"
-          description="Investigating how topological information can be incorporated into neural operators and field-learning problems for scientific and biomedical applications."
+          eyebrow="Research direction"
+          title="Topology in scientific machine learning"
+          description="Exploring how topological information can support neural operators and other models for scientific fields."
           href="/research/#scientific-ml"
           tags={['neural operators', 'PDEs', 'topology']}
           kind="operator"
         />
+      </div>
+    </div>
+  </section>
+
+  <section class="section research-interface-band">
+    <div class="shell research-interface-grid">
+      <div>
+        <p class="kicker">Research as an interface</p>
+        <h2>A paper should not be the only doorway into a project.</h2>
+      </div>
+      <div>
+        <p>
+          The flagship bone research page is an experiment in communicating research through several
+          layers. A reader can begin with the scientific question, explore a filtration, inspect a persistence
+          diagram, read the mathematics, and then continue to the implementation.
+        </p>
+        <p class="research-sequence" aria-label="Research communication sequence">
+          <span>Question</span><b>→</b><span>Intuition</span><b>→</b><span>Mathematics</span><b>→</b><span>Code</span>
+        </p>
+        <a class="button" href="/research/topology-bone-fragility/">Explore the bone research interface</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Public work</p>
+          <h2>Different ways to enter the work.</h2>
+        </div>
+        <p>
+          Research is more than a list of papers. This site also collects software, teaching material,
+          explanatory notes, and selected writing.
+        </p>
+      </div>
+
+      <div class="path-grid">
+        <a class="path-card" href="/publications/">
+          <span>Publications</span>
+          <strong>Papers, talks, and posters</strong>
+          <p>Formal research outputs and selected scientific presentations.</p>
+        </a>
+        <a class="path-card" href="/software/">
+          <span>Software</span>
+          <strong>Code that can be inspected</strong>
+          <p>Research packages, experimental repositories, and archived project code.</p>
+        </a>
+        <a class="path-card" href="/teaching/">
+          <span>Teaching</span>
+          <strong>Learning by working through ideas</strong>
+          <p>Courses, exercise material, and mathematical presentations.</p>
+        </a>
+        <a class="path-card" href="/notes/">
+          <span>Notes</span>
+          <strong>Explanations with more room</strong>
+          <p>Mathematics, research notes, and occasional writing about academic life.</p>
+        </a>
       </div>
     </div>
   </section>
@@ -89,47 +190,14 @@ import ProjectCard from '../components/ProjectCard.astro';
       <div class="banyuhay-copy">
         <p>
           <em>Banyuhay</em> is a Filipino word for metamorphosis or transformation.
-          It is a useful description of both mathematics and a life in research:
-          ideas change, questions become sharper, and the path rarely remains what it was at the beginning.
+          It describes the way I think about a life in mathematics: questions change, methods change,
+          and the path itself becomes part of the work.
         </p>
         <p>
-          This site gathers the parts of that continuing transformation: research,
-          software, teaching, mathematical notes, and occasional writing about academic life.
+          The site is meant to reflect that movement. It is a research space, a notebook, a software shelf,
+          a teaching archive, and a record of ideas still becoming clearer.
         </p>
-        <a class="text-link" href="/about/">Read the longer story →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="shell">
-      <div class="section-heading">
-        <div>
-          <p class="kicker">Recent work</p>
-          <h2>Research made reusable.</h2>
-        </div>
-        <p>
-          I prefer research outputs that can be inspected and reused. Alongside papers,
-          I maintain software and teaching material where the underlying methods can be explored directly.
-        </p>
-      </div>
-      <div class="software-grid">
-        <article class="software-card">
-          <p class="eyebrow">Python · TDA</p>
-          <h2>fast-ballmapper</h2>
-          <p>Efficient cover construction for the Ball Mapper algorithm.</p>
-          <div class="inline-links">
-            <a href="https://github.com/jhnrckmnznrs/fast-ballmapper">Repository →</a>
-          </div>
-        </article>
-        <article class="software-card">
-          <p class="eyebrow">Rust · Imaging</p>
-          <h2>bone_morphometry</h2>
-          <p>Research implementations for quantitative descriptors of three-dimensional bone microstructure.</p>
-          <div class="inline-links">
-            <a href="https://github.com/jhnrckmnznrs/bone_morphometry">Repository →</a>
-          </div>
-        </article>
+        <a class="text-link" href="/about/">Read about Banyuhay and my path →</a>
       </div>
     </div>
   </section>
