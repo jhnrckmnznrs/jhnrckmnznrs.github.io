@@ -2,32 +2,92 @@
 const size = 11;
 const cells = [];
 
+const inRing = (x, y) =>
+  x >= 4 && x <= 8 && y >= 2 && y <= 6 &&
+  (x === 4 || x === 8 || y === 2 || y === 6);
+
+const inRingInterior = (x, y) =>
+  x >= 5 && x <= 7 && y >= 3 && y <= 5;
+
+const lowerComponent = new Set(['1,8', '2,8', '2,9', '3,9', '1,9']);
+const bridge = new Set(['3,8', '4,8', '4,7']);
+
 for (let y = 0; y < size; y += 1) {
   for (let x = 0; x < size; x += 1) {
-    const ringDistance = Math.abs(Math.hypot(x - 5.5, y - 4.8) - 3.05);
-    const ring = 18 + ringDistance * 18;
-    const lowerBlob = 28 + Math.hypot(x - 2.0, y - 8.4) * 13;
-    const bridge = 43 + Math.abs(y - 7.0) * 15 + Math.abs(x - 3.6) * 4;
-    const value = Math.max(10, Math.min(96, Math.round(Math.min(ring, lowerBlob, bridge))));
-    cells.push({ x, y, value });
+    const k = `${x},${y}`;
+    let value = 90;
+    let role = 'background';
+
+    if (lowerComponent.has(k)) {
+      value = 18;
+      role = 'early-component';
+    } else if (inRing(x, y)) {
+      value = 28;
+      role = 'ring';
+    } else if (bridge.has(k)) {
+      value = 45;
+      role = 'bridge';
+    } else if (inRingInterior(x, y)) {
+      value = 68;
+      role = 'interior';
+    }
+
+    cells.push({ x, y, value, role });
   }
 }
+
+const persistencePoints = [
+  {
+    id: 'h0-ring',
+    dimension: 0,
+    birth: 28,
+    death: 45,
+    label: 'Ring component',
+    explanation:
+      'At threshold 28, the ring enters as a component separate from the earlier lower component. At threshold 45, the bridge connects them. Under the elder-rule convention, this younger component dies at the merge.'
+  },
+  {
+    id: 'h1-void',
+    dimension: 1,
+    birth: 28,
+    death: 68,
+    label: 'Enclosed void',
+    explanation:
+      'When the ring closes at threshold 28, it encloses a background region. The void persists until threshold 68, when the interior cells enter and fill it.'
+  }
+];
+
+const plot = {
+  left: 46,
+  right: 310,
+  top: 22,
+  bottom: 286,
+  min: 10,
+  max: 80
+};
+
+const sx = (value) =>
+  plot.left + ((value - plot.min) / (plot.max - plot.min)) * (plot.right - plot.left);
+
+const sy = (value) =>
+  plot.bottom - ((value - plot.min) / (plot.max - plot.min)) * (plot.bottom - plot.top);
 ---
 
 <section class="filtration-demo" id="filtration-demo" aria-labelledby="filtration-title">
   <div class="demo-heading">
     <div>
       <p class="eyebrow">Interactive concept</p>
-      <h2 id="filtration-title">Move through a filtration</h2>
+      <h2 id="filtration-title">Link a filtration to persistence</h2>
     </div>
     <p>
-      A filtration reveals a structure gradually. Here, cells enter when their scalar value
-      falls below the selected threshold.
+      Move through the synthetic filtration, then select a persistence point to inspect
+      when its feature is born, when it dies, and how long it persists.
     </p>
   </div>
 
-  <div class="demo-layout">
+  <div class="linked-demo">
     <div class="grid-panel">
+      <h3>1. Filtration</h3>
       <svg
         class="cubical-grid"
         viewBox="0 0 330 330"
@@ -35,10 +95,10 @@ for (let y = 0; y < size; y += 1) {
         aria-labelledby="grid-title grid-desc"
         data-grid
       >
-        <title id="grid-title">Toy two-dimensional cubical filtration</title>
+        <title id="grid-title">Synthetic two-dimensional cubical filtration</title>
         <desc id="grid-desc">
-          A synthetic grid in which cells become active as the filtration threshold increases.
-          Gold cells indicate enclosed background regions in the current toy example.
+          A teaching grid containing an early component, a ring, a later bridge, and an
+          interior that eventually fills the ring. Cells enter as the threshold increases.
         </desc>
         {cells.map((cell) => (
           <rect
@@ -51,6 +111,7 @@ for (let y = 0; y < size; y += 1) {
             data-x={cell.x}
             data-y={cell.y}
             data-level={cell.value}
+            data-role={cell.role}
           />
         ))}
       </svg>
@@ -59,50 +120,193 @@ for (let y = 0; y < size; y += 1) {
         <span><i class="legend-cell inactive"></i> not yet entered</span>
         <span><i class="legend-cell active"></i> entered</span>
         <span><i class="legend-cell hole"></i> enclosed void</span>
+        <span><i class="legend-cell witness"></i> selected witness</span>
       </div>
     </div>
 
-    <div class="controls-panel">
-      <label for="filtration-threshold">
-        Filtration threshold
-        <output id="filtration-value" for="filtration-threshold">45</output>
-      </label>
-      <input
-        id="filtration-threshold"
-        type="range"
-        min="10"
-        max="96"
-        value="45"
-        step="1"
-        data-threshold
-      />
+    <div class="diagram-panel">
+      <h3>2. Persistence diagram</h3>
+      <svg
+        class="persistence-diagram"
+        viewBox="0 0 340 320"
+        role="img"
+        aria-labelledby="pd-title pd-desc"
+      >
+        <title id="pd-title">Persistence diagram for the positive-persistence features in the teaching filtration</title>
+        <desc id="pd-desc">
+          The diagram contains a dimension-zero point born at 28 and dying at 45 and a
+          dimension-one point born at 28 and dying at 68. The earlier dimension-zero
+          component is essential and is listed separately because its death time is infinite.
+        </desc>
 
-      <div class="betti-readout" aria-live="polite" aria-atomic="true">
-        <div>
-          <span class="symbol">β<sub>0</sub></span>
-          <strong data-b0>0</strong>
-          <small>edge-connected components</small>
-        </div>
-        <div>
-          <span class="symbol">β<sub>1</sub></span>
-          <strong data-b1>0</strong>
-          <small>enclosed voids</small>
-        </div>
+        <line class="axis" x1={plot.left} y1={plot.bottom} x2={plot.right} y2={plot.bottom} />
+        <line class="axis" x1={plot.left} y1={plot.bottom} x2={plot.left} y2={plot.top} />
+        <line
+          class="diagonal"
+          x1={sx(plot.min)}
+          y1={sy(plot.min)}
+          x2={sx(plot.max)}
+          y2={sy(plot.max)}
+        />
+
+        {[20, 40, 60, 80].map((tick) => (
+          <g class="tick" aria-hidden="true">
+            <line x1={sx(tick)} y1={plot.bottom} x2={sx(tick)} y2={plot.bottom + 5} />
+            <text x={sx(tick)} y={plot.bottom + 20} text-anchor="middle">{tick}</text>
+            <line x1={plot.left - 5} y1={sy(tick)} x2={plot.left} y2={sy(tick)} />
+            <text x={plot.left - 10} y={sy(tick) + 4} text-anchor="end">{tick}</text>
+          </g>
+        ))}
+
+        <text class="axis-label" x={(plot.left + plot.right) / 2} y="316" text-anchor="middle">birth</text>
+        <text
+          class="axis-label"
+          x="15"
+          y={(plot.top + plot.bottom) / 2}
+          text-anchor="middle"
+          transform={`rotate(-90 15 ${(plot.top + plot.bottom) / 2})`}
+        >
+          death
+        </text>
+
+        <line
+          class="threshold-guide birth-guide"
+          x1={sx(45)}
+          y1={plot.top}
+          x2={sx(45)}
+          y2={plot.bottom}
+          data-threshold-x
+        />
+        <line
+          class="threshold-guide death-guide"
+          x1={plot.left}
+          y1={sy(45)}
+          x2={plot.right}
+          y2={sy(45)}
+          data-threshold-y
+        />
+
+        {persistencePoints.map((point) => (
+          <g
+            class:list={['pd-point', `pd-h${point.dimension}`]}
+            role="button"
+            tabindex="0"
+            aria-label={`${point.label}, dimension ${point.dimension}, birth ${point.birth}, death ${point.death}, persistence ${point.death - point.birth}`}
+            data-persistence-point
+            data-feature={point.id}
+            data-dimension={point.dimension}
+            data-birth={point.birth}
+            data-death={point.death}
+            data-label={point.label}
+            data-explanation={point.explanation}
+            transform={`translate(${sx(point.birth)} ${sy(point.death)})`}
+          >
+            <circle r="9" />
+            <text x="13" y="-11">H{point.dimension}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div class="diagram-key">
+        <span><i class="point-key h0"></i> H<sub>0</sub></span>
+        <span><i class="point-key h1"></i> H<sub>1</sub></span>
+        <span class="threshold-key">dashed guides = current threshold</span>
       </div>
 
-      <p class="demo-status" data-status>
-        Adjust the threshold to see components appear, merge, and enclose a void.
-      </p>
+      <div class="feature-buttons" aria-label="Persistence features">
+        {persistencePoints.map((point) => (
+          <button
+            type="button"
+            data-feature-button
+            data-feature={point.id}
+          >
+            <span>H<sub>{point.dimension}</sub></span>
+            {point.label}
+            <small>({point.birth}, {point.death})</small>
+          </button>
+        ))}
+      </div>
 
-      <div class="concept-note">
-        <strong>This is a teaching model, not patient data.</strong>
-        <p>
-          It is deliberately two-dimensional and uses edge adjacency so the change in topology
-          is easy to inspect. The research workflow operates on three-dimensional cubical complexes,
-          where dimensions 0, 1, and 2 describe components, tunnels, and cavities.
-        </p>
+      <div class="essential-class">
+        <span>H<sub>0</sub></span>
+        <div>
+          <strong>Essential component</strong>
+          <small>birth 18 · death ∞</small>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="controls-panel">
+    <label for="filtration-threshold">
+      Filtration threshold
+      <output id="filtration-value" for="filtration-threshold">45</output>
+    </label>
+    <input
+      id="filtration-threshold"
+      type="range"
+      min="10"
+      max="90"
+      value="45"
+      step="1"
+      data-threshold
+    />
+
+    <div class="betti-readout" aria-live="polite" aria-atomic="true">
+      <div>
+        <span class="symbol">β<sub>0</sub></span>
+        <strong data-b0>0</strong>
+        <small>edge-connected components</small>
+      </div>
+      <div>
+        <span class="symbol">β<sub>1</sub></span>
+        <strong data-b1>0</strong>
+        <small>enclosed voids</small>
+      </div>
+    </div>
+
+    <p class="demo-status" data-status>
+      Adjust the threshold to see components appear, merge, and enclose a void.
+    </p>
+  </div>
+
+  <div class="feature-inspector" data-feature-inspector aria-live="polite">
+    <div>
+      <p class="eyebrow">Selected persistence class</p>
+      <h3 data-feature-title>Select a persistence point</h3>
+    </div>
+
+    <dl>
+      <div><dt>Dimension</dt><dd data-feature-dimension>—</dd></div>
+      <div><dt>Birth</dt><dd data-feature-birth>—</dd></div>
+      <div><dt>Death</dt><dd data-feature-death>—</dd></div>
+      <div><dt>Persistence</dt><dd data-feature-persistence>—</dd></div>
+      <div><dt>At current threshold</dt><dd data-feature-state>—</dd></div>
+    </dl>
+
+    <p data-feature-explanation>
+      Choose either point in the diagram or one of the equivalent buttons below it.
+    </p>
+
+    <div class="feature-actions" hidden data-feature-actions>
+      <button type="button" data-jump="birth">Jump to birth</button>
+      <button type="button" data-jump="middle">View while alive</button>
+      <button type="button" data-jump="death">Jump to death</button>
+    </div>
+  </div>
+
+  <div class="concept-note">
+    <strong>This is a teaching construction, not patient data.</strong>
+    <p>
+      The scalar values were chosen so that the positive-persistence classes are known and easy to
+      inspect: an H<sub>0</sub> class has interval [28, 45), and an H<sub>1</sub> class has interval
+      [28, 68). The first H<sub>0</sub> class is essential and persists indefinitely in this finite example.
+    </p>
+    <p>
+      When a persistence point is selected, highlighted cells are an explanatory witness chosen for this
+      construction. In general, a persistence class does not come with one unique canonical geometric
+      representative.
+    </p>
   </div>
 </section>
 
@@ -116,7 +320,37 @@ for (let y = 0; y < size; y += 1) {
     const b0Node = root.querySelector('[data-b0]');
     const b1Node = root.querySelector('[data-b1]');
     const statusNode = root.querySelector('[data-status]');
+    const pdPoints = Array.from(root.querySelectorAll('[data-persistence-point]'));
+    const featureButtons = Array.from(root.querySelectorAll('[data-feature-button]'));
+    const thresholdX = root.querySelector('[data-threshold-x]');
+    const thresholdY = root.querySelector('[data-threshold-y]');
+    const inspector = root.querySelector('[data-feature-inspector]');
+    const featureTitle = root.querySelector('[data-feature-title]');
+    const featureDimension = root.querySelector('[data-feature-dimension]');
+    const featureBirth = root.querySelector('[data-feature-birth]');
+    const featureDeath = root.querySelector('[data-feature-death]');
+    const featurePersistence = root.querySelector('[data-feature-persistence]');
+    const featureState = root.querySelector('[data-feature-state]');
+    const featureExplanation = root.querySelector('[data-feature-explanation]');
+    const featureActions = root.querySelector('[data-feature-actions]');
+    const jumpButtons = Array.from(root.querySelectorAll('[data-jump]'));
     const size = 11;
+    let selectedFeature = null;
+
+    const plot = {
+      left: 46,
+      right: 310,
+      top: 22,
+      bottom: 286,
+      min: 10,
+      max: 80
+    };
+
+    const sx = (value) =>
+      plot.left + ((value - plot.min) / (plot.max - plot.min)) * (plot.right - plot.left);
+
+    const sy = (value) =>
+      plot.bottom - ((value - plot.min) / (plot.max - plot.min)) * (plot.bottom - plot.top);
 
     const key = (x, y) => `${x},${y}`;
     const neighbours = (x, y) => [
@@ -196,6 +430,83 @@ for (let y = 0; y < size; y += 1) {
       return { holes, holeCells };
     };
 
+    const featureData = (node) => ({
+      id: node.dataset.feature,
+      dimension: Number(node.dataset.dimension),
+      birth: Number(node.dataset.birth),
+      death: Number(node.dataset.death),
+      label: node.dataset.label,
+      explanation: node.dataset.explanation
+    });
+
+    const stateAt = (feature, threshold) => {
+      if (threshold < feature.birth) return 'not yet born';
+      if (threshold >= feature.death) return 'already died';
+      return 'alive';
+    };
+
+    const updateInspectorState = () => {
+      if (!selectedFeature) return;
+      featureState.textContent = stateAt(selectedFeature, Number(slider.value));
+    };
+
+    const updateWitness = () => {
+      cells.forEach((cell) => cell.classList.remove('is-witness'));
+      if (!selectedFeature) return;
+
+      if (selectedFeature.id === 'h0-ring') {
+        cells
+          .filter((cell) => cell.dataset.role === 'ring')
+          .forEach((cell) => cell.classList.add('is-witness'));
+      }
+
+      if (selectedFeature.id === 'h1-void') {
+        cells
+          .filter((cell) => cell.dataset.role === 'ring' || cell.dataset.role === 'interior')
+          .forEach((cell) => cell.classList.add('is-witness'));
+      }
+    };
+
+    const selectFeature = (featureId) => {
+      const source = pdPoints.find((point) => point.dataset.feature === featureId);
+      if (!source) return;
+
+      selectedFeature = featureData(source);
+
+      pdPoints.forEach((point) => {
+        const selected = point.dataset.feature === featureId;
+        point.classList.toggle('is-selected', selected);
+        point.setAttribute('aria-pressed', String(selected));
+      });
+
+      featureButtons.forEach((button) => {
+        const selected = button.dataset.feature === featureId;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      });
+
+      featureTitle.textContent = selectedFeature.label;
+      featureDimension.textContent = `H${selectedFeature.dimension}`;
+      featureBirth.textContent = String(selectedFeature.birth);
+      featureDeath.textContent = String(selectedFeature.death);
+      featurePersistence.textContent = String(selectedFeature.death - selectedFeature.birth);
+      featureExplanation.textContent = selectedFeature.explanation;
+      featureActions.hidden = false;
+
+      updateInspectorState();
+      updateWitness();
+    };
+
+    const updateThresholdGuides = (threshold) => {
+      const clamped = Math.max(plot.min, Math.min(plot.max, threshold));
+      const x = sx(clamped);
+      const y = sy(clamped);
+      thresholdX.setAttribute('x1', String(x));
+      thresholdX.setAttribute('x2', String(x));
+      thresholdY.setAttribute('y1', String(y));
+      thresholdY.setAttribute('y2', String(y));
+    };
+
     const render = () => {
       const threshold = Number(slider.value);
       const active = new Map();
@@ -225,18 +536,64 @@ for (let y = 0; y < size; y += 1) {
       output.textContent = String(threshold);
       b0Node.textContent = String(components);
       b1Node.textContent = String(holes);
+      updateThresholdGuides(threshold);
 
-      let message = 'At this threshold, no cells have entered the filtration.';
-      if (active.size > 0 && holes === 0 && components > 1) {
-        message = `There are ${components} separate components. Increase the threshold and watch for merging or enclosure.`;
-      } else if (active.size > 0 && holes === 0 && components === 1) {
-        message = 'The entered cells form one component, with no enclosed void under this toy adjacency convention.';
-      } else if (holes > 0) {
-        message = `The current set has ${components} component${components === 1 ? '' : 's'} and ${holes} enclosed void${holes === 1 ? '' : 's'}.`;
+      pdPoints.forEach((point) => {
+        const feature = featureData(point);
+        const state = stateAt(feature, threshold);
+        point.dataset.state = state;
+      });
+
+      let message = 'At this threshold, no teaching feature has entered the filtration.';
+      if (threshold >= 18 && threshold < 28) {
+        message = 'The first component has appeared. It becomes the essential H₀ class in this teaching example.';
+      } else if (threshold >= 28 && threshold < 45) {
+        message = 'The ring has appeared as a second component and simultaneously encloses a void: β₀ = 2 and β₁ = 1.';
+      } else if (threshold >= 45 && threshold < 68) {
+        message = 'The bridge has merged the two components. The H₀ ring class has died, while the H₁ void is still alive.';
+      } else if (threshold >= 68 && threshold < 90) {
+        message = 'The interior has entered and filled the void. Both finite persistence classes shown in the diagram have now died.';
+      } else if (threshold >= 90) {
+        message = 'All cells have entered. The finite grid is completely filled and only the essential connected component remains.';
       }
 
       statusNode.textContent = message;
+      updateInspectorState();
+      updateWitness();
     };
+
+    pdPoints.forEach((point) => {
+      point.setAttribute('aria-pressed', 'false');
+      point.addEventListener('click', () => selectFeature(point.dataset.feature));
+      point.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          selectFeature(point.dataset.feature);
+        }
+      });
+    });
+
+    featureButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', 'false');
+      button.addEventListener('click', () => selectFeature(button.dataset.feature));
+    });
+
+    jumpButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!selectedFeature) return;
+
+        let target = selectedFeature.birth;
+        if (button.dataset.jump === 'middle') {
+          target = Math.floor((selectedFeature.birth + selectedFeature.death) / 2);
+        }
+        if (button.dataset.jump === 'death') {
+          target = selectedFeature.death;
+        }
+
+        slider.value = String(target);
+        render();
+      });
+    });
 
     slider.addEventListener('input', render);
     render();
@@ -274,18 +631,22 @@ for (let y = 0; y < size; y += 1) {
     color: var(--ink-soft);
   }
 
-  .demo-layout {
+  .linked-demo {
     display: grid;
-    grid-template-columns: minmax(280px, .85fr) minmax(300px, 1.15fr);
+    grid-template-columns: minmax(280px, .9fr) minmax(300px, 1.1fr);
     gap: clamp(1.25rem, 4vw, 3rem);
-    align-items: center;
+    align-items: start;
   }
 
-  .grid-panel {
-    max-width: 470px;
+  .grid-panel h3,
+  .diagram-panel h3 {
+    margin: 0 0 .75rem;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.3rem;
   }
 
-  .cubical-grid {
+  .cubical-grid,
+  .persistence-diagram {
     display: block;
     width: 100%;
     border: 1px solid var(--line);
@@ -297,7 +658,7 @@ for (let y = 0; y < size; y += 1) {
     fill: rgba(255,255,255,.38);
     stroke: rgba(23,42,58,.07);
     stroke-width: 1;
-    transition: fill 160ms ease, opacity 160ms ease;
+    transition: fill 160ms ease, stroke 160ms ease, stroke-width 160ms ease;
   }
 
   [data-cell].is-active {
@@ -308,7 +669,13 @@ for (let y = 0; y < size; y += 1) {
     fill: var(--ochre);
   }
 
-  .legend {
+  [data-cell].is-witness {
+    stroke: var(--terracotta);
+    stroke-width: 3;
+  }
+
+  .legend,
+  .diagram-key {
     display: flex;
     flex-wrap: wrap;
     gap: .8rem 1rem;
@@ -317,7 +684,8 @@ for (let y = 0; y < size; y += 1) {
     font-size: .75rem;
   }
 
-  .legend span {
+  .legend span,
+  .diagram-key span {
     display: inline-flex;
     align-items: center;
     gap: .35rem;
@@ -333,6 +701,175 @@ for (let y = 0; y < size; y += 1) {
 
   .legend-cell.active { background: var(--pine); }
   .legend-cell.hole { background: var(--ochre); }
+  .legend-cell.witness {
+    background: transparent;
+    border: 2px solid var(--terracotta);
+  }
+
+  .axis {
+    stroke: var(--ink);
+    stroke-width: 1.4;
+  }
+
+  .diagonal {
+    stroke: rgba(23,42,58,.35);
+    stroke-width: 1.2;
+    stroke-dasharray: 5 5;
+  }
+
+  .tick line {
+    stroke: var(--ink-soft);
+    stroke-width: 1;
+  }
+
+  .tick text,
+  .axis-label {
+    fill: var(--ink-soft);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 11px;
+  }
+
+  .axis-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .threshold-guide {
+    stroke: var(--terracotta);
+    stroke-width: 1;
+    stroke-dasharray: 4 5;
+    opacity: .48;
+    pointer-events: none;
+  }
+
+  .pd-point {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .pd-point circle {
+    stroke: var(--paper);
+    stroke-width: 3;
+    transition: r 150ms ease, stroke-width 150ms ease, opacity 150ms ease;
+  }
+
+  .pd-point text {
+    fill: var(--ink);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .pd-h0 circle { fill: var(--pine); }
+  .pd-h1 circle { fill: var(--terracotta); }
+
+  .pd-point[data-state='not yet born'] {
+    opacity: .35;
+  }
+
+  .pd-point[data-state='already died'] circle {
+    opacity: .55;
+  }
+
+  .pd-point[data-state='alive'] circle {
+    stroke: var(--ochre);
+    stroke-width: 5;
+  }
+
+  .pd-point:hover circle,
+  .pd-point:focus-visible circle,
+  .pd-point.is-selected circle {
+    r: 12px;
+    stroke: var(--ink);
+    stroke-width: 3;
+    opacity: 1;
+  }
+
+  .point-key {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .point-key.h0 { background: var(--pine); }
+  .point-key.h1 { background: var(--terracotta); }
+
+  .feature-buttons {
+    display: grid;
+    gap: .5rem;
+    margin-top: 1rem;
+  }
+
+  .feature-buttons button,
+  .feature-actions button {
+    appearance: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    background: rgba(255,255,255,.46);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .feature-buttons button {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: .65rem;
+    align-items: baseline;
+    width: 100%;
+    padding: .7rem .8rem;
+    text-align: left;
+  }
+
+  .feature-buttons button span {
+    color: var(--terracotta);
+    font-family: ui-serif, Georgia, serif;
+  }
+
+  .feature-buttons button small {
+    color: var(--ink-soft);
+  }
+
+  .feature-buttons button:hover,
+  .feature-buttons button:focus-visible,
+  .feature-buttons button.is-selected,
+  .feature-actions button:hover,
+  .feature-actions button:focus-visible {
+    border-color: var(--terracotta);
+    outline: none;
+    background: rgba(166,90,67,.07);
+  }
+
+  .essential-class {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    margin-top: .65rem;
+    padding: .75rem .8rem;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+  }
+
+  .essential-class > span {
+    color: var(--pine);
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.2rem;
+  }
+
+  .essential-class div {
+    display: grid;
+  }
+
+  .essential-class small {
+    color: var(--ink-soft);
+  }
+
+  .controls-panel {
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
 
   .controls-panel label {
     display: flex;
@@ -387,11 +924,72 @@ for (let y = 0; y < size; y += 1) {
 
   .demo-status {
     min-height: 3.5rem;
-    margin: 1rem 0;
+    margin: 1rem 0 0;
     color: var(--ink-soft);
   }
 
+  .feature-inspector {
+    display: grid;
+    grid-template-columns: minmax(190px, .7fr) minmax(300px, 1.3fr);
+    gap: 1rem 2rem;
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(244,241,234,.7);
+  }
+
+  .feature-inspector h3 {
+    margin: 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.55rem;
+  }
+
+  .feature-inspector dl {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: .55rem;
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  .feature-inspector dl div {
+    padding: .7rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .feature-inspector dt {
+    color: var(--ink-soft);
+    font-size: .68rem;
+    font-weight: 750;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .feature-inspector dd {
+    margin: .2rem 0 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.1rem;
+  }
+
+  .feature-inspector > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .feature-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  .feature-actions button {
+    padding: .55rem .7rem;
+    font-size: .8rem;
+  }
+
   .concept-note {
+    margin-top: 1.5rem;
     padding: 1rem;
     border-left: 3px solid var(--ochre);
     background: rgba(197,164,93,.08);
@@ -403,14 +1001,37 @@ for (let y = 0; y < size; y += 1) {
     font-size: .9rem;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 820px) {
     .demo-heading,
-    .demo-layout {
+    .linked-demo,
+    .feature-inspector {
       grid-template-columns: 1fr;
+    }
+
+    .feature-inspector dl {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-inspector dl,
+    .betti-readout {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-buttons button {
+      grid-template-columns: auto 1fr;
+    }
+
+    .feature-buttons button small {
+      grid-column: 2;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-cell] { transition: none; }
+    [data-cell],
+    .pd-point circle {
+      transition: none;
+    }
   }
 </style>
