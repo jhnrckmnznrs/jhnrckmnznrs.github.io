@@ -34,7 +34,9 @@ function parseOmeMetadata(description) {
 
   try {
     const document = new DOMParser().parseFromString(text, 'application/xml');
-    const pixels = document.querySelector('Pixels');
+    const pixels =
+      document.getElementsByTagNameNS('*', 'Pixels')[0] ||
+      document.getElementsByTagName('Pixels')[0];
     if (!pixels) return null;
 
     const x = Number(pixels.getAttribute('PhysicalSizeX'));
@@ -87,7 +89,7 @@ export function planVolume(metadata) {
   const voxels = nx * ny * nz;
   const bytesPerVoxel = Math.max(1, metadata.bytesPerVoxel || 1);
   const rawBytes = voxels * bytesPerVoxel;
-  const workspaceBytes = rawBytes * 2.5;
+  const directWorkspaceBytes = rawBytes * 2.5;
 
   let strategy = 'direct';
   let strategyLabel = 'Direct processing';
@@ -143,6 +145,13 @@ export function planVolume(metadata) {
     });
   }
 
+  const largestWorkingLevel = levels[levels.length - 1];
+  const workingVoxels = largestWorkingLevel.shapeZYX.reduce((product, value) => product * value, 1);
+  const previewWorkspaceBytes = workingVoxels * 40;
+  const workspaceBytes = strategy === 'direct'
+    ? directWorkspaceBytes
+    : previewWorkspaceBytes;
+
   return {
     strategy,
     strategyLabel,
@@ -150,6 +159,7 @@ export function planVolume(metadata) {
     voxels,
     rawBytes,
     workspaceBytes,
+    directWorkspaceBytes,
     levels
   };
 }
@@ -347,12 +357,12 @@ export async function openSliceSeries(files) {
       const file = accepted[index];
 
       if (tiffs.length) {
-        const info = await inspectTiffFile(file);
-        if (info.width !== width || info.height !== height) {
+        const tiff = await fromBlob(file);
+        const image = await tiff.getImage(0);
+        if (image.getWidth() !== width || image.getHeight() !== height) {
           throw new Error(`${file.name} does not match the expected slice dimensions.`);
         }
 
-        const image = await info.tiff.getImage(0);
         return image.readRasters({
           samples: [0],
           interleave: true,
