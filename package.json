@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "astro": "^5.0.0",
+    "geotiff": "^3.0.5",
+    "isosurface": "^1.0.0",
     "three": "^0.186.1"
   }
 }

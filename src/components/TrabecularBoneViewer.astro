@@ -2,15 +2,92 @@
 ---
 
 <section class="bone-viewer" data-bone-viewer>
-  <div class="viewer-toolbar">
-    <div class="viewer-source">
-      <label class="file-button">
-        <span>Select prepared specimen folder</span>
-        <input type="file" multiple webkitdirectory data-folder-input />
+  <div class="source-deck">
+    <div>
+      <p class="eyebrow">Open a volume</p>
+      <div class="source-buttons">
+        <label class="file-button">
+          <span>Open TIFF or OME TIFF</span>
+          <input type="file" accept=".tif,.tiff,image/tiff" data-image-input />
+        </label>
+
+        <label class="file-button secondary-source">
+          <span>Open slice folder</span>
+          <input type="file" multiple webkitdirectory data-series-input />
+        </label>
+
+        <label class="file-button quiet-source">
+          <span>Open prepared dataset</span>
+          <input type="file" multiple webkitdirectory data-prepared-input />
+        </label>
+      </div>
+    </div>
+
+    <p class="source-note">
+      Local files stay on this device. The viewer reads them in the browser and does not upload them.
+      TIFF and PNG slice folders are supported; mixed folders are rejected rather than guessed.
+    </p>
+  </div>
+
+  <div class="source-inspector" data-source-inspector hidden>
+    <div class="source-summary">
+      <div>
+        <p class="eyebrow">Detected source</p>
+        <h2 data-source-name>Volume</h2>
+      </div>
+      <span class="strategy-badge" data-strategy>Inspecting</span>
+    </div>
+
+    <dl class="source-facts">
+      <div><dt>Format</dt><dd data-source-kind>—</dd></div>
+      <div><dt>Grid</dt><dd data-source-grid>—</dd></div>
+      <div><dt>Files</dt><dd data-source-files>—</dd></div>
+      <div><dt>Source size</dt><dd data-source-size>—</dd></div>
+      <div><dt>Raw estimate</dt><dd data-raw-size>—</dd></div>
+      <div><dt>Workspace estimate</dt><dd data-workspace-size>—</dd></div>
+    </dl>
+
+    <div class="planner-note">
+      <strong data-planner-title>Processing plan</strong>
+      <p data-planner-text></p>
+    </div>
+
+    <div class="source-settings">
+      <fieldset>
+        <legend>Voxel spacing in micrometres</legend>
+        <div class="spacing-inputs">
+          <label>Z <input type="number" min="0.000001" step="any" value="1" data-spacing-z /></label>
+          <label>Y <input type="number" min="0.000001" step="any" value="1" data-spacing-y /></label>
+          <label>X <input type="number" min="0.000001" step="any" value="1" data-spacing-x /></label>
+        </div>
+        <small data-spacing-source>No physical spacing was found. Enter it for a physically correct aspect ratio.</small>
+      </fieldset>
+
+      <label class="threshold-field">
+        <span>Foreground threshold</span>
+        <input type="number" step="any" value="0" data-threshold />
+        <small>Voxels with values greater than this threshold are treated as bone.</small>
       </label>
-      <p class="source-note">
-        Local mode keeps the specimen files on this device. The page does not upload them.
-      </p>
+
+      <button type="button" class="build-button" data-build-overview>Build overview</button>
+    </div>
+
+    <details class="ordering-check" data-ordering hidden>
+      <summary>Check slice ordering</summary>
+      <dl>
+        <div><dt>First</dt><dd data-order-first>—</dd></div>
+        <div><dt>Middle</dt><dd data-order-middle>—</dd></div>
+        <div><dt>Last</dt><dd data-order-last>—</dd></div>
+      </dl>
+    </details>
+
+    <p class="source-warning" data-source-warning hidden></p>
+  </div>
+
+  <div class="viewer-toolbar">
+    <div class="viewer-mode">
+      <span data-mode-label>No volume open</span>
+      <small data-mode-detail>Select a source above.</small>
     </div>
 
     <div class="viewer-actions">
@@ -26,10 +103,10 @@
 
       <div class="viewer-empty" data-empty>
         <p class="eyebrow">Viewer ready</p>
-        <h2>Select a prepared specimen folder.</h2>
+        <h2>Open a volume or prepared surface.</h2>
         <p>
-          The first surface shown will be the smallest overview mesh. Finer surfaces are loaded only
-          when requested or when automatic refinement is enabled.
+          The source is inspected before heavy processing begins. Large inputs are reduced to a streamed
+          navigation preview instead of being materialised as one complete browser array.
         </p>
       </div>
 
@@ -40,7 +117,7 @@
 
       <div class="viewer-badge" data-level-badge hidden>
         <span data-level-name>Overview</span>
-        <small data-level-kind>visual approximation</small>
+        <small data-level-kind>navigation approximation</small>
       </div>
     </div>
 
@@ -63,16 +140,16 @@
           </div>
           <label class="switch-row">
             <input type="checkbox" data-auto-refine checked />
-            <span>Refine through medium</span>
+            <span>Progressively refine</span>
           </label>
         </div>
 
         <div class="level-list" data-level-list>
-          <p class="panel-placeholder">Levels appear after a dataset is selected.</p>
+          <p class="panel-placeholder">Levels appear after the source is inspected.</p>
         </div>
 
         <p class="level-warning" data-level-warning>
-          Lower detail levels are for navigation. They may change thin trabeculae and topology.
+          Generated preview levels are for navigation. Sampling and resampling can alter thin trabeculae and topology.
         </p>
       </section>
 
@@ -106,19 +183,19 @@
         <p class="eyebrow">Performance</p>
         <dl class="metric-grid">
           <div><dt>Triangles</dt><dd data-triangles>—</dd></div>
-          <div><dt>Compressed</dt><dd data-compressed>—</dd></div>
-          <div><dt>Read</dt><dd data-read-ms>—</dd></div>
-          <div><dt>Decompress</dt><dd data-decompress-ms>—</dd></div>
-          <div><dt>Parse</dt><dd data-parse-ms>—</dd></div>
+          <div><dt>Source read</dt><dd data-read-ms>—</dd></div>
+          <div><dt>Surface build</dt><dd data-build-ms>—</dd></div>
           <div><dt>First frame</dt><dd data-frame-ms>—</dd></div>
           <div><dt>FPS</dt><dd data-fps>—</dd></div>
           <div><dt>Geometry</dt><dd data-geometry>—</dd></div>
+          <div><dt>Level grid</dt><dd data-level-grid>—</dd></div>
+          <div><dt>Transferred</dt><dd data-transferred>—</dd></div>
         </dl>
       </section>
 
       <section class="viewer-status">
         <p class="eyebrow">Status</p>
-        <p data-status aria-live="polite">Waiting for a specimen folder.</p>
+        <p data-status aria-live="polite">Waiting for a volume.</p>
       </section>
     </aside>
   </div>
@@ -128,13 +205,49 @@
   import * as THREE from 'three';
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import {
+    openSingleTiff,
+    openSliceSeries,
+    buildBinaryVolume,
+    planVolume
+  } from '../lib/boneViewer/volumeSources.js';
 
   const root = document.querySelector('[data-bone-viewer]');
 
   if (root) {
     const canvas = root.querySelector('[data-canvas]');
     const stage = root.querySelector('[data-stage]');
-    const folderInput = root.querySelector('[data-folder-input]');
+    const imageInput = root.querySelector('[data-image-input]');
+    const seriesInput = root.querySelector('[data-series-input]');
+    const preparedInput = root.querySelector('[data-prepared-input]');
+
+    const sourceInspector = root.querySelector('[data-source-inspector]');
+    const sourceName = root.querySelector('[data-source-name]');
+    const sourceKind = root.querySelector('[data-source-kind]');
+    const sourceGrid = root.querySelector('[data-source-grid]');
+    const sourceFiles = root.querySelector('[data-source-files]');
+    const sourceSize = root.querySelector('[data-source-size]');
+    const rawSize = root.querySelector('[data-raw-size]');
+    const workspaceSize = root.querySelector('[data-workspace-size]');
+    const strategyNode = root.querySelector('[data-strategy]');
+    const plannerTitle = root.querySelector('[data-planner-title]');
+    const plannerText = root.querySelector('[data-planner-text]');
+    const sourceWarning = root.querySelector('[data-source-warning]');
+
+    const spacingZ = root.querySelector('[data-spacing-z]');
+    const spacingY = root.querySelector('[data-spacing-y]');
+    const spacingX = root.querySelector('[data-spacing-x]');
+    const spacingSource = root.querySelector('[data-spacing-source]');
+    const thresholdInput = root.querySelector('[data-threshold]');
+    const buildOverviewButton = root.querySelector('[data-build-overview]');
+
+    const ordering = root.querySelector('[data-ordering]');
+    const orderFirst = root.querySelector('[data-order-first]');
+    const orderMiddle = root.querySelector('[data-order-middle]');
+    const orderLast = root.querySelector('[data-order-last]');
+
+    const modeLabel = root.querySelector('[data-mode-label]');
+    const modeDetail = root.querySelector('[data-mode-detail]');
     const emptyState = root.querySelector('[data-empty]');
     const loading = root.querySelector('[data-loading]');
     const loadingText = root.querySelector('[data-loading-text]');
@@ -160,13 +273,13 @@
     const screenshotButton = root.querySelector('[data-screenshot]');
 
     const triangleNode = root.querySelector('[data-triangles]');
-    const compressedNode = root.querySelector('[data-compressed]');
     const readNode = root.querySelector('[data-read-ms]');
-    const decompressNode = root.querySelector('[data-decompress-ms]');
-    const parseNode = root.querySelector('[data-parse-ms]');
+    const buildNode = root.querySelector('[data-build-ms]');
     const frameNode = root.querySelector('[data-frame-ms]');
     const fpsNode = root.querySelector('[data-fps]');
     const geometryNode = root.querySelector('[data-geometry]');
+    const levelGridNode = root.querySelector('[data-level-grid]');
+    const transferredNode = root.querySelector('[data-transferred]');
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -213,25 +326,34 @@
     axes.visible = false;
     scene.add(axes);
 
-    const loader = new GLTFLoader();
+    const gltfLoader = new GLTFLoader();
 
     let currentObject = null;
-    let currentManifest = null;
-    let fileMap = new Map();
-    let manifestRoot = '';
     let currentLevelId = null;
     let modelBounds = null;
     let loadingLevelId = null;
-    let autoRefineToken = 0;
+    let currentMode = null;
+
+    let currentSource = null;
+    let currentPlan = null;
+
+    let currentManifest = null;
+    let preparedFileMap = new Map();
+    let manifestRoot = '';
+
+    let refineToken = 0;
 
     const formatBytes = (bytes) => {
       if (!Number.isFinite(bytes)) return '—';
-      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024) return `${Math.round(bytes)} B`;
       if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
-      return `${(bytes / 1024 ** 2).toFixed(bytes < 10 * 1024 ** 2 ? 2 : 1)} MB`;
+      if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(bytes < 10 * 1024 ** 2 ? 2 : 1)} MB`;
+      return `${(bytes / 1024 ** 3).toFixed(2)} GB`;
     };
 
-    const formatMs = (ms) => Number.isFinite(ms) ? `${ms.toFixed(ms < 10 ? 1 : 0)} ms` : '—';
+    const formatMs = (ms) => Number.isFinite(ms)
+      ? `${ms.toFixed(ms < 10 ? 1 : 0)} ms`
+      : '—';
 
     const setStatus = (text) => {
       statusNode.textContent = text;
@@ -251,12 +373,33 @@
       clipRange.disabled = !enabled || !clipToggle.checked;
     };
 
+    const resetMetrics = () => {
+      triangleNode.textContent = '—';
+      readNode.textContent = '—';
+      buildNode.textContent = '—';
+      frameNode.textContent = '—';
+      geometryNode.textContent = '—';
+      levelGridNode.textContent = '—';
+      transferredNode.textContent = '—';
+    };
+
     const disposeObject = (object) => {
       if (!object) return;
       object.traverse((child) => {
         if (child.isMesh) child.geometry?.dispose();
       });
       scene.remove(object);
+    };
+
+    const clearSurface = () => {
+      disposeObject(currentObject);
+      currentObject = null;
+      currentLevelId = null;
+      modelBounds = null;
+      levelBadge.hidden = true;
+      emptyState.hidden = false;
+      setControlsEnabled(false);
+      resetMetrics();
     };
 
     const applyMaterial = (object) => {
@@ -282,12 +425,25 @@
       camera.far = Math.max(radius * 100, 100);
       camera.updateProjectionMatrix();
 
-      camera.position.copy(sphere.center).add(new THREE.Vector3(1, 0.72, 1).normalize().multiplyScalar(distance * 1.25));
+      camera.position.copy(sphere.center).add(
+        new THREE.Vector3(1, 0.72, 1).normalize().multiplyScalar(distance * 1.25)
+      );
       controls.target.copy(sphere.center);
       controls.update();
 
       axes.position.copy(box.min);
       axes.scale.setScalar(Math.max(radius * 0.3, 0.5));
+    };
+
+    const replaceSurface = (object, preserveView = false) => {
+      const previous = currentObject;
+      currentObject = object;
+      scene.add(object);
+      fitCamera(object, preserveView);
+      updateClipping();
+      if (previous) disposeObject(previous);
+      emptyState.hidden = true;
+      setControlsEnabled(true);
     };
 
     const updateClipping = () => {
@@ -304,15 +460,313 @@
       material.needsUpdate = true;
     };
 
-    const resetMetrics = () => {
-      triangleNode.textContent = '—';
-      compressedNode.textContent = '—';
-      readNode.textContent = '—';
-      decompressNode.textContent = '—';
-      parseNode.textContent = '—';
-      frameNode.textContent = '—';
-      geometryNode.textContent = '—';
+    const physicalSpacingMicrometres = () => {
+      const values = [spacingZ, spacingY, spacingX].map((input) => Number(input.value));
+      if (!values.every((value) => Number.isFinite(value) && value > 0)) {
+        throw new Error('Voxel spacing values must be positive numbers.');
+      }
+      return values;
     };
+
+    const updateDatasetPhysicalMetadata = (shapeZYX, spacingMicrometresZYX) => {
+      const extentMm = shapeZYX.map((value, index) => value * spacingMicrometresZYX[index] / 1000);
+      spacingNode.textContent = `${spacingMicrometresZYX.map((value) => Number(value).toFixed(3)).join(' × ')} µm`;
+      extentNode.textContent = `${extentMm.map((value) => value.toFixed(2)).join(' × ')} mm`;
+    };
+
+    const showSourceInspection = (source, plan) => {
+      sourceInspector.hidden = false;
+
+      const metadata = source.metadata;
+      sourceName.textContent = metadata.name;
+      sourceKind.textContent = metadata.kind;
+      sourceGrid.textContent = metadata.shapeZYX.join(' × ');
+      sourceFiles.textContent = Number(metadata.fileCount).toLocaleString();
+      sourceSize.textContent = formatBytes(metadata.sourceBytes);
+      rawSize.textContent = formatBytes(plan.rawBytes);
+      workspaceSize.textContent = formatBytes(plan.workspaceBytes);
+
+      strategyNode.textContent = plan.strategyLabel;
+      strategyNode.dataset.strategy = plan.strategy;
+      plannerTitle.textContent = plan.strategyLabel;
+      plannerText.textContent = plan.explanation;
+
+      datasetName.textContent = metadata.name;
+      gridNode.textContent = metadata.shapeZYX.join(' × ');
+
+      const spacing = metadata.spacingMicrometresZYX || [1, 1, 1];
+      [spacingZ.value, spacingY.value, spacingX.value] = spacing.map(String);
+      spacingSource.textContent = metadata.spacingSource
+        ? `Spacing loaded from ${metadata.spacingSource}.`
+        : 'No physical spacing was found. Enter Z, Y, and X spacing before quantitative inspection.';
+
+      updateDatasetPhysicalMetadata(metadata.shapeZYX, spacing);
+
+      if (metadata.ordering) {
+        ordering.hidden = false;
+        orderFirst.textContent = metadata.ordering.first;
+        orderMiddle.textContent = metadata.ordering.middle;
+        orderLast.textContent = metadata.ordering.last;
+      } else {
+        ordering.hidden = true;
+      }
+
+      sourceWarning.hidden = !metadata.warning;
+      sourceWarning.textContent = metadata.warning || '';
+
+      modeLabel.textContent = plan.strategyLabel;
+      modeDetail.textContent = metadata.kind;
+
+      renderGeneratedLevels();
+      setStatus('Source inspected. Check spacing and threshold, then build the overview.');
+    };
+
+    const beginSource = async (promise) => {
+      refineToken += 1;
+      clearSurface();
+      currentManifest = null;
+      preparedFileMap = new Map();
+      currentMode = 'source';
+      currentSource = null;
+      currentPlan = null;
+      sourceInspector.hidden = true;
+      levelList.innerHTML = '<p class="panel-placeholder">Inspecting the selected source…</p>';
+      setLoading(true, 'Inspecting volume metadata');
+      setStatus('Inspecting the selected source before heavy processing begins…');
+
+      try {
+        const source = await promise;
+        const plan = planVolume(source.metadata);
+        currentSource = source;
+        currentPlan = plan;
+        showSourceInspection(source, plan);
+      } catch (error) {
+        console.error(error);
+        setStatus(error instanceof Error ? error.message : 'The selected volume could not be inspected.');
+        levelList.innerHTML = '<p class="panel-placeholder">No usable volume was detected.</p>';
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const makeGeneratedObject = ({ positions, indices }) => {
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+      geometry.setIndex(new THREE.BufferAttribute(new Uint32Array(indices), 1));
+      geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
+      geometry.computeBoundingSphere();
+
+      const mesh = new THREE.Mesh(geometry, material);
+      const group = new THREE.Group();
+      group.add(mesh);
+      return group;
+    };
+
+    const runSurfaceWorker = (volume, shapeZYX, spacingZYX) => new Promise((resolve, reject) => {
+      const worker = new Worker(
+        new URL('../workers/boneSurfaceWorker.js', import.meta.url),
+        { type: 'module' }
+      );
+
+      worker.onmessage = (event) => {
+        worker.terminate();
+        resolve(event.data);
+      };
+
+      worker.onerror = (event) => {
+        worker.terminate();
+        reject(new Error(event.message || 'The surface worker failed.'));
+      };
+
+      worker.postMessage(
+        {
+          buffer: volume.buffer,
+          shapeZYX,
+          spacingZYX
+        },
+        [volume.buffer]
+      );
+    });
+
+    const targetSpacingMm = (sourceShape, targetShape, spacingMicrometres) =>
+      sourceShape.map((sourceValue, index) => {
+        const targetValue = targetShape[index];
+        const sourceIntervals = Math.max(1, sourceValue - 1);
+        const targetIntervals = Math.max(1, targetValue - 1);
+        return spacingMicrometres[index] / 1000 * sourceIntervals / targetIntervals;
+      });
+
+    const updateGeneratedButtons = () => {
+      const buttons = levelList.querySelectorAll('button[data-level]');
+      buttons.forEach((button) => {
+        button.classList.toggle('is-active', button.dataset.level === currentLevelId);
+        button.disabled = loadingLevelId !== null;
+      });
+    };
+
+    const renderGeneratedLevels = () => {
+      if (!currentPlan) return;
+      levelList.innerHTML = '';
+
+      for (const level of currentPlan.levels) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.level = level.id;
+        button.innerHTML = `
+          <span>
+            <strong>${level.label}</strong>
+            <small>${level.id === 'detail' ? 'native source grid' : 'generated navigation surface'}</small>
+          </span>
+          <span class="level-size">
+            ${level.shapeZYX.join(' × ')}
+            <small>target grid</small>
+          </span>
+        `;
+
+        button.addEventListener('click', () => {
+          refineToken += 1;
+          generateLevel(level.id, false);
+        });
+
+        levelList.appendChild(button);
+      }
+    };
+
+    const scheduleGeneratedRefinement = async (loadedId, token) => {
+      if (!autoRefine.checked || token !== refineToken || !currentPlan || !currentSource) return;
+
+      const index = currentPlan.levels.findIndex((level) => level.id === loadedId);
+      const next = currentPlan.levels[index + 1];
+      if (!next || next.id === 'detail') return;
+
+      if (currentPlan.strategy === 'spatial') return;
+      if (currentPlan.strategy === 'streaming' && loadedId === 'preview') return;
+
+      await new Promise((resolve) => setTimeout(resolve, 400));
+
+      if (
+        token === refineToken &&
+        autoRefine.checked &&
+        currentLevelId === loadedId &&
+        !loadingLevelId
+      ) {
+        generateLevel(next.id, true);
+      }
+    };
+
+    const generateLevel = async (levelId, automatic = false) => {
+      if (!currentSource || !currentPlan || loadingLevelId) return;
+
+      const level = currentPlan.levels.find((item) => item.id === levelId);
+      if (!level) return;
+
+      const token = refineToken;
+      const spacingMicrometres = physicalSpacingMicrometres();
+      const threshold = Number(thresholdInput.value);
+
+      if (!Number.isFinite(threshold)) {
+        setStatus('The foreground threshold must be a number.');
+        return;
+      }
+
+      loadingLevelId = level.id;
+      updateGeneratedButtons();
+      setLoading(true, automatic ? `Refining to ${level.label}` : `Building ${level.label}`);
+      setStatus(
+        `${automatic ? 'Refining' : 'Building'} ${level.label}. Reading only the slices needed for a ${level.shapeZYX.join(' × ')} working volume…`
+      );
+
+      const start = performance.now();
+      const readStart = performance.now();
+
+      try {
+        const volume = await buildBinaryVolume(
+          currentSource,
+          level.shapeZYX,
+          threshold,
+          (fraction, sourceIndex) => {
+            const percent = Math.round(fraction * 100);
+            loadingText.textContent = `${level.label}: reading source slice ${sourceIndex + 1} · ${percent}%`;
+          }
+        );
+
+        const readMs = performance.now() - readStart;
+        const targetSpacing = targetSpacingMm(
+          currentSource.metadata.shapeZYX,
+          level.shapeZYX,
+          spacingMicrometres
+        );
+
+        loadingText.textContent = `${level.label}: extracting surface`;
+        const surface = await runSurfaceWorker(volume, level.shapeZYX, targetSpacing);
+
+        const object = makeGeneratedObject(surface);
+        const preserveView = currentObject !== null;
+        replaceSurface(object, preserveView);
+        currentLevelId = level.id;
+
+        const firstFrameMs = await new Promise((resolve) => {
+          requestAnimationFrame(() => {
+            renderer.render(scene, camera);
+            resolve(performance.now() - start);
+          });
+        });
+
+        const geometryBytes =
+          surface.vertices * 3 * Float32Array.BYTES_PER_ELEMENT +
+          surface.triangles * 3 * Uint32Array.BYTES_PER_ELEMENT;
+
+        triangleNode.textContent = Number(surface.triangles).toLocaleString();
+        readNode.textContent = formatMs(readMs);
+        buildNode.textContent = formatMs(surface.buildMs);
+        frameNode.textContent = formatMs(firstFrameMs);
+        geometryNode.textContent = formatBytes(geometryBytes);
+        levelGridNode.textContent = level.shapeZYX.join(' × ');
+        transferredNode.textContent = formatBytes(level.shapeZYX.reduce((a, b) => a * b, 1));
+
+        levelName.textContent = level.label;
+        levelKind.textContent = level.id === 'detail'
+          ? 'surface from native source grid'
+          : 'generated navigation approximation';
+        levelBadge.hidden = false;
+
+        const spacing = physicalSpacingMicrometres();
+        updateDatasetPhysicalMetadata(currentSource.metadata.shapeZYX, spacing);
+
+        setStatus(
+          level.id === 'detail'
+            ? `${level.label} is visible. This surface uses the native source grid at the chosen threshold.`
+            : `${level.label} is visible. It is a resampled navigation surface and can miss or alter thin structures.`
+        );
+
+        updateGeneratedButtons();
+        scheduleGeneratedRefinement(level.id, token);
+      } catch (error) {
+        console.error(error);
+        setStatus(error instanceof Error ? error.message : 'The surface could not be generated.');
+      } finally {
+        loadingLevelId = null;
+        setLoading(false);
+        updateGeneratedButtons();
+      }
+    };
+
+    buildOverviewButton.addEventListener('click', () => {
+      refineToken += 1;
+      const firstLevel = currentPlan?.levels?.[0];
+      if (firstLevel) generateLevel(firstLevel.id, false);
+    });
+
+    imageInput.addEventListener('change', () => {
+      const file = imageInput.files?.[0];
+      if (file) beginSource(openSingleTiff(file));
+    });
+
+    seriesInput.addEventListener('change', () => {
+      const files = Array.from(seriesInput.files || []);
+      if (files.length) beginSource(openSliceSeries(files));
+    });
 
     const fileRelativeToManifest = (file) => {
       const path = file.webkitRelativePath || file.name;
@@ -330,7 +784,7 @@
       }
 
       if (!('DecompressionStream' in window)) {
-        throw new Error('This browser does not support gzip decompression streams. Use a current Chrome, Firefox, Edge, or Safari release.');
+        throw new Error('This browser does not support gzip decompression streams.');
       }
 
       const decompressStart = performance.now();
@@ -343,17 +797,16 @@
       return { buffer, readMs, decompressMs };
     };
 
-    const updateLevelButtons = () => {
+    const updatePreparedButtons = () => {
       if (!currentManifest) return;
-      const buttons = levelList.querySelectorAll('button');
-
+      const buttons = levelList.querySelectorAll('button[data-level]');
       buttons.forEach((button) => {
         button.classList.toggle('is-active', button.dataset.level === currentLevelId);
         button.disabled = loadingLevelId !== null;
       });
     };
 
-    const renderLevels = () => {
+    const renderPreparedLevels = () => {
       levelList.innerHTML = '';
 
       for (const level of currentManifest.levels) {
@@ -363,7 +816,7 @@
         button.innerHTML = `
           <span>
             <strong>${level.label}</strong>
-            <small>${level.approximation === 'native segmentation' ? 'native surface' : 'navigation approximation'}</small>
+            <small>${level.approximation === 'native segmentation' ? 'native surface' : 'prepared navigation surface'}</small>
           </span>
           <span class="level-size">
             ${formatBytes(level.compressedBytes)}
@@ -372,16 +825,16 @@
         `;
 
         button.addEventListener('click', () => {
-          autoRefineToken += 1;
-          loadLevel(level.id, false);
+          refineToken += 1;
+          loadPreparedLevel(level.id, false);
         });
 
         levelList.appendChild(button);
       }
     };
 
-    const scheduleRefinement = async (loadedId, token) => {
-      if (!autoRefine.checked || token !== autoRefineToken || !currentManifest) return;
+    const schedulePreparedRefinement = async (loadedId, token) => {
+      if (!autoRefine.checked || token !== refineToken || !currentManifest) return;
 
       const progression = currentManifest.progression || currentManifest.levels.map((level) => level.id);
       const index = progression.indexOf(loadedId);
@@ -389,120 +842,98 @@
 
       if (!nextId || nextId === 'detail') return;
 
-      const pause = () => new Promise((resolve) => {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => resolve(), { timeout: 900 });
-        } else {
-          setTimeout(resolve, 350);
-        }
-      });
+      await new Promise((resolve) => setTimeout(resolve, 350));
 
-      await pause();
-
-      if (token === autoRefineToken && autoRefine.checked && currentLevelId === loadedId) {
-        loadLevel(nextId, true);
+      if (token === refineToken && autoRefine.checked && currentLevelId === loadedId && !loadingLevelId) {
+        loadPreparedLevel(nextId, true);
       }
     };
 
-    const loadLevel = async (levelId, automatic = false) => {
+    const loadPreparedLevel = async (levelId, automatic = false) => {
       if (!currentManifest || loadingLevelId) return;
 
       const level = currentManifest.levels.find((item) => item.id === levelId);
       if (!level) return;
 
-      const file = fileMap.get(level.file);
+      const file = preparedFileMap.get(level.file);
       if (!file) {
         setStatus(`The folder does not contain ${level.file}.`);
         return;
       }
 
-      const token = autoRefineToken;
+      const token = refineToken;
       loadingLevelId = levelId;
-      updateLevelButtons();
+      updatePreparedButtons();
       setLoading(true, automatic ? `Refining to ${level.label}` : `Loading ${level.label}`);
       setStatus(`${automatic ? 'Refining' : 'Loading'} ${level.label} from this device…`);
 
       try {
-        const loadStart = performance.now();
+        const start = performance.now();
         const { buffer, readMs, decompressMs } = await readCompressedFile(file);
 
         const parseStart = performance.now();
-        const gltf = await loader.parseAsync(buffer, '');
+        const gltf = await gltfLoader.parseAsync(buffer, '');
         const parseMs = performance.now() - parseStart;
 
         const object = gltf.scene;
         applyMaterial(object);
-
-        const preserveView = currentObject !== null;
-        const previous = currentObject;
-        currentObject = object;
+        replaceSurface(object, currentObject !== null);
         currentLevelId = level.id;
-
-        scene.add(object);
-        fitCamera(object, preserveView);
-        updateClipping();
-
-        if (previous) disposeObject(previous);
 
         const firstFrameMs = await new Promise((resolve) => {
           requestAnimationFrame(() => {
             renderer.render(scene, camera);
-            resolve(performance.now() - loadStart);
+            resolve(performance.now() - start);
           });
         });
-
-        triangleNode.textContent = Number(level.triangles).toLocaleString();
-        compressedNode.textContent = formatBytes(file.size);
-        readNode.textContent = formatMs(readMs);
-        decompressNode.textContent = formatMs(decompressMs);
-        parseNode.textContent = formatMs(parseMs);
-        frameNode.textContent = formatMs(firstFrameMs);
 
         const estimatedGeometryBytes =
           Number(level.vertices || 0) * 24 +
           Number(level.triangles || 0) * 12;
+
+        triangleNode.textContent = Number(level.triangles).toLocaleString();
+        readNode.textContent = formatMs(readMs + decompressMs);
+        buildNode.textContent = formatMs(parseMs);
+        frameNode.textContent = formatMs(firstFrameMs);
         geometryNode.textContent = formatBytes(estimatedGeometryBytes);
+        levelGridNode.textContent = (level.sourceGrid || []).join(' × ') || '—';
+        transferredNode.textContent = formatBytes(file.size);
 
         levelName.textContent = level.label;
         levelKind.textContent = level.approximation === 'native segmentation'
           ? 'surface from native segmentation'
-          : 'visual navigation approximation';
+          : 'prepared navigation approximation';
         levelBadge.hidden = false;
 
-        emptyState.hidden = true;
-        setControlsEnabled(true);
         setStatus(
           level.approximation === 'native segmentation'
             ? `${level.label} is visible. This surface was extracted from the native segmentation.`
-            : `${level.label} is visible. This level is a navigation approximation and may change thin structures.`
+            : `${level.label} is visible. This prepared level is a navigation approximation.`
         );
 
-        updateLevelButtons();
-        scheduleRefinement(level.id, token);
+        updatePreparedButtons();
+        schedulePreparedRefinement(level.id, token);
       } catch (error) {
         console.error(error);
-        setStatus(error instanceof Error ? error.message : 'The surface could not be loaded.');
+        setStatus(error instanceof Error ? error.message : 'The prepared surface could not be loaded.');
       } finally {
         loadingLevelId = null;
         setLoading(false);
-        updateLevelButtons();
+        updatePreparedButtons();
       }
     };
 
-    const loadFolder = async (files) => {
-      autoRefineToken += 1;
-      disposeObject(currentObject);
-      currentObject = null;
-      currentManifest = null;
-      currentLevelId = null;
-      setControlsEnabled(false);
-      resetMetrics();
-      levelBadge.hidden = true;
-      emptyState.hidden = false;
+    const loadPreparedFolder = async (files) => {
+      refineToken += 1;
+      clearSurface();
+      currentMode = 'prepared';
+      currentSource = null;
+      currentPlan = null;
+      sourceInspector.hidden = true;
 
       const manifestFile = files.find((file) => file.name === 'manifest.json');
       if (!manifestFile) {
-        setStatus('No manifest.json was found in the selected folder.');
+        setStatus('No manifest.json was found in the selected prepared dataset folder.');
         return;
       }
 
@@ -513,44 +944,41 @@
         const manifest = JSON.parse(await manifestFile.text());
 
         if (manifest.format !== 'banyuhay-bone-viewer' || manifest.version !== 1) {
-          throw new Error('This folder does not use the supported Banyuhay bone viewer format.');
+          throw new Error('This folder does not use the supported Banyuhay prepared dataset format.');
         }
 
         currentManifest = manifest;
-        fileMap = new Map(files.map((file) => [fileRelativeToManifest(file), file]));
+        preparedFileMap = new Map(files.map((file) => [fileRelativeToManifest(file), file]));
 
-        datasetName.textContent = manifest.label || manifest.id || 'Local specimen';
-
-        const shape = manifest.source?.shapeZYX || [];
-        gridNode.textContent = shape.length === 3 ? `${shape[0]} × ${shape[1]} × ${shape[2]}` : '—';
+        datasetName.textContent = manifest.label || manifest.id || 'Prepared specimen';
+        gridNode.textContent = (manifest.source?.shapeZYX || []).join(' × ') || '—';
 
         const spacing = manifest.source?.spacingMicrometresZYX || [];
-        spacingNode.textContent = spacing.length === 3
-          ? `${spacing.map((value) => Number(value).toFixed(2)).join(' × ')} µm`
-          : '—';
+        if (spacing.length === 3) {
+          updateDatasetPhysicalMetadata(manifest.source.shapeZYX, spacing);
+        } else {
+          spacingNode.textContent = '—';
+          extentNode.textContent = '—';
+        }
 
-        const extent = manifest.source?.physicalExtentMillimetresZYX || [];
-        extentNode.textContent = extent.length === 3
-          ? `${extent.map((value) => Number(value).toFixed(2)).join(' × ')} mm`
-          : '—';
-
-        renderLevels();
-        updateLevelButtons();
+        modeLabel.textContent = 'Prepared multiresolution dataset';
+        modeDetail.textContent = 'Fast repeat viewing';
+        renderPreparedLevels();
 
         const defaultLevel = manifest.defaultLevel || manifest.levels?.[0]?.id;
         if (!defaultLevel) throw new Error('The manifest contains no surface levels.');
 
-        setStatus('Dataset metadata loaded. Opening the smallest surface first.');
-        await loadLevel(defaultLevel, false);
+        setStatus('Prepared dataset loaded. Opening the smallest surface first.');
+        await loadPreparedLevel(defaultLevel, false);
       } catch (error) {
         console.error(error);
-        setStatus(error instanceof Error ? error.message : 'The dataset manifest could not be read.');
+        setStatus(error instanceof Error ? error.message : 'The prepared dataset could not be read.');
       }
     };
 
-    folderInput.addEventListener('change', () => {
-      const files = Array.from(folderInput.files || []);
-      if (files.length) loadFolder(files);
+    preparedInput.addEventListener('change', () => {
+      const files = Array.from(preparedInput.files || []);
+      if (files.length) loadPreparedFolder(files);
     });
 
     clipToggle.addEventListener('change', () => {
@@ -591,7 +1019,8 @@
         if (!blob) return;
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `${currentManifest?.id || 'bone'}-${currentLevelId || 'surface'}.png`;
+        const id = currentManifest?.id || currentSource?.metadata?.name || 'bone';
+        link.download = `${String(id).replace(/[^a-z0-9]+/gi, '_')}-${currentLevelId || 'surface'}.png`;
         link.click();
         setTimeout(() => URL.revokeObjectURL(link.href), 1000);
       }, 'image/png');
@@ -644,27 +1073,25 @@
     box-shadow: var(--shadow);
   }
 
-  .viewer-toolbar {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    padding: .9rem 1rem;
+  .source-deck {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 1.5rem;
+    align-items: end;
+    padding: 1rem;
     border-bottom: 1px solid var(--line);
-    background: rgba(244,241,234,.82);
+    background: rgba(244,241,234,.9);
   }
 
-  .viewer-source {
+  .source-buttons {
     display: flex;
-    align-items: center;
-    gap: .9rem;
-    min-width: 0;
+    flex-wrap: wrap;
+    gap: .5rem;
   }
 
   .file-button {
     position: relative;
     display: inline-flex;
-    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     min-height: 42px;
@@ -674,8 +1101,19 @@
     color: var(--paper);
     background: var(--ink);
     cursor: pointer;
-    font-size: .82rem;
+    font-size: .8rem;
     font-weight: 750;
+  }
+
+  .file-button.secondary-source {
+    color: var(--ink);
+    background: transparent;
+  }
+
+  .file-button.quiet-source {
+    color: var(--ink-soft);
+    background: rgba(255,255,255,.45);
+    border-color: var(--line);
   }
 
   .file-button input {
@@ -688,10 +1126,219 @@
 
   .source-note {
     margin: 0;
-    max-width: 440px;
     color: var(--ink-soft);
+    font-size: .76rem;
+  }
+
+  .source-inspector {
+    padding: 1rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.35);
+  }
+
+  .source-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .source-summary h2 {
+    margin: 0;
+    font-family: ui-serif, Georgia, serif;
+    font-size: 1.55rem;
+  }
+
+  .strategy-badge {
+    flex: 0 0 auto;
+    padding: .35rem .55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    background: rgba(255,255,255,.55);
+    font-size: .7rem;
+    font-weight: 750;
+  }
+
+  .strategy-badge[data-strategy="streaming"] {
+    border-color: rgba(197,164,93,.7);
+    background: rgba(197,164,93,.1);
+  }
+
+  .strategy-badge[data-strategy="spatial"] {
+    border-color: rgba(166,90,67,.65);
+    background: rgba(166,90,67,.08);
+  }
+
+  .source-facts {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0,1fr));
+    gap: .5rem;
+    margin: 1rem 0;
+  }
+
+  .source-facts div {
+    padding: .55rem;
+    border: 1px solid rgba(23,42,58,.08);
+    border-radius: 9px;
+    background: rgba(244,241,234,.5);
+  }
+
+  .source-facts dt,
+  .dataset-meta dt,
+  .metric-grid dt,
+  .ordering-check dt {
+    color: var(--ink-soft);
+    font-size: .64rem;
+    font-weight: 750;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .source-facts dd,
+  .dataset-meta dd,
+  .metric-grid dd,
+  .ordering-check dd {
+    margin: .15rem 0 0;
+    font-size: .78rem;
+  }
+
+  .planner-note {
+    padding: .75rem .85rem;
+    border-left: 3px solid var(--pine);
+    background: rgba(70,96,82,.05);
+  }
+
+  .planner-note p {
+    margin: .25rem 0 0;
+    color: var(--ink-soft);
+    font-size: .78rem;
+  }
+
+  .source-settings {
+    display: grid;
+    grid-template-columns: 1.3fr .8fr auto;
+    gap: 1rem;
+    align-items: end;
+    margin-top: 1rem;
+  }
+
+  .source-settings fieldset {
+    margin: 0;
+    padding: .7rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .source-settings legend {
+    padding-inline: .25rem;
+    color: var(--ink-soft);
+    font-size: .7rem;
+    font-weight: 700;
+  }
+
+  .spacing-inputs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: .4rem;
+  }
+
+  .spacing-inputs label,
+  .threshold-field {
+    display: grid;
+    gap: .25rem;
+    color: var(--ink-soft);
+    font-size: .72rem;
+  }
+
+  .spacing-inputs input,
+  .threshold-field input {
+    width: 100%;
+    min-width: 0;
+    padding: .42rem .48rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255,255,255,.7);
+    color: var(--ink);
+    font: inherit;
+  }
+
+  .source-settings small {
+    display: block;
+    margin-top: .35rem;
+    color: var(--ink-soft);
+    font-size: .63rem;
+  }
+
+  .build-button {
+    min-height: 42px;
+    padding: .55rem .75rem;
+    border: 1px solid var(--terracotta);
+    border-radius: 999px;
+    color: var(--paper);
+    background: var(--terracotta);
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  .ordering-check {
+    margin-top: .8rem;
     font-size: .75rem;
-    line-height: 1.4;
+  }
+
+  .ordering-check summary {
+    cursor: pointer;
+    color: var(--ink-soft);
+  }
+
+  .ordering-check dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: .5rem;
+  }
+
+  .ordering-check div {
+    min-width: 0;
+  }
+
+  .ordering-check dd {
+    overflow-wrap: anywhere;
+  }
+
+  .source-warning {
+    margin: .8rem 0 0;
+    padding: .7rem;
+    border: 1px solid rgba(197,164,93,.6);
+    border-radius: 10px;
+    color: var(--ink-soft);
+    background: rgba(197,164,93,.08);
+    font-size: .75rem;
+  }
+
+  .viewer-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(244,241,234,.82);
+  }
+
+  .viewer-mode {
+    display: grid;
+    gap: .05rem;
+  }
+
+  .viewer-mode span {
+    font-family: ui-serif, Georgia, serif;
+    font-weight: 700;
+  }
+
+  .viewer-mode small {
+    color: var(--ink-soft);
   }
 
   .viewer-actions {
@@ -701,8 +1348,7 @@
   }
 
   .viewer-actions button,
-  .level-list button,
-  .control-stack button {
+  .level-list button {
     appearance: none;
     border: 1px solid var(--line);
     border-radius: 10px;
@@ -724,7 +1370,7 @@
 
   .viewer-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: minmax(0, 1fr) 330px;
     min-height: 660px;
   }
 
@@ -764,7 +1410,7 @@
 
   .viewer-empty h2 {
     margin: 0;
-    max-width: 15ch;
+    max-width: 16ch;
     font-family: ui-serif, Georgia, serif;
     font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 500;
@@ -772,7 +1418,7 @@
   }
 
   .viewer-empty p:last-child {
-    max-width: 520px;
+    max-width: 560px;
     color: var(--ink-soft);
   }
 
@@ -783,15 +1429,17 @@
     display: flex;
     align-items: center;
     gap: .55rem;
+    max-width: min(90%, 620px);
     padding: .55rem .75rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: rgba(244,241,234,.94);
     box-shadow: var(--shadow);
-    font-size: .78rem;
+    font-size: .76rem;
   }
 
   .loading-dot {
+    flex: 0 0 auto;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -856,21 +1504,6 @@
     gap: .5rem;
     padding: .35rem 0;
     border-top: 1px solid rgba(23,42,58,.08);
-  }
-
-  .dataset-meta dt,
-  .metric-grid dt {
-    color: var(--ink-soft);
-    font-size: .66rem;
-    font-weight: 750;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-  }
-
-  .dataset-meta dd,
-  .metric-grid dd {
-    margin: 0;
-    font-size: .78rem;
   }
 
   .control-heading {
@@ -939,7 +1572,7 @@
   .level-size {
     text-align: right;
     font-family: ui-serif, Georgia, serif;
-    font-size: .78rem;
+    font-size: .75rem;
   }
 
   .panel-placeholder,
@@ -973,15 +1606,29 @@
   }
 
   .metric-grid dd {
-    margin-top: .12rem;
     font-family: ui-serif, Georgia, serif;
-    font-size: .9rem;
+    font-size: .86rem;
   }
 
   .viewer-status p:last-child {
     margin: 0;
     color: var(--ink-soft);
     font-size: .76rem;
+  }
+
+  @media (max-width: 1100px) {
+    .source-facts {
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+
+    .source-settings {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .build-button {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
   }
 
   @media (max-width: 980px) {
@@ -1000,13 +1647,21 @@
     }
   }
 
-  @media (max-width: 720px) {
-    .viewer-toolbar {
-      align-items: flex-start;
-      flex-direction: column;
+  @media (max-width: 760px) {
+    .source-deck,
+    .source-settings {
+      grid-template-columns: 1fr;
     }
 
-    .viewer-source {
+    .source-facts {
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .ordering-check dl {
+      grid-template-columns: 1fr;
+    }
+
+    .viewer-toolbar {
       align-items: flex-start;
       flex-direction: column;
     }
@@ -1022,6 +1677,16 @@
 
     .viewer-panel section {
       border-right: 0;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .source-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .source-buttons {
+      display: grid;
     }
   }
 
